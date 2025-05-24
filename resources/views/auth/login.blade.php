@@ -2,14 +2,12 @@
     <div class="w-[1066px] h-[713px] relative z-1">
         <div class="w-[1066px] h-[713px] left-0 top-0 absolute bg-white rounded-[30px]"></div>
         <div class="w-96 h-[713px] left-0 top-0 absolute bg-main rounded-tl-[30px] rounded-bl-[30px]"></div>
-        <div
-            class="left-[127px] top-[92px] absolute justify-start text-white text-2xl font-normal font-['Poppins']">
+        <div class="left-[127px] top-[92px] absolute justify-start text-white text-2xl font-normal font-['Poppins']">
             NextStep</div>
         <div
             class="left-[54px] top-[320px] absolute justify-start text-white text-base font-normal font-['Poppins'] leading-normal">
             Explore top opportunities tailored<br />to your skills and goals.</div>
-        <div
-            class="left-[55px] top-[191px] absolute justify-start text-white text-3xl font-semibold font-['Poppins']">
+        <div class="left-[55px] top-[191px] absolute justify-start text-white text-3xl font-semibold font-['Poppins']">
             Find the Right <br />Internship for You</div>
         <div data-svg-wrapper class="left-[55px] top-[85px] absolute">
             <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -25,52 +23,47 @@
             src="https://ik.imagekit.io/1qy6epne0l/next-step/assets/asset_12986498.png?updatedAt=1747909772295" />
         <form action="{{ route('login') }}" method="post">
             @csrf
-            <div
-                class="size- left-[536px] top-[220px] absolute inline-flex flex-col justify-center items-start gap-1">
+            <div class="size- left-[536px] top-[220px] absolute inline-flex flex-col justify-center items-start gap-1">
                 <div class="justify-start"><span class="text-main text-sm font-medium font-['Poppins']">Email
                     </span><span class="text-red-700 text-sm font-medium font-['Poppins']">*</span></div>
-                <div
-                    class="w-110 px-3.5 py-3 rounded-[10px] shadow-[0px_2px_9.1px_0px_rgba(0,0,0,0.25)] outline outline-1 outline-offset-[-1px] outline-gray-200 inline-flex justify-start items-center gap-3">
-                    <input type="email" name="email" placeholder="Enter your email"
-                        class="justify-start text-main placeholder-neutral-400 text-sm font-normal font-['Poppins'] outline-none" />
-                </div>
+                <input type="email" name="email" placeholder="Enter your email"
+                    class="w-110 px-3.5 py-3 rounded-[10px] shadow-[0px_2px_9.1px_0px_rgba(0,0,0,0.25)] outline outline-offset-[-1px] outline-gray-200 inline-flex justify-start items-center gap-3 text-main placeholder-neutral-400 text-sm font-normal font-['Poppins'] focus:outline-yellow-500" />
             </div>
-            <div
-                class="size- left-[536px] top-[326px] absolute inline-flex flex-col justify-start items-start gap-1">
+            <div class="size- left-[536px] top-[326px] absolute inline-flex flex-col justify-start items-start gap-1">
                 <div class="justify-start"><span class="text-main text-sm font-medium font-['Poppins']">Password
                     </span><span class="text-red-700 text-sm font-medium font-['Poppins']">*</span></div>
-                <div
-                    class="w-110 px-3.5 py-3 rounded-[10px] shadow-[0px_2px_9.100000381469727px_0px_rgba(0,0,0,0.25)] outline outline-1 outline-offset-[-1px] outline-gray-200 inline-flex justify-start items-center gap-3">
-                    <input type="password" name="password" placeholder="Enter your password"
-                        class="justify-start text-main placeholder-neutral-400 text-sm font-normal font-['Poppins'] outline-none" />
-                </div>
+                <input type="password" name="password" placeholder="Enter your password"
+                    class="w-110 px-3.5 py-3 rounded-[10px] shadow-[0px_2px_9.100000381469727px_0px_rgba(0,0,0,0.25)] outline outline-offset-[-1px] outline-gray-200 inline-flex items-center gap-3 justify-start text-main placeholder-neutral-400 text-sm font-normal font-['Poppins'] focus:outline-yellow-500" />
             </div>
             <div
                 class="size- left-[536px] top-[432px] absolute outline-offset-[-1px] inline-flex justify-center items-center gap-2">
-                <label class="inline-flex items-center cursor-pointer">
-                    <input type="checkbox" name="remember" class="sr-only peer">
+                <label class="inline-flex items-center cursor-pointer group">
+                    <div class="relative w-5 h-5">
+                        <input type="checkbox" name="remember" class="sr-only peer">
 
-                    <svg class="w-5 h-5 text-gray-400 peer-checked:hidden" width="20" height="20"
-                        viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="0.5" y="0.5" width="19" height="19" rx="4.5" stroke="currentColor" />
-                    </svg>
+                        <svg class="absolute w-5 h-5 text-gray-400 transition-opacity duration-200 ease-in-out peer-checked:opacity-0 group-hover:opacity-0" width="20" height="20" viewBox="0 0 20 20"
+                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="19" height="19" rx="4.5" stroke="currentColor" />
+                        </svg>
 
-                    <svg class="hidden w-5 h-5 text-yellow-500 peer-checked:block" width="20" height="20"
-                        viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="0.5" y="0.5" width="19" height="19" rx="4.5" fill="currentColor"
-                            stroke="currentColor" />
-                        <path d="M6 10.5L9 13.5L14.5 7" stroke="white" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
+                        <svg class="absolute w-5 h-5 text-yellow-500 transition-opacity duration-200 ease-in-out opacity-0 peer-checked:opacity-100 group-hover:opacity-100" width="20" height="20"
+                            viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="19" height="19" rx="4.5" fill="currentColor"
+                                stroke="currentColor" />
+                            <path d="M6 10.5L9 13.5L14.5 7" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
 
                     <span class="ml-2 justify-start text-neutral-500 text-xs font-normal font-['Poppins']">Remember
                         Me</span>
                 </label>
             </div>
-            <a href="#"
+            <a href="{{ route('password.request') }}"
                 class="left-[870px] top-[435px] absolute justify-start text-orange-800 text-xs font-normal font-['Poppins']">
                 Forgot Password?</a>
-            <button type="submit" class="cursor-pointer w-110 h-12 px-48 py-5 left-[536px] top-[492px] absolute bg-yellow-500 rounded-[50px] shadow-[0px_2px_9.100000381469727px_0px_rgba(0,0,0,0.25)] inline-flex justify-center items-center gap-2.5 text-white text-base font-semibold font-['Poppins']">Login</button>
+            <button type="submit"
+                class="cursor-pointer w-110 h-12 px-48 py-5 left-[536px] top-[492px] absolute bg-yellow-500 rounded-[50px] shadow-[0px_2px_9.100000381469727px_0px_rgba(0,0,0,0.25)] inline-flex justify-center items-center gap-2.5 text-white text-base font-semibold font-['Poppins']">Login</button>
         </form>
         <div data-svg-wrapper class="left-[533px] top-[103px] absolute">
             <svg width="67" height="76" viewBox="0 0 67 76" fill="none" xmlns="http://www.w3.org/2000/svg">
