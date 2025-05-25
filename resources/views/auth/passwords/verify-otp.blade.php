@@ -1,4 +1,8 @@
-@extends('auth.passwords.layout')
+@extends('auth.passwords.layout.app')
+
+@section('title')
+    Reset Password
+@endsection
 
 @section('content')
     <div class="w-[1066px] h-[713px] left-0 top-0 absolute bg-white rounded-[30px]"></div>

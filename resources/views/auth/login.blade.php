@@ -1,4 +1,8 @@
-<x-auth.layout.app>
+@extends('auth.layout.app')
+@section('title')
+    Login
+@endsection
+@section('content')
     <div class="w-[1066px] h-[713px] relative z-1">
         <div class="w-[1066px] h-[713px] left-0 top-0 absolute bg-white rounded-[30px]"></div>
         <div class="w-96 h-[713px] left-0 top-0 absolute bg-main rounded-tl-[30px] rounded-bl-[30px]"></div>
@@ -91,4 +95,5 @@
             class="left-[617px] top-[157px] absolute justify-start text-orange-800 text-xs font-normal font-['Poppins']">
             Where Opportunity Begin</div>
     </div>
-</x-auth.layout.app>
+
+@endsection

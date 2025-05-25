@@ -1,6 +1,9 @@
-@extends('auth.passwords.layout')
-
+@extends('auth.passwords.layout.app')
+@section('title')
+    Forgot Password
+@endsection
 @section('content')
+    <x-slot:title>Forgot Password</x-slot:title>
     <div class="left-[533px] top-[95px] absolute justify-start text-black text-4xl font-semibold font-['Poppins']">
         Forgot Password?</div>
     <img class="size-11 right-[60px] top-[90px] absolute z-2"

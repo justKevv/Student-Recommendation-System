@@ -1,4 +1,8 @@
-@extends('auth.passwords.layout')
+@extends('auth.passwords.layout.app')
+
+@section('title')
+    Reset Password
+@endsection
 
 @section('content')
     <div class="left-[528px] top-[95px] absolute justify-start text-main text-4xl font-semibold font-['Poppins']">Enter new
