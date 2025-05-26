@@ -11,7 +11,10 @@
 
 <body class="overflow-y-auto bg-dashboard">
     <div class="w-full max-w-full mx-auto xl:max-w-[1440px]">
-        <x-topbar></x-topbar>
+        <x-topbar
+            :name="$userName ?? 'John Doe'"
+            :profileImage="$userProfileImage ?? 'https://placehold.co/50x50'"
+        ></x-topbar>
 
         <x-sidebar></x-sidebar>
 
