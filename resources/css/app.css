@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 @import "tailwindcss";
 @source "../views";
 
@@ -7,6 +9,23 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-main: #24272E;
+    --color-main2: #292D36;
+    --color-main3: #3D424C;
+    --color-dashboard: #FBF8F2;
+    --color-dashboard2: #F4EDDF;
+    --color-istoday: #303030;
+    --color-redgoon: #A74A4A;
+    --color-yellowgoon: #FEC01A;
+    --color-recommend: #FAF6EE80;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
