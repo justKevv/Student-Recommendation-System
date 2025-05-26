@@ -14,4 +14,18 @@
     --color-main3: #3D424C;
     --color-dashboard: #FBF8F2;
     --color-dashboard2: #F4EDDF;
+    --color-istoday: #303030;
+    --color-redgoon: #A74A4A;
+    --color-yellowgoon: #FEC01A;
+    --color-recommend: #FAF6EE80;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
