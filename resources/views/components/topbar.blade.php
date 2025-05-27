@@ -8,7 +8,7 @@
     <div class="ml-14 mr-4 sm:ml-16 sm:mr-5 md:ml-20 md:mr-6 lg:ml-24 lg:mr-8 xl:ml-[75px] xl:mr-8 2xl:ml-[308px] 2xl:mr-[150px]">
         <div class="flex items-center justify-between"> <!-- Search Bar -->
             <div
-                class="flex-1 max-w-sm px-3 py-2 rounded-full border border-stone-300 sm:max-w-md sm:px-4 sm:py-2.5 md:max-w-lg md:px-5 xl:max-w-[1000px] xl:px-5 xl:py-2.5 relative">
+                class="flex-1 max-w-xs px-3 py-2 rounded-full border border-stone-300 sm:max-w-sm sm:px-3 sm:py-2 md:max-w-md md:px-4 md:py-2 lg:max-w-lg lg:px-4 lg:py-2.5 xl:max-w-2xl xl:px-5 xl:py-2.5 2xl:max-w-[1000px] relative">
                 <img src="https://ik.imagekit.io/1qy6epne0l/next-step/assets/dashboard/iconamoon_search-light.png"
                     class="absolute w-4 h-4 transform -translate-y-1/2 left-2 top-1/2 sm:w-5 sm:h-5 md:w-6 md:h-6 xl:w-4 xl:h-4"
                     alt="">
