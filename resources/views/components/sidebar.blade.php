@@ -1,5 +1,5 @@
 <div
-    class="fixed left-2 top-20 z-[60] sm:left-3 sm:top-24 md:left-4 md:top-[100px] lg:left-6 lg:top-[115px] xl:left-[75px] xl:top-[125px]">
+    class="fixed left-2 top-20 z-[60] sm:left-3 sm:top-24 md:left-4 md:top-[100px] lg:left-6 lg:top-[115px] xl:left-[75px] xl:top-[125px] 2xl:left-[75px] 2xl:top-[125px]">
     <div
         class="w-12 h-40 bg-white rounded-[32px] shadow-[0px_0px_15px_0px_rgba(0,0,0,0.08)] sm:w-[52px] sm:h-44 sm:rounded-[35px] md:w-14 md:h-48 md:rounded-[38px] md:shadow-[0px_0px_18px_0px_rgba(0,0,0,0.09)] xl:w-16 xl:h-56 xl:rounded-[40px] xl:shadow-[0px_0px_20px_0px_rgba(0,0,0,0.10)] relative">
     </div>
