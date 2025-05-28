@@ -36,3 +36,7 @@ Route::get('/reset-password/{token}', function () {
 Route::post('/reset-password', function () {
     return "reset password";
 })->name('password.update');
+
+Route::get('/history', function () {
+    return view('history');
+})->name('history');

@@ -23,7 +23,7 @@
             <x-sidebar-icon href="#" :is_active="false">
                 <x-icons.internship></x-icons.internship>
             </x-sidebar-icon>
-            <x-sidebar-icon href="#" :is_active="false" :use_fill="false">
+            <x-sidebar-icon href="{{ route('history') }}" is_active="{{ Route::currentRouteName() == 'history' }}">
                 <x-icons.history></x-icons.history>
             </x-sidebar-icon>
         </x-sidebar>
