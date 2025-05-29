@@ -6,7 +6,7 @@
     'imageUrl' => 'https://ik.imagekit.io/1qy6epne0l/next-step/assets/dashboard/dashbard_assest_37641278.png'
 ])
 
-<div class="w-full max-w-[1000px] h-64 relative">
+<div class="w-full max-w-none lg:max-w-[800px] xl:max-w-[900px] 2xl:max-w-[1000px] h-64 relative">
     <!-- Background -->
     <div class="w-full h-64 bg-dashboard2 rounded-[30px] shadow-[0px_0px_20px_0px_rgba(0,0,0,0.05)]"></div>
 

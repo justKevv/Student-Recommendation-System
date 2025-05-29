@@ -18,9 +18,7 @@
 
             <!-- Recommended Components -->
             <div class="space-y-3">
-                <x-recommended />
-                <x-recommended />
-                <x-recommended />
+                {{ $slot }}
             </div>
         </div>
 

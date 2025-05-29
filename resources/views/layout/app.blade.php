@@ -16,7 +16,17 @@
             :profileImage="$userProfileImage ?? 'https://placehold.co/50x50'"
         ></x-topbar>
 
-        <x-sidebar></x-sidebar>
+        <x-sidebar>
+            <x-sidebar-icon href="{{ route('dashboard') }}" is_active="{{ Route::currentRouteName() == 'dashboard' }}">
+                <x-icons.home></x-icons.home>
+            </x-sidebar-icon>
+            <x-sidebar-icon href="#" :is_active="false">
+                <x-icons.internship></x-icons.internship>
+            </x-sidebar-icon>
+            <x-sidebar-icon href="#" :is_active="false" :use_fill="false">
+                <x-icons.history></x-icons.history>
+            </x-sidebar-icon>
+        </x-sidebar>
 
         <!-- Content Area -->
         <div

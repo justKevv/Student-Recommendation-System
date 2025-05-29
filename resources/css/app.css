@@ -16,8 +16,12 @@
     --color-dashboard2: #F4EDDF;
     --color-istoday: #303030;
     --color-redgoon: #A74A4A;
+    --color-redgoon2: #923E3E;
     --color-yellowgoon: #FEC01A;
     --color-recommend: #FAF6EE80;
+
+    --color-skillbg: #F9F9F9;
+    --color-skilloutline: #CACACA;
 }
 
 @layer utilities {
