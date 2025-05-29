@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 // STUDENT
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashup');
 })->name('dashboard');
 
 Route::get('/profile', function () {

@@ -9,62 +9,28 @@
 
 @section('content')
 <div class="absolute">
-    <x-dashup.layout>
-        <x-dashup.hero-banner/>
-
-        <x-dashup.sidebar />
-    </x-dashup.layout>
+    <x-dashboard.layout :gap='"30px"'>
+            <x-hero-banner :background='"main"'>
+                <div class="top-0 absolute left-[27px] right-[300px] h-full flex flex-col justify-center py-4 z-10">
+                    <div class="space-y-3">
+                        <h1 class="text-white text-4xl font-bold font-['Poppins'] leading-tight">
+                            Hello Adevian! Welcome back
+                        </h1>
+                    </div>
+                    <p class="text-white text-lg font-normal font-['Poppins'] mt-2">
+                        Here's the latest update on your internship students
+                    </p>
+                </div>
+            </x-hero-banner>
+        <x-supervisor.sidebar />
+    </x-dashboard.layout>
 </div>
-<div>
-    {{-- START: PHP block for dummy student data and pagination simulation --}}
-{{-- In a real application, this data would come from your Laravel Controller --}}
-@php
-    // Helper function to create dummy student objects (mimicking Eloquent models)
-    function createDummyStudent($name, $role, $completed, $total, $profileImage = null) {
-        $student = new stdClass(); // Create a generic object
-        $student->name = $name;
-        $student->role = $role;
-        $student->completed_tasks = $completed; // Matches DB column name
-        $student->total_tasks = $total;     // Matches DB column name
-        $student->profile_image = $profileImage;
-        return $student;
-    }
 
-    $allStudentsDummy = [
-        createDummyStudent('Yuma Akhunza', 'UI/UX Designer', 4, 7, 'https://placehold.co/50x50/ff0000/ffffff?text=Yuma'),
-        createDummyStudent('Jane Doe', 'Frontend Developer', 6, 7, 'https://placehold.co/50x50/00ff00/ffffff?text=Jane'),
-        createDummyStudent('John Smith', 'Backend Developer', 3, 7, 'https://placehold.co/50x50/0000ff/ffffff?text=John'),
-        createDummyStudent('Alice Wonderland', 'DevOps Engineer', 7, 7, 'https://placehold.co/50x50/ffff00/000000?text=Alice'),
-        createDummyStudent('Bob The Builder', 'Project Manager', 2, 7, 'https://placehold.co/50x50/00ffff/000000?text=Bob'),
-        createDummyStudent('Charlie Chaplin', 'QA Tester', 5, 7, 'https://placehold.co/50x50/ff00ff/ffffff?text=Charlie'),
-
-    ];
-
-    // Simulate Pagination for dummy data
-    $perPage = 10; // Number of items per page
-    $currentPage = request()->get('page', 1); // Get page from URL, default to 1
-    $offset = ($currentPage - 1) * $perPage;
-    $students = array_slice($allStudentsDummy, $offset, $perPage); // The array of students for the current page
-
-    $totalStudents = count($allStudentsDummy);
-    $totalPages = ceil($totalStudents / $perPage);
-
-    // Ensure currentPage and totalPages are integers for component props
-    $currentPage = (int)$currentPage;
-    $totalPages = (int)$totalPages;
-    $selectedEntriesPerPage = (int)$perPage;
-@endphp
-{{-- END: PHP block for dummy student data --}}
-
-<div>
-    <x-dashup.student
-        :students="$students"
-        :currentPage="$currentPage"
-        :totalPages="$totalPages"
-        :selectedEntriesPerPage="$selectedEntriesPerPage"
-    />
-</div>
-</div>
+<x-dashboard.student-table>
+    @for ($i = 0; $i < 5; $i++)
+        <x-dashboard.student-pill/>
+    @endfor
+</x-dashboard.student-table>
 
 
 @endsection
