@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+// STUDENT
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
@@ -9,6 +11,16 @@ Route::get('/dashboard', function () {
 Route::get('/profile', function () {
     return view('profile');
 })->name('profile');
+
+Route::get('/internship', function () {
+    return view('internship');
+})->name('internship');
+
+Route::get('/history', function () {
+    return view('history');
+})->name('history');
+
+// AUTH
 
 Route::get('/login', function () {
     return view('auth.login');
