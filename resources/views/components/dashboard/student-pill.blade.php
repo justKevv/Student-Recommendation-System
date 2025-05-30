@@ -23,7 +23,7 @@
             </div>
             <div class="size- flex justify-center items-center gap-[3px]">
                 @for ($i = 0; $i < 7; $i++)
-                    <div class="w-2 h-5 bg-{{ $i < $completed ? 'redgoon' : 'stone-300' }} rounded-[3px]"></div>
+                    <div class="w-2 h-5 {{ $i < $completed ? 'bg-redgoon' : 'bg-stone-300' }} rounded-[3px]"></div>
                 @endfor
             </div>
         </div>

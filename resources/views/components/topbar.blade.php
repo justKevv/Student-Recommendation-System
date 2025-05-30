@@ -1,6 +1,7 @@
 @props([
     'name' => 'John Doe',
     'profileImage' => 'https://placehold.co/50x50',
+    
     ])
 
 <div id="topbar"

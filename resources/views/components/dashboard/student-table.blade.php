@@ -1,5 +1,5 @@
 <div
-    class="mt-6 mb-12 pw-[300px] sm:w-[600px] md:w-[900px] lg:w-[1200px] xl:w-[1460px] px-5 py-3.5 bg-white rounded-[30px] inline-flex flex-col justify-start items-start gap-5">
+    class="mt-6 mb-12 w-[300px] sm:w-[600px] md:w-[900px] lg:w-[1200px] xl:w-[1460px] px-5 py-3.5 bg-white rounded-[30px] inline-flex flex-col justify-start items-start gap-5">
     <div class="inline-flex justify-between items-center self-stretch h-10">
         <div class="w-60 h-8 justify-start text-main text-2xl font-medium font-['Poppins']">Student Internship</div>
         <div
