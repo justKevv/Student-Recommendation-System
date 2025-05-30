@@ -56,3 +56,7 @@ Route::get('/compup', function () {
 Route::get('/profup', function () {
     return view('profup');
 })->name('profup');
+
+Route::get('/studup', function () {
+    return view('studup');
+})->name('studup');
