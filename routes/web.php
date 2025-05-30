@@ -52,3 +52,7 @@ Route::post('/reset-password', function () {
 Route::get('/compup', function () {
     return view('compup');
 })->name('compup');
+
+Route::get('/profup', function () {
+    return view('profup');
+})->name('profup');
