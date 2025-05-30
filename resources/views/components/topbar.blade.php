@@ -1,6 +1,7 @@
 @props([
     'name' => 'John Doe',
     'profileImage' => 'https://placehold.co/50x50',
+    
     ])
 
 <div id="topbar"
@@ -18,14 +19,6 @@
 
             <!-- Action Icons Container -->
             <div class="flex flex-shrink-0 gap-1 items-center sm:gap-2 md:gap-3 xl:gap-4">
-
-                <!-- Mail Icon -->
-                <div
-                    class="flex justify-center items-center p-1.5 w-8 h-8 rounded-2xl border border-stone-300 sm:w-9 sm:h-9 sm:p-2 sm:rounded-3xl md:w-10 md:h-10 md:p-2.5 xl:w-12 xl:h-12 xl:p-3 xl:rounded-3xl">
-                    <img src="https://ik.imagekit.io/1qy6epne0l/next-step/assets/dashboard/ic_round-email.png?updatedAt=1748157127107"
-                        class="w-3 h-3 sm:w-4 sm:h-3 md:w-4 md:h-4 xl:w-5 xl:h-5">
-                    </img>
-                </div>
 
                 <!-- Notification Icon -->
                 <div

@@ -9,7 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="overflow-y-auto bg-dashboard">
+<body class="overflow-y-auto bg-dashboard font-['Poppins']">
     <div class="w-full max-w-full mx-auto xl:max-w-[1440px]">
         <x-topbar
             :name="$userName ?? 'John Doe'"
@@ -18,13 +18,13 @@
 
         <x-sidebar>
             <x-sidebar-icon href="{{ route('dashboard') }}" is_active="{{ Route::currentRouteName() == 'dashboard' }}">
-                <x-icons.home></x-icons.home>
+                <x-icons.home/>
             </x-sidebar-icon>
-            <x-sidebar-icon href="#" :is_active="false">
-                <x-icons.internship></x-icons.internship>
+            <x-sidebar-icon href="{{ route('internship') }}" is_active="{{ Route::currentRouteName() == 'internship' }}">
+                <x-icons.internship/>
             </x-sidebar-icon>
-            <x-sidebar-icon href="{{ route('history') }}" is_active="{{ Route::currentRouteName() == 'history' }}">
-                <x-icons.history></x-icons.history>
+            <x-sidebar-icon href="{{ route('history') }}" is_active="{{ Route::currentRouteName() == 'history' }}" :use_fill="false">
+                <x-icons.history/>
             </x-sidebar-icon>
         </x-sidebar>
 

@@ -2,7 +2,6 @@
     'is_active' => false,
     'href' => '#',
     'use_fill' => true,
-    'not_fill' => '',
 ])
 @if ($is_active)
     @if ($use_fill)

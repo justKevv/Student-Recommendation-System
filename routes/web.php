@@ -2,13 +2,25 @@
 
 use Illuminate\Support\Facades\Route;
 
+// STUDENT
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashup');
 })->name('dashboard');
 
 Route::get('/profile', function () {
     return view('profile');
 })->name('profile');
+
+Route::get('/internship', function () {
+    return view('internship');
+})->name('internship');
+
+Route::get('/history', function () {
+    return view('history');
+})->name('history');
+
+// AUTH
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -37,6 +49,14 @@ Route::post('/reset-password', function () {
     return "reset password";
 })->name('password.update');
 
-Route::get('/history', function () {
-    return view('history');
-})->name('history');
+Route::get('/compup', function () {
+    return view('compup');
+})->name('compup');
+
+Route::get('/profup', function () {
+    return view('profup');
+})->name('profup');
+
+Route::get('/studup', function () {
+    return view('studup');
+})->name('studup');

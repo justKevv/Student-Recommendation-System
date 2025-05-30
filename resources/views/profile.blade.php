@@ -105,7 +105,7 @@
                     certificateUrl="https://aws.amazon.com/verification"
                 />
              </x-profile.right-panel>
-            <x-profile.right-panel title="Curriculum Vitae" :addicon="false" :editicon="true">
+            <x-profile.right-panel title="Curriculum Vitae" :addicon="false">
                 <x-profile.cv-item
                     cvName="Kevin_Bramasta_CV.pdf"
                     cvPath="/path/to/your/cv.pdf" {{-- Replace with actual CV path --}}
