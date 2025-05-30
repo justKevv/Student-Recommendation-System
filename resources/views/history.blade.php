@@ -8,255 +8,176 @@
 @endsection
 
 @section('content')
-<style>
-     .history-table-container h2 {
-        font-size: 2rem; /* Change this value as needed */
-        font-weight: bold;
-        margin-bottom: 24px;
-    }    document.querySelector('.search-bar').addEventListener('input', function() {
-        const filter = this.value.toLowerCase();
-        const table = document.getElementById('historyTable');
-        const trs = table.querySelectorAll('tbody tr');
-        trs.forEach(tr => {
-            const rowText = tr.textContent.toLowerCase();
-            tr.style.display = rowText.includes(filter) ? '' : 'none';
-        });
-    });
-    .history-table-container {
-        background: #faf8f6;
-        border-radius: 20px;
-        padding: 32px 24px;
-        margin-top: 32px;
-    }
-    .history-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        border: 1px solid #ececec;
-    }
-    .history-table th, .history-table td {
-        vertical-align: middle;
-        padding: 12px 16px;
-        white-space: nowrap;
-        border-bottom: 1px solid #ececec;
-    }
-    .history-table th {
-        font-weight: bold;
-        border-bottom: 2px solid #ececec;
-        cursor: pointer;
-        user-select: none;
-    }
-    .sort-arrow {
-        font-size: 0.8em;
-        margin-left: 4px;
-    }
-    .company-logo {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 8px;
-    }
-    .badge-status {
-        padding: 6px 18px;
-        border-radius: 16px;
-        font-weight: 500;
-        font-size: 0.95em;
-        display: inline-block;
-    }
-    .badge-pending {
-        background: #f9f7e7;
-        color: #bfae3c;
-        border: 1px solid #f3eebd;
-    }
-    .badge-accepted {
-        background: #e6f7e7;
-        color: #3cbf5a;
-        border: 1px solid #bdf3c9;
-    }
-    .badge-denied {
-        background: #fbeaea;
-        color: #bf3c3c;
-        border: 1px solid #f3bdbd;
-    }
-    .search-bar {
-        border-radius: 20px;
-        border: 1px solid #eee;
-        padding: 8px 16px;
-        width: 220px;
-        outline: none;
-        margin-bottom: 18px;
-        float: right;
-    }
-    .pagination {
-        margin-top: 18px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        list-style: none;
-        padding-left: 0;
-    }
-    .pagination .page-item {
-        margin: 0 2px;
-    }
-    .pagination .page-link {
-        border-radius: 50%;
-        color: #222;
-        border: none;
-        background: none;
-        width: 32px;
-        height: 32px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 500;
-    }
-    .pagination .active .page-link {
-        background: #222;
-        color: #fff;
-    }
-    .pagination .disabled .page-link {
-        color: #bbb;
-        pointer-events: none;
-    }
-    .history-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        border: 1px solid #ececec;
-        background: #fff; 
-        overflow: hidden;
-        border-radius: 16px;
-    }
-</style>
-
-<div class="history-table-container">
-    <h2 class="mb-10">History</h2>
-    <input type="text" class="search-bar" placeholder="Search">
-    <table class="table history-table" id="historyTable">
-        <thead>
-            <tr>
-                <th onclick="sortTable(0)">No <span class="sort-arrow">&#8597;</span></th>
-                <th onclick="sortTable(1)">Company Name <span class="sort-arrow">&#8597;</span></th>
-                <th onclick="sortTable(2)">Role <span class="sort-arrow">&#8597;</span></th>
-                <th onclick="sortTable(3)">Location <span class="sort-arrow">&#8597;</span></th>
-                <th onclick="sortTable(4)">Work Type <span class="sort-arrow">&#8597;</span></th>
-                <th onclick="sortTable(5)">Date <span class="sort-arrow">&#8597;</span></th>
-                <th onclick="sortTable(6)">Status <span class="sort-arrow">&#8597;</span></th>
-            </tr>
-        </thead>
-        <tbody>
-            {{-- Example static data --}}
-            <tr>
-                <td>1</td>
-                <td>
-                    <img src="https://placehold.co/32x32" class="company-logo" alt="Jasa Ayah Corp.">
-                    Jasa Ayah Corp.
-                </td>
-                <td>UI &amp; UX</td>
-                <td>Malang</td>
-                <td>Hybrid</td>
-                <td>27 May 2025</td>
-                <td><span class="badge-status badge-pending"><i class="bi bi-clock"></i> Pending</span></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>
-                    <img src="https://placehold.co/32x32/4caf50/fff?text=G" class="company-logo" alt="GRADIN Digital A...">
-                    GRADIN Digital A...
-                </td>
-                <td>Frontend</td>
-                <td>Surabaya</td>
-                <td>Remote</td>
-                <td>28 May 2025</td>
-                <td><span class="badge-status badge-pending">Pending</span></td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>
-                    <img src="https://placehold.co/32x32/222/fff?text=S" class="company-logo" alt="GRADIN Digital A...">
-                    GRADIN Digital A...
-                </td>
-                <td>Backend</td>
-                <td>Sumatera</td>
-                <td>Remote</td>
-                <td>29 May 2025</td>
-                <td><span class="badge-status badge-pending">Pending</span></td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>
-                    <img src="https://placehold.co/32x32/3cbf5a/fff?text=SP" class="company-logo" alt="Spilla Jewelry">
-                    Spilla Jewelry
-                </td>
-                <td>Data Analyst</td>
-                <td>Kalimantan</td>
-                <td>Hybrid</td>
-                <td>30 May 2025</td>
-                <td><span class="badge-status badge-accepted">Accepted</span></td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>
-                    <img src="https://placehold.co/32x32/00bcd4/fff?text=E" class="company-logo" alt="PT. Elga Tama">
-                    PT. Elga Tama
-                </td>
-                <td>Cyber Security</td>
-                <td>Papua</td>
-                <td>Hybrid</td>
-                <td>01 June 2025</td>
-                <td><span class="badge-status badge-pending">Pending</span></td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>
-                    <img src="https://placehold.co/32x32/e53935/fff?text=W" class="company-logo" alt="PT. Wook Global A...">
-                    PT. Wook Global A...
-                </td>
-                <td>App Developer</td>
-                <td>Bali</td>
-                <td>Hybrid</td>
-                <td>02 June 2025</td>
-                <td><span class="badge-status badge-denied">Rejected</span></td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>
-                    <img src="https://placehold.co/32x32/ff5722/fff?text=V" class="company-logo" alt="PT. Karya Mas Mak...">
-                    PT. Karya Mas Mak...
-                </td>
-                <td>System Analyst</td>
-                <td>Lombok</td>
-                <td>Remote</td>
-                <td>03 June 2025</td>
-                <td><span class="badge-status badge-denied">Rejected</span></td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>
-                    <img src="https://placehold.co/32x32/f44336/fff?text=Y" class="company-logo" alt="Yudikasi Teknologi I...">
-                    Yudikasi Teknologi I...
-                </td>
-                <td>Network Admin</td>
-                <td>Malaysia</td>
-                <td>Hybrid</td>
-                <td>04 June 2025</td>
-                <td><span class="badge-status badge-denied">Rejected</span></td>
-            </tr>
-        </tbody>
-    </table>
-    <nav>
-        <ul class="pagination">
-            <li class="page-item disabled"><span class="page-link">Prev</span></li>
-            <li class="page-item active"><span class="page-link">1</span></li>
-            <li class="page-item"><span class="page-link">2</span></li>
-            <li class="page-item"><span class="page-link">3</span></li>
-            <li class="page-item"><span class="page-link">Next</span></li>
+<div class="bg-[#faf8f6] rounded-2xl p-8 mt-8">
+    <h2 class="text-2xl font-bold mb-8">History</h2>
+    <div class="flex justify-end mb-4">
+        <input type="text" class="search-bar rounded-full border border-gray-200 px-4 py-2 w-56 focus:outline-none focus:ring-2 focus:ring-primary-200" placeholder="Search">
+    </div>
+    <div class="overflow-x-auto rounded-xl bg-white">
+        <table class="min-w-full divide-y divide-gray-200" id="historyTable">
+            <thead class="bg-white">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase cursor-pointer select-none" onclick="sortTable(0)">
+                        No <span class="ml-1 text-xs">&#8597;</span>
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase cursor-pointer select-none" onclick="sortTable(1)">
+                        Company Name <span class="ml-1 text-xs">&#8597;</span>
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase cursor-pointer select-none" onclick="sortTable(2)">
+                        Role <span class="ml-1 text-xs">&#8597;</span>
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase cursor-pointer select-none" onclick="sortTable(3)">
+                        Location <span class="ml-1 text-xs">&#8597;</span>
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase cursor-pointer select-none" onclick="sortTable(4)">
+                        Work Type <span class="ml-1 text-xs">&#8597;</span>
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase cursor-pointer select-none" onclick="sortTable(5)">
+                        Date <span class="ml-1 text-xs">&#8597;</span>
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase cursor-pointer select-none" onclick="sortTable(6)">
+                        Status <span class="ml-1 text-xs">&#8597;</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-100">
+                <tr>
+                    <td class="px-6 py-4">1</td>
+                    <td class="px-6 py-4 flex items-center gap-2">
+                        <img src="https://placehold.co/32x32" class="w-8 h-8 rounded-full object-cover" alt="Jasa Ayah Corp.">
+                        Jasa Ayah Corp.
+                    </td>
+                    <td class="px-6 py-4">UI &amp; UX</td>
+                    <td class="px-6 py-4">Malang</td>
+                    <td class="px-6 py-4">Hybrid</td>
+                    <td class="px-6 py-4">27 May 2025</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-block px-4 py-1 rounded-full bg-yellow-100 text-yellow-700 font-semibold text-xs">Pending</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4">2</td>
+                    <td class="px-6 py-4 flex items-center gap-2">
+                        <img src="https://placehold.co/32x32/4caf50/fff?text=G" class="w-8 h-8 rounded-full object-cover" alt="GRADIN Digital A...">
+                        GRADIN Digital A...
+                    </td>
+                    <td class="px-6 py-4">Frontend</td>
+                    <td class="px-6 py-4">Surabaya</td>
+                    <td class="px-6 py-4">Remote</td>
+                    <td class="px-6 py-4">28 May 2025</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-block px-4 py-1 rounded-full bg-yellow-100 text-yellow-700 font-semibold text-xs">Pending</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4">3</td>
+                    <td class="px-6 py-4 flex items-center gap-2">
+                        <img src="https://placehold.co/32x32/222/fff?text=S" class="w-8 h-8 rounded-full object-cover" alt="GRADIN Digital A...">
+                        GRADIN Digital A...
+                    </td>
+                    <td class="px-6 py-4">Backend</td>
+                    <td class="px-6 py-4">Sumatera</td>
+                    <td class="px-6 py-4">Remote</td>
+                    <td class="px-6 py-4">29 May 2025</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-block px-4 py-1 rounded-full bg-yellow-100 text-yellow-700 font-semibold text-xs">Pending</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4">4</td>
+                    <td class="px-6 py-4 flex items-center gap-2">
+                        <img src="https://placehold.co/32x32/3cbf5a/fff?text=SP" class="w-8 h-8 rounded-full object-cover" alt="Spilla Jewelry">
+                        Spilla Jewelry
+                    </td>
+                    <td class="px-6 py-4">Data Analyst</td>
+                    <td class="px-6 py-4">Kalimantan</td>
+                    <td class="px-6 py-4">Hybrid</td>
+                    <td class="px-6 py-4">30 May 2025</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-block px-4 py-1 rounded-full bg-green-100 text-green-700 font-semibold text-xs">Accepted</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4">5</td>
+                    <td class="px-6 py-4 flex items-center gap-2">
+                        <img src="https://placehold.co/32x32/00bcd4/fff?text=E" class="w-8 h-8 rounded-full object-cover" alt="PT. Elga Tama">
+                        PT. Elga Tama
+                    </td>
+                    <td class="px-6 py-4">Cyber Security</td>
+                    <td class="px-6 py-4">Papua</td>
+                    <td class="px-6 py-4">Hybrid</td>
+                    <td class="px-6 py-4">01 June 2025</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-block px-4 py-1 rounded-full bg-yellow-100 text-yellow-700 font-semibold text-xs">Pending</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4">6</td>
+                    <td class="px-6 py-4 flex items-center gap-2">
+                        <img src="https://placehold.co/32x32/e53935/fff?text=W" class="w-8 h-8 rounded-full object-cover" alt="PT. Wook Global A...">
+                        PT. Wook Global A...
+                    </td>
+                    <td class="px-6 py-4">App Developer</td>
+                    <td class="px-6 py-4">Bali</td>
+                    <td class="px-6 py-4">Hybrid</td>
+                    <td class="px-6 py-4">02 June 2025</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-block px-4 py-1 rounded-full bg-red-100 text-red-700 font-semibold text-xs">Rejected</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4">7</td>
+                    <td class="px-6 py-4 flex items-center gap-2">
+                        <img src="https://placehold.co/32x32/ff5722/fff?text=V" class="w-8 h-8 rounded-full object-cover" alt="PT. Karya Mas Mak...">
+                        PT. Karya Mas Mak...
+                    </td>
+                    <td class="px-6 py-4">System Analyst</td>
+                    <td class="px-6 py-4">Lombok</td>
+                    <td class="px-6 py-4">Remote</td>
+                    <td class="px-6 py-4">03 June 2025</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-block px-4 py-1 rounded-full bg-red-100 text-red-700 font-semibold text-xs">Rejected</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-6 py-4">8</td>
+                    <td class="px-6 py-4 flex items-center gap-2">
+                        <img src="https://placehold.co/32x32/f44336/fff?text=Y" class="w-8 h-8 rounded-full object-cover" alt="Yudikasi Teknologi I...">
+                        Yudikasi Teknologi I...
+                    </td>
+                    <td class="px-6 py-4">Network Admin</td>
+                    <td class="px-6 py-4">Malaysia</td>
+                    <td class="px-6 py-4">Hybrid</td>
+                    <td class="px-6 py-4">04 June 2025</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-block px-4 py-1 rounded-full bg-red-100 text-red-700 font-semibold text-xs">Rejected</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="mt-6 flex justify-center">
+        <ul class="flex space-x-2">
+            <li><span class="px-3 py-1 rounded-full bg-gray-200 text-gray-400 cursor-not-allowed">Prev</span></li>
+            <li><span class="px-3 py-1 rounded-full bg-gray-900 text-white">1</span></li>
+            <li><span class="px-3 py-1 rounded-full bg-gray-100 text-gray-700 cursor-pointer">2</span></li>
+            <li><span class="px-3 py-1 rounded-full bg-gray-100 text-gray-700 cursor-pointer">3</span></li>
+            <li><span class="px-3 py-1 rounded-full bg-gray-200 text-gray-400 cursor-not-allowed">Next</span></li>
         </ul>
     </nav>
 </div>
 
 <script>
+document.querySelector('.search-bar').addEventListener('input', function() {
+    const filter = this.value.toLowerCase();
+    const table = document.getElementById('historyTable');
+    const trs = table.querySelectorAll('tbody tr');
+    trs.forEach(tr => {
+        const rowText = tr.textContent.toLowerCase();
+        tr.style.display = rowText.includes(filter) ? '' : 'none';
+    });
+});
+
 let sortDirection = {};
 function sortTable(n) {
     const table = document.getElementById("historyTable");
