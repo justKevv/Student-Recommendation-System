@@ -60,3 +60,7 @@ Route::get('/profup', function () {
 Route::get('/studup', function () {
     return view('studup');
 })->name('studup');
+
+Route::get('/interman', function () {
+    return view('interman');
+})->name('interman');
