@@ -1,13 +1,17 @@
+{{-- resources/views/components/compup/company-card.blade.php --}}
 @props([
     'city',
     'companyName',
     'appliedCount',
     'logoUrl',
-    'logoBgColor' => 'bg-gray-200',
+    'logoBgColor' => 'bg-gray-200', // Pastikan prop ini ada dan memiliki nilai default
 ])
 
-{{-- Mengubah shadow-md menjadi shadow-sm untuk efek drop shadow yang lebih halus --}}
-<div class="bg-white rounded-[30PX] p-4 flex items-center justify-between shadow-sm ">
+<div class="bg-white rounded-[30PX] p-4 flex items-center justify-between shadow-sm cursor-pointer company-card"
+    data-city="{{ $city }}"
+    data-company-name="{{ $companyName }}"
+    data-logo-url="{{ $logoUrl }}"
+    data-logo-bg-color="{{ $logoBgColor }}">
     <div class="flex flex-col flex-grow">
         <p class="text-xs text-gray-500 mb-2 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-400" viewBox="0 0 20 20" fill="currentColor">

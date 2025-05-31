@@ -1,3 +1,4 @@
+{{-- resources/views/compup.blade.php --}}
 @extends('layout.app', [
     'userName' => 'Adevian Fairuz',
     'userProfileImage' => 'https://placehold.co/50x50'
@@ -11,6 +12,7 @@
 <div>
     @php
         // Data perusahaan hardcoded sesuai gambar terbaru.
+        // Dalam aplikasi nyata, data ini biasanya diambil dari database atau API.
         $jobListings = [
             ['city' => 'Malang', 'company_name' => 'PT Bamboo', 'applied_count' => 2, 'logo_url' => 'https://placehold.co/64x64/0047AB/FFFFFF?text=B', 'logo_bg_color' => 'bg-blue-600'],
             ['city' => 'Gambir, Jakarta Pusat, DKI Jakarta', 'company_name' => 'PT Space', 'applied_count' => 1, 'logo_url' => 'https://placehold.co/64x64/008080/FFFFFF?text=G', 'logo_bg_color' => 'bg-teal-500'],
