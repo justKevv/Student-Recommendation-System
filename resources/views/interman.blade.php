@@ -8,30 +8,30 @@
 @endsection
 
 @section('content')
-    <div class="container mx-auto font-sans min-h-screen">
-        <div class="flex flex-col lg:flex-row gap-8">
+    <div class="container mx-auto min-h-screen font-sans">
+        <div class="flex flex-col gap-8 lg:flex-row">
             {{-- Bagian Kiri: Detail Magang --}}
-            <div class="lg:w-2/3 space-y-6">
+            <div class="space-y-6 lg:w-2/3">
                 {{-- Header Magang dipanggil sebagai komponen --}}
-                <x-interman.internship />
+                <x-internship-details.internship />
 
                 {{-- Role Description dipanggil sebagai komponen --}}
-                <x-interman.role-desc />
+                <x-internship-details.role-desc />
 
                 {{-- Key Responsibilities dipanggil sebagai komponen --}}
-                <x-interman.key-resp />
+                <x-internship-details.key-resp />
 
                 {{-- Requirement dipanggil sebagai komponen --}}
-                <x-interman.requirement />
+                <x-internship-details.requirement />
             </div>
 
             {{-- Bagian Kanan: Aksi & Statistik --}}
-            <div class="lg:w-1/3 space-y-6">
+            <div class="space-y-6 lg:w-1/3">
                 {{-- Aksi & Statistik dipanggil sebagai komponen --}}
-                <x-interman.apply />
+                <x-internship-details.apply />
 
                 {{-- Eligibility dipanggil sebagai komponen --}}
-                <x-interman.eligibility />
+                <x-internship-details.eligibility />
             </div>
         </div>
     </div>

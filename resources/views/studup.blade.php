@@ -12,7 +12,7 @@
         <div class="space-y-5">
             <x-profile.user-profile name="Yuma Akhansa" avatarImage="https://placehold.co/50x50"/>
             <x-profile.student-information />
-            <x-profile.skills :skills="['Sosial', 'Logging', 'Lalala', 'wow']"/>
+            <x-profile.skills :skills="['Sosial', 'Logging', 'Lalala', 'wow']" :addicon="false" :editicon="false"/>
         </div>
         {{-- Right Column --}}
         <div class="space-y-5">
