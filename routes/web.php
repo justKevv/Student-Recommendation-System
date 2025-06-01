@@ -61,6 +61,11 @@ Route::get('/studup', function () {
     return view('studup');
 })->name('studup');
 
+Route::get('/interadm', function () {
+    return view('interadm');
+})->name('interadm');
+
 Route::get('/interman', function () {
     return view('interman');
 })->name('interman');
+
