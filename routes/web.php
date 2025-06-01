@@ -64,3 +64,8 @@ Route::get('/studup', function () {
 Route::get('/interadm', function () {
     return view('interadm');
 })->name('interadm');
+
+Route::get('/interman', function () {
+    return view('interman');
+})->name('interman');
+
