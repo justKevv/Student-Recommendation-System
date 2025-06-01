@@ -2,9 +2,29 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('profile');
-});
+// STUDENT
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+Route::get('/profile', function () {
+    return view('profup');
+})->name('profile');
+
+Route::get('/internship', function () {
+    return view('compup');
+})->name('internship');
+
+Route::get('/history', function () {
+    return view('history');
+})->name('history');
+
+Route::get('/student-detail', function () {
+    return view('studup');
+})->name('student-detail');
+
+// AUTH
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -32,3 +52,24 @@ Route::get('/reset-password/{token}', function () {
 Route::post('/reset-password', function () {
     return "reset password";
 })->name('password.update');
+
+Route::get('/compup', function () {
+    return view('compup');
+})->name('compup');
+
+Route::get('/profup', function () {
+    return view('profup');
+})->name('profup');
+
+Route::get('/studup', function () {
+    return view('studup');
+})->name('studup');
+
+Route::get('/interadm', function () {
+    return view('interadm');
+})->name('interadm');
+
+Route::get('/interman', function () {
+    return view('interman');
+})->name('interman');
+
