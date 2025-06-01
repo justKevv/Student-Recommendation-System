@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<div
+<a href="{{ route('login') }}"
     class="fixed left-2 bottom-8 z-[60] sm:left-3 sm:bottom-10 md:left-4 md:bottom-12 lg:left-6 lg:bottom-14 xl:left-[75px] xl:bottom-16">
     <div
         class="size-12 p-3 bg-white rounded-full shadow-[0px_0px_15px_0px_rgba(0,0,0,0.08)] inline-flex justify-center items-center cursor-pointer transition-all duration-300 hover:shadow-[0px_0px_25px_0px_rgba(0,0,0,0.15)] sm:size-[52px] sm:p-3 md:size-14 md:p-3.5 md:shadow-[0px_0px_18px_0px_rgba(0,0,0,0.09)] md:hover:shadow-[0px_0px_28px_0px_rgba(0,0,0,0.18)] xl:size-16 xl:shadow-[0px_0px_20px_0px_rgba(0,0,0,0.10)] xl:hover:shadow-[0px_0px_30px_0px_rgba(0,0,0,0.20)]">
@@ -26,4 +26,4 @@
             </svg>
         </div>
     </div>
-</div>
+</a>

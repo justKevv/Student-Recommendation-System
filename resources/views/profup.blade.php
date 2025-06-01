@@ -9,8 +9,8 @@
 @endsection
 
 @section('content')
-    <div class="container mx-auto font-inter min-h-screen">
-        <h1 class="text-3xl font-bold text-gray-900 mb-8">My Profile</h1>
+    <div class="container mx-auto min-h-screen font-inter">
+        <h1 class="mb-8 text-3xl font-bold text-gray-900">My Profile</h1>
 
         {{-- Top Profile Card (using the component) --}}
         <div class="mb-8">
@@ -18,7 +18,6 @@
                 name="Adevian Fairuz"
                 role="Supervisor"
                 location="Malang, Indonesia"
-                avatarImage="https://ik.imagekit.io/1qy6epne0l/next-step/assets/profile/image_90cbde.png"
             />
         </div>
 
@@ -34,7 +33,7 @@
             />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
             <x-profup.expertise-area
                 :expertiseAreas="[
                     'Systems Administration',

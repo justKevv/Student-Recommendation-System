@@ -14,6 +14,7 @@
         <x-topbar
             :name="$userName ?? 'John Doe'"
             :profileImage="$userProfileImage ?? 'https://placehold.co/50x50'"
+            :searchBar="false"
         ></x-topbar>
 
         <x-sidebar>

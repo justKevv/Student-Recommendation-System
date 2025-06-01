@@ -4,7 +4,7 @@
     'applied' => 10,
 ])
 
-<div class="w-[630px] px-5 py-5 bg-white rounded-[20px] inline-flex flex-col justify-start items-start gap-0">
+<div class="w-[630px] px-5 py-5 bg-white rounded-[20px] inline-flex flex-col justify-start items-start gap-0 cursor-pointer hover:shadow-lg transition-all duration-300" onclick="openCompanyModal('{{ $company }}', '{{ $location }}', {{ $applied }})">
     <div class="flex flex-col justify-start items-start self-stretch">
         <div class="size- inline-flex justify-center items-center gap-[3px]">
             <div data-svg-wrapper class="relative">

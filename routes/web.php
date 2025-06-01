@@ -5,20 +5,24 @@ use Illuminate\Support\Facades\Route;
 // STUDENT
 
 Route::get('/dashboard', function () {
-    return view('dashup');
+    return view('dashboard');
 })->name('dashboard');
 
 Route::get('/profile', function () {
-    return view('profile');
+    return view('profup');
 })->name('profile');
 
 Route::get('/internship', function () {
-    return view('internship');
+    return view('compup');
 })->name('internship');
 
 Route::get('/history', function () {
     return view('history');
 })->name('history');
+
+Route::get('/student-detail', function () {
+    return view('studup');
+})->name('student-detail');
 
 // AUTH
 

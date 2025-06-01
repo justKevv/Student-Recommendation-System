@@ -27,7 +27,7 @@
 
 <x-dashboard.student-table>
     @for ($i = 0; $i < 5; $i++)
-        <x-dashboard.student-pill completed="{{ rand(0, 7) }}"/>
+        <x-dashboard.student-pill href="{{ route('student-detail') }}" completed="{{ rand(0, 7) }}"/>
     @endfor
 </x-dashboard.student-table>
 
