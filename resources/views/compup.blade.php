@@ -1,3 +1,4 @@
+{{-- resources/views/compup.blade.php --}}
 @extends('layout.app', [
     'userName' => 'Adevian Fairuz',
     'userProfileImage' => 'https://placehold.co/50x50'
