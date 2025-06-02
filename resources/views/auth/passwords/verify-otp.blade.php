@@ -26,7 +26,23 @@
     <div class="left-[533px] top-[174px] absolute justify-start text-neutral-500 text-base font-normal font-['Poppins']">
         Check your email for the OTP code to continue</div>
 
-    <form action="{{ route('otp.verify') }}" method="post">
+    {{-- Development OTP Display --}}
+    @if(session('dev_otp'))
+        <div class="left-[533px] top-[210px] absolute bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded w-96">
+            <strong>Development Mode:</strong> Your OTP is: <span class="font-mono text-lg">{{ session('dev_otp') }}</span>
+        </div>
+    @endif
+
+    {{-- Display validation errors --}}
+    @if ($errors->any())
+        <div class="left-[533px] top-[220px] absolute w-96">
+            @foreach ($errors->all() as $error)
+                <div class="text-red-500 text-sm mb-2">{{ $error }}</div>
+            @endforeach
+        </div>
+    @endif
+
+    <form action="{{ route('otp.verify') }}" method="POST">
         @csrf
         <div class="size- left-[533px] top-[255px] absolute inline-flex justify-start items-center gap-2.5">
             <input type="text" name="otp1" maxlength="1"
