@@ -37,14 +37,16 @@ class ForgotPasswordController extends Controller
         // Generate OTP
         $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
-        // Store OTP in session or database
+        // Store OTP in session
         $request->session()->put('password_reset_otp', $otp);
         $request->session()->put('password_reset_email', $request->email);
         $request->session()->put('otp_expires_at', Carbon::now()->addMinutes(10));
 
-        // In a real application, you would send this OTP via email
-        // For now, we'll just redirect to OTP verification
+        // TODO: In production, send OTP via email
         // Mail::to($request->email)->send(new \App\Mail\OtpMail($otp));
+
+        // For development: Display OTP in session flash for testing
+        session()->flash('dev_otp', $otp);
 
         return redirect()->route('otp.show')->with('status', 'OTP sent to your email address.');
     }

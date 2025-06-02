@@ -10,7 +10,9 @@
         src="https://ik.imagekit.io/1qy6epne0l/next-step/assets/Yellow_key.png?updatedAt=1747989541782" />
     <div class="left-[533px] top-[165px] absolute justify-start text-neutral-500 text-base font-normal font-['Poppins']">
         Enter the email address associated <br />with your account.</div>
-    <form action="{{ route('password.email') }}" method="post">        <div class="size- left-[533px] top-[270px] absolute inline-flex flex-col justify-center items-start gap-1">
+    <form action="{{ route('password.email') }}" method="post">
+        @csrf
+        <div class="size- left-[533px] top-[270px] absolute inline-flex flex-col justify-center items-start gap-1">
             <div class="justify-start text-main text-sm font-medium font-['Poppins']">Email</div>
 
             <input type="email" name="email" placeholder="Enter Email Address" class=" w-110 px-3.5 py-3 rounded-[10px] shadow-[0px_2px_9.100000381469727px_0px_rgba(0,0,0,0.25)] outline outline-offset-[-1px] outline-gray-200 inline-flex items-center gap-3 justify-start text-main placeholder-neutral-400 text-sm font-normal font-['Poppins'] focus:outline-yellow-500" />
@@ -26,7 +28,7 @@
                     stroke-linejoin="round" />
             </svg>
         </div>
-        <div class="flex gap-2.5 justify-center items-center size- ">
+        <div class="flex gap-2.5 justify-center items-center size-">
             <a href="{{ route('login') }}" class="justify-start text-neutral-500 text-sm font-normal font-['Poppins']">Back
                 to Login</a>
         </div>
