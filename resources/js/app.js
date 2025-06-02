@@ -1,4 +1,5 @@
 import './bootstrap';
+import 'preline'
 
 // Topbar scroll shadow effect
 document.addEventListener('DOMContentLoaded', function() {
