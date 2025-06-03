@@ -73,3 +73,7 @@ Route::get('/interman', function () {
     return view('interman');
 })->name('interman');
 
+Route::get('/detailcompany', function () {
+    return view('detailcompany');
+})->name('detailcompany');
+
