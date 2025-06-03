@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -12,21 +13,25 @@
 <body class="overflow-y-auto bg-dashboard font-['Poppins']">
     <div class="w-full max-w-full mx-auto xl:max-w-[1440px]">
         <x-topbar
-            :name="$userName ?? 'John Doe'"
-            :profileImage="$userProfileImage ?? 'https://placehold.co/50x50'"
-            :searchBar="false"
+            :name='$user->name'
+            :profileImage='$user->profile_picture'
+            :searchBar="$user->role == 'student'"
         ></x-topbar>
 
         <x-sidebar>
             <x-sidebar-icon href="{{ route('dashboard') }}" is_active="{{ Route::currentRouteName() == 'dashboard' }}">
                 <x-icons.home/>
             </x-sidebar-icon>
-            <x-sidebar-icon href="{{ route('internship') }}" is_active="{{ Route::currentRouteName() == 'internship' }}">
+            <x-sidebar-icon
+                href="{{ $user->role == 'student' ? route('internship') : route('company') }}"
+                is_active="{{ $user->role == 'student' ? Route::currentRouteName() == 'internship' : Route::currentRouteName() == 'company' }}">
                 <x-icons.internship/>
             </x-sidebar-icon>
-            <x-sidebar-icon href="{{ route('history') }}" is_active="{{ Route::currentRouteName() == 'history' }}" :use_fill="false">
-                <x-icons.history/>
-            </x-sidebar-icon>
+            @if ($user->role != 'supervisor')
+                <x-sidebar-icon href="{{ route('history') }}" is_active="{{ Route::currentRouteName() == 'history' }}" :use_fill="false">
+                    <x-icons.history/>
+                </x-sidebar-icon>
+            @endif
         </x-sidebar>
 
         <!-- Content Area -->

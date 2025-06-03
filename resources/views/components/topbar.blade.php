@@ -1,7 +1,7 @@
 @props([
     'name' => 'John Doe',
     'profileImage' => 'https://placehold.co/50x50',
-    'searchBar' => 'true',
+    'searchBar' => true,
 ])
 
 
@@ -41,7 +41,7 @@
                 </div>
 
                 <a href="{{ route('profile') }}" class="flex flex-shrink-0 gap-1 items-center sm:gap-1.5 md:gap-2 xl:gap-2.5">
-                    <img class="w-8 h-8 rounded-full shadow-[inset_2px_2px_10px_1px_rgba(0,0,0,0.25)] sm:w-9 sm:h-9 md:w-10 md:h-10 xl:w-12 xl:h-12 flex-shrink-0"
+                    <img id="profile-topbar" class="w-8 h-8 rounded-full shadow-[inset_2px_2px_10px_1px_rgba(0,0,0,0.25)] sm:w-9 sm:h-9 md:w-10 md:h-10 xl:w-12 xl:h-12 flex-shrink-0"
                         src="{{ $profileImage }}" alt="Profile">
                     <div
                         class="hidden text-black text-xs font-medium font-['Poppins'] md:block md:text-sm lg:text-base xl:text-base whitespace-nowrap">
