@@ -34,7 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/profile/upload-photo', [ProfileController::class, 'uploadPhoto'])->name('profile.upload-photo');
-    Route::get('/imagekit/auth', [ProfileController::class, 'imagekitAuth'])->name('imagekit.auth');
+    Route::put('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
 
     // Student Routes
     Route::get('/internship', [InternshipController::class, 'index'])->name('internship');
@@ -45,12 +46,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/student-detail', function () {
         return view('studup');
     })->name('student-detail');
-
-    // Additional routes
-
-    Route::get('/profup', function () {
-        return view('profup');
-    })->name('profup');
+    Route::post('/profile/update-expertise-areas', [ProfileController::class, 'updateExpertiseAreas'])->name('profile.update-expertise-areas');
+    Route::post('/profile/update-research-interests', [ProfileController::class, 'updateResearchInterests'])->name('profile.update-research-interests');
 
     Route::get('/studup', function () {
         return view('studup');

@@ -40,7 +40,7 @@ class ProfileController extends Controller
     public function uploadPhoto(Request $request)
     {
         $request->validate([
-            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'profile_picture' => ['required', 'image', 'mimes:png,jpg,jpeg', 'max:2048']
         ]);
 
         try {
@@ -116,9 +116,25 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request)
     {
-        //
+        $user = app('current.user');
+
+        if ($user->role === 'supervisor') {
+            $request->validate([
+                'phone' => ['required', 'string','max:20']
+            ]);
+
+            try {
+                $user->update([
+                    'phone' => $request->phone
+                ]);
+
+                return redirect()->back()->with('success', 'Profile updated successfully');
+            } catch (\Throwable $th) {
+                return redirect()->back()->withErrors(['error' => 'Failed to update profile: '. $th->getMessage()]);
+            }
+        }
     }
 
     /**
@@ -127,6 +143,57 @@ class ProfileController extends Controller
     public function update(Request $request, string $id)
     {
         //
+    }
+
+    /**
+     * Update research interests for the authenticated user's supervisor profile.
+     */
+    public function updateResearchInterests(Request $request)
+    {
+        $request->validate([
+            'research_interests' => ['required', 'array'],
+            'research_interests.*' => ['required', 'max:255']
+        ]);
+
+        $user = app('current.user');
+
+        if (!$user->supervisor) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Supervisor profile not found'
+            ], 404);
+        }
+
+        $user->supervisor->update([
+            'research_interests' => $request->research_interests
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Research interests updated successfully'
+        ]);
+    }
+
+    public function updateExpertiseAreas(Request $request) {
+        $request->validate([
+           'expertise_areas' => ['required', 'array'],
+           'expertise_areas.*' => ['required','max:255']
+        ]);
+
+        $user = app('current.user');
+        if (!$user->supervisor) {
+            return response()->json([
+               'success' => false,
+               'message' => 'Supervisor profile not found'
+            ], 404);
+        }
+        $user->supervisor->update([
+           'expertise_areas' => $request->expertise_areas
+        ]);
+        return response()->json([
+           'success' => true,
+            'message' => 'Expertise areas updated successfully'
+        ]);
     }
 
     /**
