@@ -26,7 +26,9 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'role' => fake()->randomElement(['admin', 'user','supervisor']),
+            'phone' => fake()->phoneNumber(),
+            'profile_picture' => 'https://ik.imagekit.io/1qy6epne0l/next-step/assets/user/blank-profile-picture-973460_1920.png',
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];

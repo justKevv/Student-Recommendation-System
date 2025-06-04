@@ -1,77 +1,61 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\HistoryController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InternshipController;
+use App\Http\Controllers\ProfileController;
 
-// STUDENT
+// AUTH ROUTES (Guest only)
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+    // Password Reset Routes
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
-Route::get('/profile', function () {
-    return view('profup');
-})->name('profile');
+    Route::get('/verify-otp', [ForgotPasswordController::class, 'showOtpForm'])->name('otp.show');
+    Route::post('/verify-otp', [ForgotPasswordController::class, 'verifyOtp'])->name('otp.verify');
 
-Route::get('/internship', function () {
-    return view('compup');
-})->name('internship');
-
-Route::get('/history', function () {
-    return view('history');
-})->name('history');
-
-Route::get('/student-detail', function () {
-    return view('studup');
-})->name('student-detail');
-
-// AUTH
-
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-Route::post('/login', function () {
-    return "log";
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 });
-Route::get('/forgot-password', function () {
-    return view('auth.passwords.email');
-})->name('password.request');
-Route::post('/forgot-password', function () {
-    return view('auth.passwords.email');
-})->name('password.email');
 
-Route::get('/verify-otp', function () {
-    return view('auth.passwords.verify-otp');
-})->name('otp.show');
-Route::post('/verify-otp', function () {
-    return "verify otp";
-})->name('otp.verify');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::get('/reset-password/{token}', function () {
-    return view('auth.passwords.reset');
-})->name('password.reset');
-Route::post('/reset-password', function () {
-    return "reset password";
-})->name('password.update');
+// PROTECTED ROUTES (Require Authentication)
+Route::middleware('auth')->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile/upload-photo', [ProfileController::class, 'uploadPhoto'])->name('profile.upload-photo');
+    Route::get('/imagekit/auth', [ProfileController::class, 'imagekitAuth'])->name('imagekit.auth');
 
-Route::get('/compup', function () {
-    return view('compup');
-})->name('compup');
+    // Student Routes
+    Route::get('/internship', [InternshipController::class, 'index'])->name('internship');
+    Route::get('/history', [HistoryController::class, 'index'])->name('history');
 
-Route::get('/profup', function () {
-    return view('profup');
-})->name('profup');
+    // Supervisor Routes
+    Route::get('/company', [CompanyController::class, 'index'])->name('company');
+    Route::get('/student-detail', function () {
+        return view('studup');
+    })->name('student-detail');
 
-Route::get('/studup', function () {
-    return view('studup');
-})->name('studup');
+    // Additional routes
 
-Route::get('/interadm', function () {
-    return view('interadm');
-})->name('interadm');
+    Route::get('/profup', function () {
+        return view('profup');
+    })->name('profup');
 
-Route::get('/interman', function () {
-    return view('interman');
-})->name('interman');
+    Route::get('/studup', function () {
+        return view('studup');
+    })->name('studup');
+
 
 Route::get('/detailcompany', function () {
     return view('detailcompany');
@@ -88,4 +72,14 @@ Route::get('/manage', function () {
 Route::get('/admin', function () {
     return view('admin');
 })->name('admin');
+
+
+    Route::get('/interadm', function () {
+        return view('interadm');
+    })->name('interadm');
+
+    Route::get('/interman', function () {
+        return view('interman');
+    })->name('interman');
+});
 

@@ -1,7 +1,4 @@
-@extends('layout.app', [
-    'userName' => 'Baihaqi',
-    'userProfileImage' => 'https://placehold.co/50x50'
-])
+@extends('layout.app')
 
 @section('title')
     History
