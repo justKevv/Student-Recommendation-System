@@ -77,3 +77,15 @@ Route::get('/detailcompany', function () {
     return view('detailcompany');
 })->name('detailcompany');
 
+Route::get('/stuinteradm', function () {
+    return view('stuinteradm');
+})->name('stuinteradm');
+
+Route::get('/manage', function () {
+    return view('manage');
+});
+
+Route::get('/admin', function () {
+    return view('admin');
+})->name('admin');
+
