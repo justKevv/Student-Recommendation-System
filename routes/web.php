@@ -73,6 +73,10 @@ Route::get('/interman', function () {
     return view('interman');
 })->name('interman');
 
+Route::get('/detailcompany', function () {
+    return view('detailcompany');
+})->name('detailcompany');
+
 Route::get('/stuinteradm', function () {
     return view('stuinteradm');
 })->name('stuinteradm');
@@ -84,3 +88,4 @@ Route::get('/manage', function () {
 Route::get('/admin', function () {
     return view('admin');
 })->name('admin');
+
