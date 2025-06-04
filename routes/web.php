@@ -76,3 +76,7 @@ Route::get('/interman', function () {
 Route::get('/manage', function () {
     return view('manage');
 });
+
+Route::get('/admin', function () {
+    return view('admin');
+})->name('admin');
