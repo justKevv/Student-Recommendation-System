@@ -53,6 +53,24 @@ Route::middleware('auth')->group(function () {
         return view('studup');
     })->name('studup');
 
+
+Route::get('/detailcompany', function () {
+    return view('detailcompany');
+})->name('detailcompany');
+
+Route::get('/stuinteradm', function () {
+    return view('stuinteradm');
+})->name('stuinteradm');
+
+Route::get('/manage', function () {
+    return view('manage');
+});
+
+Route::get('/admin', function () {
+    return view('admin');
+})->name('admin');
+
+
     Route::get('/interadm', function () {
         return view('interadm');
     })->name('interadm');
@@ -61,3 +79,4 @@ Route::middleware('auth')->group(function () {
         return view('interman');
     })->name('interman');
 });
+
