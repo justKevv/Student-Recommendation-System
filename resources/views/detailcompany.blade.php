@@ -10,7 +10,6 @@
 @section('content')
     <div class="container mx-auto min-h-screen font-sans">
         <div class="flex flex-col gap-8 lg:flex-row">
-            {{-- Bagian Kiri: Detail Magang --}}
             <div class="space-y-6 lg:w-2/3">
                 {{-- Header Magang dipanggil sebagai komponen --}}
                 <x-companydetail.internship />

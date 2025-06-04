@@ -43,9 +43,19 @@ Route::get('/student-detail', function () {
 
 Route::get('/detail-job', function () {
     return view('interman');
-})->name('interman');
+})->name('detail.job');
+
+Route::get('/admin', function () {
+    return view('admin');
+})->name('admin');
+
+Route::get('/internship-management', function () {
+    return view('interadm');
+})->name('internship.management');
+
 
 // --------------------------------------------------------------------
+
 
 Route::get('/detailcompany', function () {
     return view('detailcompany');
@@ -58,12 +68,3 @@ Route::get('/stuinteradm', function () {
 Route::get('/manage', function () {
     return view('manage');
 });
-
-Route::get('/admin', function () {
-    return view('admin');
-})->name('admin');
-
-
-Route::get('/interadm', function () {
-    return view('interadm');
-})->name('interadm');
