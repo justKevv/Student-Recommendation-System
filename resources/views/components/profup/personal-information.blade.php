@@ -100,16 +100,6 @@
 
             <div class="overflow-y-auto p-4 space-y-4">
                 <div>
-                    <label for="email-input-{{ $userId }}" class="block mb-2 text-sm font-medium text-gray-700">
-                        Email Address
-                    </label>
-                    <input type="email" id="email-input-{{ $userId }}" name="email" class="px-3 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-yellowgoon @error('email') border-red-500 @enderror" placeholder="Enter email address" value="{{ old('email', $emailAddress) }}">
-                    @error('email')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
                     <label for="phone-input-{{ $userId }}" class="block mb-2 text-sm font-medium text-gray-700">
                         Phone Number
                     </label>

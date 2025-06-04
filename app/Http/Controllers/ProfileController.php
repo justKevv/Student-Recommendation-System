@@ -122,13 +122,11 @@ class ProfileController extends Controller
 
         if ($user->role === 'supervisor') {
             $request->validate([
-                'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
                 'phone' => ['required', 'string','max:20']
             ]);
 
             try {
                 $user->update([
-                    'email' => $request->email,
                     'phone' => $request->phone
                 ]);
 
