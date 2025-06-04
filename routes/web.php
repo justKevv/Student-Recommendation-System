@@ -10,52 +10,42 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InternshipController;
 use App\Http\Controllers\ProfileController;
 
-// AUTH ROUTES (Guest only)
-Route::middleware('guest')->group(function () {
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [LoginController::class, 'login']);
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
 
-    // Password Reset Routes
-    Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-    Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+// Password Reset Routes
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
-    Route::get('/verify-otp', [ForgotPasswordController::class, 'showOtpForm'])->name('otp.show');
-    Route::post('/verify-otp', [ForgotPasswordController::class, 'verifyOtp'])->name('otp.verify');
+Route::get('/verify-otp', [ForgotPasswordController::class, 'showOtpForm'])->name('otp.show');
+Route::post('/verify-otp', [ForgotPasswordController::class, 'verifyOtp'])->name('otp.verify');
 
-    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-    Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
-});
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
-// PROTECTED ROUTES (Require Authentication)
-Route::middleware('auth')->group(function () {
-    // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::post('/profile/upload-photo', [ProfileController::class, 'uploadPhoto'])->name('profile.upload-photo');
-    Route::get('/imagekit/auth', [ProfileController::class, 'imagekitAuth'])->name('imagekit.auth');
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::post('/profile/upload-photo', [ProfileController::class, 'uploadPhoto'])->name('profile.upload-photo');
+Route::get('/imagekit/auth', [ProfileController::class, 'imagekitAuth'])->name('imagekit.auth');
 
-    // Student Routes
-    Route::get('/internship', [InternshipController::class, 'index'])->name('internship');
-    Route::get('/history', [HistoryController::class, 'index'])->name('history');
+// Student Routes
+Route::get('/internship', [InternshipController::class, 'index'])->name('internship');
+Route::get('/history', [HistoryController::class, 'index'])->name('history');
 
-    // Supervisor Routes
-    Route::get('/company', [CompanyController::class, 'index'])->name('company');
-    Route::get('/student-detail', function () {
-        return view('studup');
-    })->name('student-detail');
+// Supervisor Routes
+Route::get('/company', [CompanyController::class, 'index'])->name('company');
+Route::get('/student-detail', function () {
+    return view('studup');
+})->name('student-detail');
 
-    // Additional routes
+Route::get('/detail-job', function () {
+    return view('interman');
+})->name('interman');
 
-    Route::get('/profup', function () {
-        return view('profup');
-    })->name('profup');
-
-    Route::get('/studup', function () {
-        return view('studup');
-    })->name('studup');
-
+// --------------------------------------------------------------------
 
 Route::get('/detailcompany', function () {
     return view('detailcompany');
@@ -74,12 +64,6 @@ Route::get('/admin', function () {
 })->name('admin');
 
 
-    Route::get('/interadm', function () {
-        return view('interadm');
-    })->name('interadm');
-
-    Route::get('/interman', function () {
-        return view('interman');
-    })->name('interman');
-});
-
+Route::get('/interadm', function () {
+    return view('interadm');
+})->name('interadm');

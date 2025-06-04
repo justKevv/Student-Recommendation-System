@@ -1,11 +1,12 @@
-{{-- resources/views/components/interman/eligibility.blade.php --}}
-<div class="bg-white p-6 rounded-xl shadow-md">
-    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2 border-gray-200">Eligibility</h2> {{-- Menambahkan border-b dan pb --}}
-    <ul class="list-disc list-inside text-gray-700 space-y-2">
-        <li>Mahasiswa aktif atau fresh graduate.</li>
-        <li>Memiliki passion di bidang UI/UX Design.</li>
-        <li>Mampu bekerja secara tim maupun individu.</li>
-        <li>Bersedia magang full-time (atau sesuai ketentuan).</li>
-        <li>Memiliki portofolio desain yang kuat (opsional, namun direkomendasikan).</li>
+@props([
+    'eligibilities' => []
+])
+
+<div class="p-6 bg-white rounded-xl shadow-md">
+    <h2 class="pb-2 mb-4 text-xl font-semibold border-b border-neutral-200 text-main">Eligibility</h2>
+    <ul class="space-y-2 list-disc list-inside text-neutral-700">
+        @foreach ($eligibilities as $eligibility)
+            <li>{{ $eligibility }}</li>
+        @endforeach
     </ul>
 </div>
