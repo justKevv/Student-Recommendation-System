@@ -1,8 +1,8 @@
 @props([
     'positions' => [
-        ['title' => 'Software Engineer', 'type' => 'Full-time', 'location' => 'Remote', 'deadline' => '2024-02-15'],
-        ['title' => 'Data Analyst', 'type' => 'Part-time', 'location' => 'On-site', 'deadline' => '2024-02-20'],
-        ['title' => 'UI/UX Designer', 'type' => 'Contract', 'location' => 'Hybrid', 'deadline' => '2024-02-25']
+        ['title' => 'Software Engineer', 'type' => 'Full-time', 'location' => 'Remote', 'due_date' => '2024-02-15'],
+        ['title' => 'Data Analyst', 'type' => 'Part-time', 'location' => 'On-site', 'due_date' => '2024-02-20'],
+        ['title' => 'UI/UX Designer', 'type' => 'Contract', 'location' => 'Hybrid', 'due_date' => '2024-02-25']
     ]
 ])
 
@@ -14,15 +14,13 @@
             <h2 class="mb-4 text-xl font-bold text-main">Available Positions</h2>
             <div class="space-y-3">
                 @foreach($positions as $position)
-                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg duration-200 transiton-colors hover:bg-gray-100">
+                    <div class="flex justify-between items-center p-3 rounded-lg transition-colors duration-200 bg-neutral-50 hover:bg-neutral-100">
                         <div class="flex-1">
-                            <h3 class="font-semibold text-gray-800">{{ $position['title'] }}</h3>
-                            <p class="mt-1 text-sm text-redgoon">
-                                <span class="font-medium">Deadline:</span> {{ \Carbon\Carbon::parse($position['deadline'])->format('M d, Y') }}
-                            </p>
+                            <h3 class="font-semibold text-main">{{ $position['title'] }}</h3>
+                            <p class="text-sm text-redgoon">Due: {{ \Carbon\Carbon::parse($position['due_date'])->format('M d, Y') }}</p>
                         </div>
                         <div class="text-right">
-                            <span class="inline-block px-2 py-1 text-xs font-medium text-gray-800 bg-gray-200 rounded-full">
+                            <span class="inline-block px-2 py-1 text-xs font-medium rounded-full text-neutral-800 bg-neutral-200">
                                 {{ $position['location'] }}
                             </span>
                         </div>

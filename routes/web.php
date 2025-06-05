@@ -53,13 +53,13 @@ Route::get('/internship-management', function () {
     return view('interadm');
 })->name('internship.management');
 
+Route::get('/detail-company', function () {
+    return view('company');
+})->name('detail.company');
 
 // --------------------------------------------------------------------
 
 
-Route::get('/detailcompany', function () {
-    return view('detailcompany');
-})->name('detailcompany');
 
 Route::get('/stuinteradm', function () {
     return view('stuinteradm');
