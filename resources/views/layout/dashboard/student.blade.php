@@ -35,7 +35,7 @@
         <!-- Continue Looking Section -->
         <x-dashboard.continue-looking title="Continue Looking">
             @for ($i = 0; $i < 3; $i++)
-                <x-last-seen href="{{ route('interman') }}" />
+                <x-last-seen href="{{ route('detail.job') }}" />
             @endfor
         </x-dashboard.continue-looking>
     </x-dashboard.main-content>

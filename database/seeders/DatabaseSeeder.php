@@ -32,6 +32,14 @@ class DatabaseSeeder extends Seeder
             'phone' => '081234567890',
         ]);
 
+        User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@admin.polinema.ac.id',
+            'role' =>'admin',
+            'password' => bcrypt('12345678'),
+            'phone' => '081234567890',
+        ]);
+
         Supervisors::factory()->create([
             'user_id' => User::where('role', 'supervisor')->first()->id,
             'nidn' => '1234567890123',

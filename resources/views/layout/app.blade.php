@@ -13,21 +13,45 @@
 <body class="overflow-y-auto bg-dashboard font-['Poppins']">
     <div class="w-full max-w-full mx-auto xl:max-w-[1440px]">
         <x-topbar
-            :name="$userName ?? 'John Doe'"
-            :profileImage="$userProfileImage ?? 'https://placehold.co/50x50'"
-            :searchBar="false"
+            :name='$user->name'
+            :profileImage='$user->profile_picture'
+            :searchBar="$user->role == 'student'"
         ></x-topbar>
 
         <x-sidebar>
             <x-sidebar-icon href="{{ route('dashboard') }}" is_active="{{ Route::currentRouteName() == 'dashboard' }}">
                 <x-icons.home/>
             </x-sidebar-icon>
-            <x-sidebar-icon href="{{ route('internship') }}" is_active="{{ Route::currentRouteName() == 'internship' }}">
+            @php
+                $href = match($user->role) {
+                    'student' => route('internship'),
+                    'admin' => route('internship.management'),
+                    default => route('company')
+                };
+                $isActive = match($user->role) {
+                    'student' => Route::currentRouteName() == 'internship',
+                    'admin' => Route::currentRouteName() == 'internship.management',
+                    default => Route::currentRouteName() == 'company'
+                };
+            @endphp
+            <x-sidebar-icon
+                href="{{ $href }}"
+                is_active="{{ $isActive }}">
                 <x-icons.internship/>
             </x-sidebar-icon>
-            <x-sidebar-icon href="{{ route('history') }}" is_active="{{ Route::currentRouteName() == 'history' }}" :use_fill="false">
-                <x-icons.history/>
-            </x-sidebar-icon>
+            @if ($user->role != 'supervisor')
+                <x-sidebar-icon
+                    href="{{ $user->role == 'student' ? route('history') : route('user.management') }}"
+                    is_active="{{ Route::currentRouteName() == 'history' || Route::currentRouteName() == 'user.management' }}"
+                    use_fill="{{ $user->role == 'admin' }}"
+                    use_stroke="{{ !($user->role == 'admin') }}">
+                    @if($user->role == 'student')
+                        <x-icons.history/>
+                    @else
+                        <x-icons.user/>
+                    @endif
+                </x-sidebar-icon>
+            @endif
         </x-sidebar>
 
         <!-- Content Area -->

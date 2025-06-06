@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class InternshipController extends Controller
+class ManagementController extends \App\Http\Controllers\Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,10 +12,7 @@ class InternshipController extends Controller
     public function index()
     {
         $user = app('current.user');
-        if ($user->role == 'admin') {
-            return view('interadm', compact('user'));
-        }
-        return view('internship', compact('user'));
+        return view('manage', compact('user'));
     }
 
     /**

@@ -7,12 +7,12 @@
 ])
 
 <div
-    class="self-stretch p-2.5 rounded-[40px] outline outline-offset-[-1px] outline-stone-300 inline-flex justify-between items-center">
-    <div class="flex gap-4 justify-center items-center size-">
+    class="w-full p-2.5 rounded-[40px] outline outline-offset-[-1px] outline-stone-300 flex justify-between items-center">
+    <div class="flex gap-4 justify-center items-center">
         <img class="rounded-full size-14" src="{{ $profile }}" />
-        <div class="inline-flex flex-col gap-0.5 justify-start items-start w-32">
-            <div class="self-stretch justify-center text-main text-base font-medium font-['Poppins']">{{ $name }}</div>
-            <div class="self-stretch justify-center text-neutral-500 text-xs font-normal font-['Poppins']">{{ $role }}</div>
+        <div class="flex flex-col gap-0.5 justify-start items-start flex-1">
+            <div class="text-main text-base font-medium font-['Poppins']">{{ $name }}</div>
+            <div class="text-neutral-500 text-xs font-normal font-['Poppins']">{{ $role }}</div>
         </div>
     </div>
 

@@ -2,9 +2,10 @@
     'location' => 'Jakarta',
     'company' => 'PT. Adevian',
     'applied' => 10,
+    'company_id' => 1,
 ])
 
-<div class="w-[630px] px-5 py-5 bg-white rounded-[20px] inline-flex flex-col justify-start items-start gap-0 cursor-pointer hover:shadow-lg transition-all duration-300" onclick="openCompanyModal('{{ $company }}', '{{ $location }}', {{ $applied }})">
+<div class="w-[630px] px-5 py-5 bg-white rounded-[20px] inline-flex flex-col justify-start items-start gap-0 cursor-pointer hover:shadow-lg transition-all duration-300" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-large-modal" data-hs-overlay="#hs-large-modal">
     <div class="flex flex-col justify-start items-start self-stretch">
         <div class="size- inline-flex justify-center items-center gap-[3px]">
             <div data-svg-wrapper class="relative">
