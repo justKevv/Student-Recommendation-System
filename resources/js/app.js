@@ -1,5 +1,7 @@
 import './bootstrap';
 import 'preline'
+import Alpine from 'alpinejs';
+Alpine.start();
 
 // Topbar scroll shadow effect
 document.addEventListener('DOMContentLoaded', function() {

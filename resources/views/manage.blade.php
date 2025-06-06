@@ -8,7 +8,10 @@
 @endsection
 
 @section('content')
-<x-admin.toggle-table :tab_1='"user"' :tab_2='"company"'/>
+<div class="flex justify-between">
+    <x-admin.toggle-table :tab_1='"user"' :tab_2='"company"'/>
+    <x-admin.add-data :data='"user"' :tab1='"user"' :tab2='"company"'/>
+</div>
 
 <div class="p-8 mt-2 bg-white rounded-2xl">
     <div class="flex justify-between items-center mb-8">
@@ -29,41 +32,35 @@
             <table class="min-w-full divide-y divide-gray-200" id="userTable">
                 <thead class="bg-white">
                     <tr>
-                        <th class="px-6 py-3 text-xs font-bold text-left text-gray-700 uppercase cursor-pointer select-none"
+                        <th class="px-6 py-3 text-sm font-bold text-left uppercase cursor-pointer select-none text-main"
                             onclick="sortTable(0, 'userTable')">
-                            No <span class="ml-1 text-xs">&#8597;</span>
+                            No <span class="ml-1 text-sm">&#8597;</span>
                         </th>
-                        <th class="px-6 py-3 text-xs font-bold text-left text-gray-700 uppercase cursor-pointer select-none"
+                        <th class="px-6 py-3 text-sm font-bold text-left uppercase cursor-pointer select-none text-main"
                             onclick="sortTable(1, 'userTable')">
-                            Name <span class="ml-1 text-xs">&#8597;</span>
+                            Name <span class="ml-1 text-sm">&#8597;</span>
                         </th>
-                        <th class="px-6 py-3 text-xs font-bold text-left text-gray-700 uppercase cursor-pointer select-none"
+                        <th class="px-6 py-3 text-sm font-bold text-left uppercase cursor-pointer select-none text-main"
                             onclick="sortTable(2, 'userTable')">
-                            Email <span class="ml-1 text-xs">&#8597;</span>
+                            Email <span class="ml-1 text-sm">&#8597;</span>
                         </th>
-                        <th class="px-6 py-3 text-xs font-bold text-left text-gray-700 uppercase cursor-pointer select-none"
+                        <th class="px-6 py-3 text-sm font-bold text-left uppercase cursor-pointer select-none text-main"
                             onclick="sortTable(3, 'userTable')">
-                            Role <span class="ml-1 text-xs">&#8597;</span>
+                            Phone <span class="ml-1 text-sm">&#8597;</span>
                         </th>
-                        <th class="px-6 py-3 text-xs font-bold text-center text-gray-700 uppercase">
+                        <th class="px-6 py-3 text-sm font-bold text-left uppercase cursor-pointer select-none text-main"
+                            onclick="sortTable(4, 'userTable')">
+                            Role <span class="ml-1 text-sm">&#8597;</span>
+                        </th>
+                        <th class="px-6 py-3 text-sm font-bold text-center uppercase text-main">
                             Action
                         </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    <x-admin.user.item no="1" name="Alexandra Grace" email="alexandra@gmail.com" role="Student"/>
-                    <x-admin.user.item no="2" name="Nathaniel James" email="nath.james@yahoo.com" role="Admin"/>
-                    <x-admin.user.item no="3" name="Sophia Marie" email="sophiamar88@gmail.com" role="Student"/>
-                    <x-admin.user.item no="4" name="Benjamin Carter" email="benjamincarter@gmail.com" role="Student"/>
-                    <x-admin.user.item no="5" name="Daniel Harper" email="danielharper77@gmail.com" role="Student"/>
-                    <x-admin.user.item no="6" name="Isabella Rose" email="isarose@gmail.com" role="Student"/>
-                    <x-admin.user.item no="7" name="Adam Smith" email="adamsmith@gmail.com" role="Student"/>
-                    <x-admin.user.item no="8" name="Michael Thomas" email="michaelthomas10@gmail.com" role="Student"/>
-                    <x-admin.user.item no="9" name="William Scott" email="williescott@gmail.com" role="Supervisor"/>
-                    <x-admin.user.item no="10" name="Charlotte Avery" email="charlotteavery@gmail.com" role="Supervisor"/>
-                    <x-admin.user.item no="11" name="Maria Alexis" email="alexismaria@gmail.com" role="Supervisor"/>
-                    <x-admin.user.item no="12" name="Sinthia raxy" email="exaraxysinthia@gmail.com" role="Admin"/>
-                    <x-admin.user.item no="13" name="Juno martens" email="junomartens71@gmail.com" role="Admin"/>
+                    @foreach ($users as $user_individual)
+                        <x-admin.user.item no="{{ $loop->iteration }}" name="{{ $user_individual->name }}" email="{{ $user_individual->email }}" phone="{{ $user_individual->phone }}" role="{{ $user_individual->role }}"/>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -71,8 +68,8 @@
             <ul class="flex space-x-2">
                 <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Prev</span></li>
                 <li><span class="px-3 py-1 bg-gray-900 rounded-full text-main5">1</span></li>
-                <li><span class="px-3 py-1 text-gray-700 rounded-full cursor-pointer">2</span></li>
-                <li><span class="px-3 py-1 text-gray-700 rounded-full cursor-pointer">3</span></li>
+                <li><span class="px-3 py-1 rounded-full cursor-pointer text-main">2</span></li>
+                <li><span class="px-3 py-1 rounded-full cursor-pointer text-main">3</span></li>
                 <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Next</span></li>
             </ul>
         </nav>
@@ -83,30 +80,40 @@
             <table class="min-w-full divide-y divide-gray-200" id="companyTable">
                 <thead class="bg-white">
                     <tr>
-                        <th class="px-6 py-3 text-xs font-bold text-left text-gray-700 uppercase cursor-pointer select-none"
+                        <th class="px-6 py-3 text-sm font-bold text-left uppercase cursor-pointer select-none text-main"
                             onclick="sortTable(0, 'companyTable')">
-                            No <span class="ml-1 text-xs">&#8597;</span>
+                            No <span class="ml-1 text-sm">&#8597;</span>
                         </th>
-                        <th class="px-6 py-3 text-xs font-bold text-left text-gray-700 uppercase cursor-pointer select-none"
+                        <th class="px-6 py-3 text-sm font-bold text-left uppercase cursor-pointer select-none text-main"
                             onclick="sortTable(1, 'companyTable')">
-                            Company Name <span class="ml-1 text-xs">&#8597;</span>
+                            Company Name <span class="ml-1 text-sm">&#8597;</span>
                         </th>
-                        <th class="px-6 py-3 text-xs font-bold text-left text-gray-700 uppercase cursor-pointer select-none"
+                        <th class="px-6 py-3 text-sm font-bold text-left uppercase cursor-pointer select-none text-main"
                             onclick="sortTable(2, 'companyTable')">
-                            Email <span class="ml-1 text-xs">&#8597;</span>
+                            Industry <span class="ml-1 text-sm">&#8597;</span>
                         </th>
-                        <th class="px-6 py-3 text-xs font-bold text-left text-gray-700 uppercase cursor-pointer select-none"
+                        <th class="px-6 py-3 text-sm font-bold text-left uppercase cursor-pointer select-none text-main"
                             onclick="sortTable(3, 'companyTable')">
-                            Contact Person <span class="ml-1 text-xs">&#8597;</span>
+                            City <span class="ml-1 text-sm">&#8597;</span>
                         </th>
-                        <th class="px-6 py-3 text-xs font-bold text-center text-gray-700 uppercase">
+                        <th class="px-6 py-3 text-sm font-bold text-left uppercase cursor-pointer select-none text-main"
+                            onclick="sortTable(4, 'companyTable')">
+                            Email <span class="ml-1 text-sm">&#8597;</span>
+                        </th>
+                        <th class="px-6 py-3 text-sm font-bold text-left uppercase cursor-pointer select-none text-main"
+                            onclick="sortTable(5, 'companyTable')">
+                            Status <span class="ml-1 text-sm">&#8597;</span>
+                        </th>
+                        <th class="px-6 py-3 text-sm font-bold text-center uppercase text-main">
                             Action
                         </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    <x-admin.company.item no="1" name="Acme Corp" email="contact@acme.com" contact="Jane Doe" />
-                    <x-admin.company.item no="2" name="Beta Solutions" email="info@betasolutions.com" contact="John Smith" />
+                    <x-admin.company.item no="1" name="Acme Corp" industry_field="Technology" city="New York" email="contact@acme.com" :is_active="true" />
+                    <x-admin.company.item no="2" name="Beta Solutions" industry_field="Consulting" city="San Francisco" email="info@betasolutions.com" :is_active="true" />
+                    <x-admin.company.item no="3" name="Gamma Industries" industry_field="Manufacturing" city="Chicago" email="hello@gamma.com" :is_active="false" />
+                    <x-admin.company.item no="4" name="Delta Corp" industry_field="Finance" city="Boston" email="contact@delta.com" :is_active="true" />
                 </tbody>
             </table>
         </div>
@@ -114,8 +121,8 @@
             <ul class="flex space-x-2">
                 <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Prev</span></li>
                 <li><span class="px-3 py-1 bg-gray-900 rounded-full text-main5">1</span></li>
-                <li><span class="px-3 py-1 text-gray-700 rounded-full cursor-pointer">2</span></li>
-                <li><span class="px-3 py-1 text-gray-700 rounded-full cursor-pointer">3</span></li>
+                <li><span class="px-3 py-1 rounded-full cursor-pointer text-main">2</span></li>
+                <li><span class="px-3 py-1 rounded-full cursor-pointer text-main">3</span></li>
                 <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Next</span></li>
             </ul>
         </nav>

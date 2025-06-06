@@ -16,6 +16,7 @@
     "dependencies": {
         "@preline/overlay": "^3.0.0",
         "@preline/remove-element": "^3.0.0",
+        "alpinejs": "^3.14.9",
         "preline": "^3.0.1"
     }
 }

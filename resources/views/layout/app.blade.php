@@ -22,34 +22,18 @@
             <x-sidebar-icon href="{{ route('dashboard') }}" is_active="{{ Route::currentRouteName() == 'dashboard' }}">
                 <x-icons.home/>
             </x-sidebar-icon>
-            @php
-                $href = match($user->role) {
-                    'student' => route('internship'),
-                    'admin' => route('internship.management'),
-                    default => route('company')
-                };
-                $isActive = match($user->role) {
-                    'student' => Route::currentRouteName() == 'internship',
-                    'admin' => Route::currentRouteName() == 'internship.management',
-                    default => Route::currentRouteName() == 'company'
-                };
-            @endphp
             <x-sidebar-icon
-                href="{{ $href }}"
-                is_active="{{ $isActive }}">
+                href="{{ $internshipNavigation['href'] }}"
+                is_active="{{ $internshipNavigation['isActive'] }}">
                 <x-icons.internship/>
             </x-sidebar-icon>
-            @if ($user->role != 'supervisor')
+            @if ($userManagementNavigation)
                 <x-sidebar-icon
-                    href="{{ $user->role == 'student' ? route('history') : route('user.management') }}"
-                    is_active="{{ Route::currentRouteName() == 'history' || Route::currentRouteName() == 'user.management' }}"
-                    use_fill="{{ $user->role == 'admin' }}"
-                    use_stroke="{{ !($user->role == 'admin') }}">
-                    @if($user->role == 'student')
-                        <x-icons.history/>
-                    @else
-                        <x-icons.user/>
-                    @endif
+                    href="{{ $userManagementNavigation['href'] }}"
+                    is_active="{{ $userManagementNavigation['isActive'] }}"
+                    use_fill="{{ $userManagementNavigation['useFill'] }}"
+                    use_stroke="{{ $userManagementNavigation['useStroke'] }}">
+                    <x-dynamic-component :component="$userManagementNavigation['icon']"/>
                 </x-sidebar-icon>
             @endif
         </x-sidebar>

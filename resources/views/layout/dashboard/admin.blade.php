@@ -4,11 +4,11 @@
             <div class="top-0 absolute left-[27px] right-[300px] h-full flex flex-col justify-center py-4 z-10">
                 <div class="space-y-3">
                     <h1 class="text-white text-4xl font-bold font-['Poppins'] leading-tight">
-                        Hello Adevian! Welcome back
+                        Hello {{ $user->name }}! Welcome back
                     </h1>
                 </div>
                 <p class="text-white text-lg font-normal font-['Poppins'] mt-2">
-                    Here's the latest update on your internship students
+                    Here's the latest update on the internships!
                 </p>
             </div>
         </x-hero-banner>

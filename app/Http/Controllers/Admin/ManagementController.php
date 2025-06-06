@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ManagementController extends \App\Http\Controllers\Controller
@@ -12,7 +13,8 @@ class ManagementController extends \App\Http\Controllers\Controller
     public function index()
     {
         $user = app('current.user');
-        return view('manage', compact('user'));
+        $users = User::all();
+        return view('manage', compact('user', 'users'));
     }
 
     /**
