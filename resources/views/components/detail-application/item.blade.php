@@ -5,7 +5,6 @@
     'study' => 'D-IV Example Program',
     'role' => 'UI & UX',
     'status' => 'pending',
-    'detail' => '',
 ])
 
 <tr>
@@ -17,5 +16,9 @@
     <td class="px-6 py-4">
         <x-dynamic-component :component="'status.' . $status" />
     </td>
-    <td class="px-6 py-4">{{ $detail }}</td>
+    <td class="px-6 py-4">
+        <button class="px-6 py-2 text-sm font-medium text-white rounded-full bg-main hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-500">
+            Detail
+        </button>
+    </td>
 </tr>

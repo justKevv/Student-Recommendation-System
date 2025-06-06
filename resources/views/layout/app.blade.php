@@ -13,25 +13,21 @@
 <body class="overflow-y-auto bg-dashboard font-['Poppins']">
     <div class="w-full max-w-full mx-auto xl:max-w-[1440px]">
         <x-topbar
-            :name='$user->name'
-            :profileImage='$user->profile_picture'
-            :searchBar="$user->role == 'student'"
+            :name="$userName ?? 'John Doe'"
+            :profileImage="$userProfileImage ?? 'https://placehold.co/50x50'"
+            :searchBar="false"
         ></x-topbar>
 
         <x-sidebar>
             <x-sidebar-icon href="{{ route('dashboard') }}" is_active="{{ Route::currentRouteName() == 'dashboard' }}">
                 <x-icons.home/>
             </x-sidebar-icon>
-            <x-sidebar-icon
-                href="{{ $user->role == 'student' ? route('internship') : route('company') }}"
-                is_active="{{ $user->role == 'student' ? Route::currentRouteName() == 'internship' : Route::currentRouteName() == 'company' }}">
+            <x-sidebar-icon href="{{ route('internship') }}" is_active="{{ Route::currentRouteName() == 'internship' }}">
                 <x-icons.internship/>
             </x-sidebar-icon>
-            @if ($user->role != 'supervisor')
-                <x-sidebar-icon href="{{ route('history') }}" is_active="{{ Route::currentRouteName() == 'history' }}" :use_fill="false">
-                    <x-icons.history/>
-                </x-sidebar-icon>
-            @endif
+            <x-sidebar-icon href="{{ route('history') }}" is_active="{{ Route::currentRouteName() == 'history' }}" :use_fill="false">
+                <x-icons.history/>
+            </x-sidebar-icon>
         </x-sidebar>
 
         <!-- Content Area -->

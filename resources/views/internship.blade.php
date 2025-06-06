@@ -11,12 +11,11 @@
         <x-filter-item :title='"Category"'/>
     </x-filter-bar>
     <x-dashboard.layout gap="30px" :class='"pt-6"' >
-        <div class="space-x-6 space-y-6">
+        <div class="grid grid-cols-2 gap-6">
             @for ($i = 0; $i < 10; $i++)
-                <x-internship.card href="{{ route('interman') }}" />
+                <x-internship.card href="{{ route('detail.job') }}" />
             @endfor
         </div>
-
     </x-dashboard.layout>
 
 @endsection
