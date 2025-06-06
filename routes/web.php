@@ -57,14 +57,11 @@ Route::get('/detail-company', function () {
     return view('company');
 })->name('detail.company');
 
-// --------------------------------------------------------------------
-
-
-
-Route::get('/stuinteradm', function () {
+Route::get('/detail-application', function () {
     return view('stuinteradm');
-})->name('stuinteradm');
+})->name('detail.application');
 
-Route::get('/manage', function () {
+Route::get('/user-management', function () {
     return view('manage');
 });
+
