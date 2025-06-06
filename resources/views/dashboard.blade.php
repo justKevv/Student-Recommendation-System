@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-    @include('layout.dashboard.supervisor')
+    @include('layout.dashboard.' . $user->role)
 @endsection
