@@ -10,13 +10,21 @@
 
     'type' => 'Remote',
 
-    'href' => '#'
+    'href' => '#',
+
+    'is_admin' => false
 
 ])
 
-<a href="{{ $href }}" class="w-[630px] px-5 py-5 bg-white rounded-[20px] inline-flex flex-col justify-start items-start gap-2.5">
-    <x-internship.location location="{{ $location }}" />
+<div class="w-[630px] px-5 py-5 bg-white rounded-[20px] inline-flex flex-col justify-start items-start gap-2.5 relative cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-neutral-200 hover:-translate-y-[2px] hover:scale-[1]">
+    <a href="{{ $href }}" class="absolute inset-0 z-10"></a>
+    <div class="flex relative z-20 justify-between items-center w-full">
+        <x-internship.location location="{{ $location }}" />
+        @if ($is_admin)
+            <x-edit-delete />
+        @endif
+    </div>
     <x-internship.role title="{{ $title }}" company="{{ $company }}" profile="{{ $profile }}" />
     <x-internship.details applied="{{ $applied }}" due="{{ $due }}" />
     <x-internship.type type="{{ $type }}" />
-</a>
+</div>

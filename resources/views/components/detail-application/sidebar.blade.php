@@ -1,6 +1,6 @@
 @props([
     'title' => '0',
-    'student' => 'Active Internship',
+    'student' => 'Student Internship',
 ])
 
 

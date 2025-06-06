@@ -10,21 +10,18 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InternshipController;
 use App\Http\Controllers\ProfileController;
 
-// AUTH ROUTES (Guest only)
-Route::middleware('guest')->group(function () {
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [LoginController::class, 'login']);
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
 
-    // Password Reset Routes
-    Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-    Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+// Password Reset Routes
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
-    Route::get('/verify-otp', [ForgotPasswordController::class, 'showOtpForm'])->name('otp.show');
-    Route::post('/verify-otp', [ForgotPasswordController::class, 'verifyOtp'])->name('otp.verify');
+Route::get('/verify-otp', [ForgotPasswordController::class, 'showOtpForm'])->name('otp.show');
+Route::post('/verify-otp', [ForgotPasswordController::class, 'verifyOtp'])->name('otp.verify');
 
-    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-    Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
-});
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
@@ -49,34 +46,33 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/update-expertise-areas', [ProfileController::class, 'updateExpertiseAreas'])->name('profile.update-expertise-areas');
     Route::post('/profile/update-research-interests', [ProfileController::class, 'updateResearchInterests'])->name('profile.update-research-interests');
 
-    Route::get('/studup', function () {
-        return view('studup');
-    })->name('studup');
+// Supervisor Routes
+Route::get('/company', [CompanyController::class, 'index'])->name('company');
+Route::get('/student-detail', function () {
+    return view('studup');
+})->name('student-detail');
 
-
-Route::get('/detailcompany', function () {
-    return view('detailcompany');
-})->name('detailcompany');
-
-Route::get('/stuinteradm', function () {
-    return view('stuinteradm');
-})->name('stuinteradm');
-
-Route::get('/manage', function () {
-    return view('manage');
-});
+Route::get('/detail-job', function () {
+    return view('interman');
+})->name('detail.job');
 
 Route::get('/admin', function () {
     return view('admin');
 })->name('admin');
 
+Route::get('/internship-management', function () {
+    return view('interadm');
+})->name('internship.management');
 
-    Route::get('/interadm', function () {
-        return view('interadm');
-    })->name('interadm');
+Route::get('/detail-company', function () {
+    return view('company');
+})->name('detail.company');
 
-    Route::get('/interman', function () {
-        return view('interman');
-    })->name('interman');
+Route::get('/detail-application', function () {
+    return view('stuinteradm');
+})->name('detail.application');
+
+Route::get('/user-management', function () {
+    return view('manage');
 });
 
