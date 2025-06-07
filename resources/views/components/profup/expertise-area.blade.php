@@ -1,20 +1,14 @@
 {{-- resources/views/components/profup/expertise-area.blade.php --}}
 @props([
-    'expertiseAreas' => [
-        'Systems Administration',
-        'Network Management',
-        'Cybersecurity',
-        'Cloud Computing',
-        'Database management'
-    ],
+    'expertiseAreas' => [],
     'userId' => null
 ])
 
 
 
-<div class="bg-white rounded-[30px] shadow-[0px_0px_19.899999618530273px_0px_rgba(0,0,0,0.10)] p-6">
+<div class="w-full bg-white rounded-[30px] shadow-[0px_0px_19.899999618530273px_0px_rgba(0,0,0,0.10)] p-6 min-h-[120px]">
     <h2 class="mb-6 text-2xl font-semibold text-gray-800">Expertise Area</h2>
-    <div class="flex flex-wrap gap-3" id="expertise-areas-container">
+    <div class="flex flex-wrap gap-3 items-start">
         @foreach($expertiseAreas as $area)
             <span class="px-4 py-2 bg-skillbg outline-2 outline-skilloutline text-main text-sm font-medium font-['Poppins'] rounded-[15px]">{{ $area }}</span>
         @endforeach

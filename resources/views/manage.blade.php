@@ -13,6 +13,15 @@
     <x-admin.add-data :data='"user"' :tab1='"user"' :tab2='"company"'/>
 </div>
 
+@if(session('admin_password'))
+<div class="mt-4 p-4 rounded-lg border" style="background-color: var(--color-approved); border-color: #9BB5B0; color: #2D5A52;">
+    <h3 class="font-bold text-lg mb-2">Admin Account Created Successfully!</h3>
+    <p><strong>Email:</strong> {{ session('admin_email') }}</p>
+    <p><strong>Password:</strong> <span class="font-mono bg-white px-2 py-1 rounded border">{{ session('admin_password') }}</span></p>
+    <p class="text-sm mt-2" style="color: #1F4A42;">⚠️ Please save these credentials securely. The password will not be shown again.</p>
+</div>
+@endif
+
 <div class="p-8 mt-2 bg-white rounded-2xl">
     <div class="flex justify-between items-center mb-8">
         <h2 id="data-title" class="text-2xl font-bold">User Data</h2>
@@ -59,7 +68,7 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($users as $user_individual)
-                        <x-admin.user.item no="{{ $loop->iteration }}" name="{{ $user_individual->name }}" email="{{ $user_individual->email }}" phone="{{ $user_individual->phone }}" role="{{ $user_individual->role }}"/>
+                        <x-admin.user.item no="{{ $loop->iteration }}" name="{{ $user_individual->name }}" email="{{ $user_individual->email }}" phone="{{ $user_individual->phone }}" role="{{ $user_individual->role }}" :user="$user_individual"/>
                     @endforeach
                 </tbody>
             </table>

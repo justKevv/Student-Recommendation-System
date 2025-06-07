@@ -47,41 +47,98 @@
                     </svg>
                 </button>
             </div>
-            <div class="overflow-y-auto p-4 space-y-3">
-                <div class="w-full">
-                    <label for="input-label" class="block mb-2 text-sm font-medium">Email</label>
-                    <input type="email" id="input-label"
-                        class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                        placeholder="you@site.com">
+            <form action="{{ route('user.management.store') }}" method="post">
+                @csrf
+                <div class="overflow-y-auto p-4 space-y-3" x-data="{ selectedRole: '' }">
+                    <div class="w-full">
+                        <label for="hs-select-label" class="block mb-2 text-sm font-medium">Role</label>
+                        <select id="role-select" name="role" x-model="selectedRole"
+                            class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 pe-9 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                            <option selected="" value="">Select Role</option>
+                            <option value="student">Student</option>
+                            <option value="supervisor">Supervisor</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <div x-show="selectedRole == 'student' && selectedRole !== 'Select Role'" class="space-y-3">
+                        <hr class="my-4 border-gray-200">
+                        <div class="w-full">
+                            <label for="major-label" class="block mb-2 text-sm font-medium">Major</label>
+                            <select id="major-select" name="major"
+                                class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 pe-9 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                <option selected="" value="">Select Major</option>
+                                <option value="informatics_engineering">Informatics Engineering</option>
+                                <option value="business_information_system">Business Information System</option>
+                            </select>
+                        </div>
+                        <div class="w-full">
+                            <label for="name-input" class="block mb-2 text-sm font-medium">Name</label>
+                            <input type="text" id="name-input" name="name"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                placeholder="Kevin Bramasta">
+                        </div>
+                        <div class="w-full">
+                            <label for="phone-input" class="block mb-2 text-sm font-medium">Phone</label>
+                            <input type="tel" id="phone-input" name="phone"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                placeholder="08821323133">
+                        </div>
+                        <div class="w-full">
+                            <label for="semester-input" class="block mb-2 text-sm font-medium">Semester</label>
+                            <input type="text" id="semester-input" name="semester"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                placeholder="6 (Semester)">
+                        </div>
+                    </div>
+                    <div x-show="selectedRole == 'supervisor' && selectedRole !== 'Select Role'" class="space-y-3">
+                        <hr class="my-4 border-gray-200">
+                        <div class="w-full">
+                            <label for="supervisor-name-input" class="block mb-2 text-sm font-medium">Name</label>
+                            <input type="text" id="supervisor-name-input" name="name"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                placeholder="Dr. John Doe">
+                        </div>
+                        <div class="w-full">
+                            <label for="supervisor-phone-input" class="block mb-2 text-sm font-medium">Phone</label>
+                            <input type="tel" id="supervisor-phone-input" name="phone"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                placeholder="08821323133">
+                        </div>
+                        <div class="w-full">
+                            <label for="teaching-start-year-input" class="block mb-2 text-sm font-medium">Teaching Start Year</label>
+                            <input type="number" id="teaching-start-year-input" name="teaching_start_year"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                placeholder="2024" min="1990" max="2030">
+                        </div>
+                    </div>
+                    <div x-show="selectedRole == 'admin' && selectedRole !== 'Select Role'" class="space-y-3">
+                        <hr class="my-4 border-gray-200">
+                        <div class="w-full">
+                            <label for="admin-name-input" class="block mb-2 text-sm font-medium">Name</label>
+                            <input type="text" id="admin-name-input" name="name"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                placeholder="John Smith">
+                        </div>
+                        <div class="w-full">
+                            <label for="admin-phone-input" class="block mb-2 text-sm font-medium">Phone</label>
+                            <input type="tel" id="admin-phone-input" name="phone"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                placeholder="08821323133">
+                        </div>
+                    </div>
                 </div>
-                <div class="w-full">
-                    <label for="input-label" class="block mb-2 text-sm font-medium">Email</label>
-                    <input type="email" id="input-label"
-                        class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                        placeholder="you@site.com">
+                <div class="flex gap-x-2 justify-end items-center px-4 py-3 border-t border-gray-200">
+                    <button type="button"
+                        class="inline-flex gap-x-2 items-center px-3 py-2 text-sm font-medium text-gray-800 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+                        data-hs-overlay="#hs-add-user-modal">
+                        Close
+                    </button>
+                    <button type="submit"
+                        class="inline-flex gap-x-2 items-center px-3 py-2 text-sm font-medium rounded-lg border border-transparent text-yellowgoon bg-main hover:bg-neutral-700 focus:outline-none focus:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none">
+                        Save User
+                    </button>
                 </div>
-                <div class="w-full">
-                    <label for="hs-select-label" class="block mb-2 text-sm font-medium">Label</label>
-                    <select id="hs-select-label"
-                        class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 pe-9 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                        <option selected="">Open this select menu</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                    </select>
-                </div>
-            </div>
-            <div class="flex gap-x-2 justify-end items-center px-4 py-3 border-t border-gray-200">
-                <button type="button"
-                    class="inline-flex gap-x-2 items-center px-3 py-2 text-sm font-medium text-gray-800 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
-                    data-hs-overlay="#hs-add-user-modal">
-                    Close
-                </button>
-                <button type="button"
-                    class="inline-flex gap-x-2 items-center px-3 py-2 text-sm font-medium rounded-lg border border-transparent text-yellowgoon bg-main hover:bg-neutral-700 focus:outline-none focus:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none">
-                    Save User
-                </button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -168,7 +225,12 @@
                 }
 
                 if (modalId && window.HSOverlay) {
-                    window.HSOverlay.open(document.querySelector(modalId));
+                    const modalElement = document.querySelector(modalId);
+                    if (modalElement) {
+                        window.HSOverlay.open(modalElement);
+                    } else {
+                        console.error(`Modal element ${modalId} not found`);
+                    }
                 }
             });
         }

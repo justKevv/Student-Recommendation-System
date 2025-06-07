@@ -151,8 +151,8 @@ class ProfileController extends Controller
     public function updateResearchInterests(Request $request)
     {
         $request->validate([
-            'research_interests' => ['required', 'array'],
-            'research_interests.*' => ['required', 'max:255']
+            'research_interests' => ['nullable', 'array'],
+            'research_interests.*' => ['nullable', 'max:255']
         ]);
 
         $user = app('current.user');
@@ -165,7 +165,7 @@ class ProfileController extends Controller
         }
 
         $user->supervisor->update([
-            'research_interests' => $request->research_interests
+            'research_interests' => $request->research_interests ?? []
         ]);
 
         return response()->json([
@@ -176,8 +176,8 @@ class ProfileController extends Controller
 
     public function updateExpertiseAreas(Request $request) {
         $request->validate([
-           'expertise_areas' => ['required', 'array'],
-           'expertise_areas.*' => ['required','max:255']
+           'expertise_areas' => ['nullable', 'array'],
+           'expertise_areas.*' => ['nullable','max:255']
         ]);
 
         $user = app('current.user');
@@ -188,7 +188,7 @@ class ProfileController extends Controller
             ], 404);
         }
         $user->supervisor->update([
-           'expertise_areas' => $request->expertise_areas
+           'expertise_areas' => $request->expertise_areas ?? []
         ]);
         return response()->json([
            'success' => true,

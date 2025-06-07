@@ -10,6 +10,15 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InternshipController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
+
+// Root route redirection
+Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+    return redirect()->route('login');
+});
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -49,6 +58,9 @@ Route::middleware('auth')->group(function () {
     // Admin Routes
     Route::get('/internship-management', [InternshipController::class, 'index'])->name('internship.management');
     Route::get('/user-management', [ManagementController::class, 'index'])->name('user.management');
+    Route::post('/user-management', [ManagementController::class, 'store'])->name('user.management.store');
+    Route::put('/user-management/{id}', [ManagementController::class, 'update'])->name('user.management.update');
+    Route::delete('/user-management/{id}', [ManagementController::class,'destroy'])->name('user.management.destroy');
 
     Route::get('/detail-job', function () {
         return view('interman');

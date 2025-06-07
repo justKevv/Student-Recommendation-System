@@ -16,10 +16,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users', 'id')->onDelete('cascade');
             $table->string('nim')->unique();
             $table->enum('study_program', ['Informatics Engineering', 'Business Information Systems']);
-            $table->integer('semester')->nullable();
+            $table->integer('semester');
             $table->json('skills')->nullable();
             $table->string('preferred_location')->nullable();
-            $table->enum('preferred_internship_type', ['Remote', 'On-site', 'Hybrid']);
+            $table->enum('preferred_internship_type', ['Remote', 'On-site', 'Hybrid'])->nullable();
             $table->string('cv_path')->nullable();
             $table->timestamps();
         });

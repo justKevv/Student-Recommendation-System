@@ -53,6 +53,14 @@ class User extends Authenticatable
         return $this->hasOne(Supervisors::class, 'user_id', 'id');
     }
 
+    public function student() {
+        return $this->hasOne(Student::class, 'user_id', 'id');
+    }
+
+    public function admin() {
+        return $this->hasOne(Admin::class, 'user_id', 'id');
+    }
+
     public function getFirstNameAttribute()
     {
         return explode(' ', $this->name)[0] ?? '';

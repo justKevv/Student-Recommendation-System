@@ -1,21 +1,15 @@
 {{-- resources/views/components/profup/research-interest.blade.php --}}
 @props([
-    'researchInterests' => [
-        'Machine Learning',
-        'Artificial Intelligence',
-        'Data Science',
-        'Computer Vision',
-        'Natural Language Processing'
-    ],
+    'researchInterests' => [],
     'userId' => null
 ])
 
-<div class="bg-white rounded-[30px] shadow-[0px_0px_19.899999618530273px_0px_rgba(0,0,0,0.10)] p-6">
+<div class="w-full bg-white rounded-[30px] shadow-[0px_0px_19.899999618530273px_0px_rgba(0,0,0,0.10)] p-6 min-h-[120px]">
     <h2 class="mb-6 text-2xl font-semibold text-gray-800">Research Interest</h2>
-    <div class="flex flex-wrap gap-3">
-        @foreach($researchInterests as $interest)
-            <span class="px-4 py-2 bg-skillbg outline-2 outline-skilloutline text-main text-sm font-medium font-['Poppins'] rounded-[15px]">{{ $interest }}</span>
-        @endforeach
+    <div class="flex flex-wrap gap-3 items-start">
+            @foreach($researchInterests as $interest)
+                <span class="px-4 py-2 bg-skillbg outline-2 outline-skilloutline text-main text-sm font-medium font-['Poppins'] rounded-[15px]">{{ $interest }}</span>
+            @endforeach
         <button class="inline-flex items-center justify-center w-12 h-10 rounded-[15px] bg-main text-white hover:bg-gray-700 transition-colors duration-200" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-vertically-centered-modal-research-interest-{{ $userId }}" data-hs-overlay="#hs-vertically-centered-modal-research-interest-{{ $userId }}">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />

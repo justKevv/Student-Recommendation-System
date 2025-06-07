@@ -1,5 +1,5 @@
 <x-dashboard.layout gap="30px">
-    <div class="p-6">
+    <div class="p-6 flex-shrink-0 w-full">
         <h1 class="mb-8 text-3xl font-bold text-gray-900">My Profile</h1>
 
         {{-- Top Profile Card (using the component) --}}
