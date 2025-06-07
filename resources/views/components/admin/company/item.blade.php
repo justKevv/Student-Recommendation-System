@@ -14,11 +14,6 @@
     <td class="px-6 py-4 text-gray-700 text-md">{{ $city }}</td>
     <td class="px-6 py-4 text-gray-700 text-md">{{ $email }}</td>
     <td class="px-6 py-4">
-        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full {{ $is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-            {{ $is_active ? 'Active' : 'Inactive' }}
-        </span>
-    </td>
-    <td class="px-6 py-4">
         <div class="flex justify-center">
             <div class="inline-flex relative hs-dropdown">
                 <button id="hs-dropdown-custom-icon-trigger" type="button" class="flex z-20 justify-center items-center text-sm font-semibold text-gray-800 bg-white rounded-lg border border-gray-200 hs-dropdown-toggle size-9 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">

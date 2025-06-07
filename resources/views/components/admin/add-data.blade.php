@@ -53,7 +53,7 @@
                     <div class="w-full">
                         <label for="hs-select-label" class="block mb-2 text-sm font-medium">Role</label>
                         <select id="role-select" name="role" x-model="selectedRole"
-                            class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 pe-9 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                            class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 pe-9 focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none">
                             <option selected="" value="">Select Role</option>
                             <option value="student">Student</option>
                             <option value="supervisor">Supervisor</option>
@@ -65,28 +65,28 @@
                         <div class="w-full">
                             <label for="major-label" class="block mb-2 text-sm font-medium">Major</label>
                             <select id="major-select" name="major"
-                                class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 pe-9 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 pe-9 focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none">
                                 <option selected="" value="">Select Major</option>
                                 <option value="informatics_engineering">Informatics Engineering</option>
-                                <option value="business_information_system">Business Information System</option>
+                                <option value="business_information_systems">Business Information System</option>
                             </select>
                         </div>
                         <div class="w-full">
                             <label for="name-input" class="block mb-2 text-sm font-medium">Name</label>
-                            <input type="text" id="name-input" name="name"
-                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                            <input type="text" id="name-input" name="name" :disabled="selectedRole !== 'student'"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none"
                                 placeholder="Kevin Bramasta">
                         </div>
                         <div class="w-full">
                             <label for="phone-input" class="block mb-2 text-sm font-medium">Phone</label>
-                            <input type="tel" id="phone-input" name="phone"
-                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                            <input type="tel" id="phone-input" name="phone" :disabled="selectedRole !== 'student'"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none"
                                 placeholder="08821323133">
                         </div>
                         <div class="w-full">
                             <label for="semester-input" class="block mb-2 text-sm font-medium">Semester</label>
-                            <input type="text" id="semester-input" name="semester"
-                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                            <input type="text" id="semester-input" name="semester" :disabled="selectedRole !== 'student'"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none"
                                 placeholder="6 (Semester)">
                         </div>
                     </div>
@@ -94,20 +94,21 @@
                         <hr class="my-4 border-gray-200">
                         <div class="w-full">
                             <label for="supervisor-name-input" class="block mb-2 text-sm font-medium">Name</label>
-                            <input type="text" id="supervisor-name-input" name="name"
-                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                            <input type="text" id="supervisor-name-input" name="name" :disabled="selectedRole !== 'supervisor'"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none"
                                 placeholder="Dr. John Doe">
                         </div>
                         <div class="w-full">
                             <label for="supervisor-phone-input" class="block mb-2 text-sm font-medium">Phone</label>
-                            <input type="tel" id="supervisor-phone-input" name="phone"
-                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                            <input type="tel" id="supervisor-phone-input" name="phone" :disabled="selectedRole !== 'supervisor'"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none"
                                 placeholder="08821323133">
                         </div>
                         <div class="w-full">
-                            <label for="teaching-start-year-input" class="block mb-2 text-sm font-medium">Teaching Start Year</label>
-                            <input type="number" id="teaching-start-year-input" name="teaching_start_year"
-                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                            <label for="teaching-start-year-input" class="block mb-2 text-sm font-medium">Teaching
+                                Start Year</label>
+                            <input type="number" id="teaching-start-year-input" name="teaching_start_year" :disabled="selectedRole !== 'supervisor'"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none"
                                 placeholder="2024" min="1990" max="2030">
                         </div>
                     </div>
@@ -115,14 +116,14 @@
                         <hr class="my-4 border-gray-200">
                         <div class="w-full">
                             <label for="admin-name-input" class="block mb-2 text-sm font-medium">Name</label>
-                            <input type="text" id="admin-name-input" name="name"
-                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                            <input type="text" id="admin-name-input" name="name" :disabled="selectedRole !== 'admin'"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none"
                                 placeholder="John Smith">
                         </div>
                         <div class="w-full">
                             <label for="admin-phone-input" class="block mb-2 text-sm font-medium">Phone</label>
-                            <input type="tel" id="admin-phone-input" name="phone"
-                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                            <input type="tel" id="admin-phone-input" name="phone" :disabled="selectedRole !== 'admin'"
+                                class="block px-4 py-2.5 w-full rounded-lg border border-gray-200 sm:py-3 sm:text-sm focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none"
                                 placeholder="08821323133">
                         </div>
                     </div>
@@ -159,8 +160,8 @@
                     aria-label="Close" data-hs-overlay="#hs-add-company-modal">
                     <span class="sr-only">Close</span>
                     <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 6 6 18"></path>
                         <path d="m6 6 12 12"></path>
                     </svg>

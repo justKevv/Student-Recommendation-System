@@ -27,5 +27,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => 1,
             'employee_id' => 1,
         ]);
+
+        // User::factory(20)->create();
     }
 }

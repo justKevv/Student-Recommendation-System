@@ -14,11 +14,11 @@
 </div>
 
 @if(session('admin_password'))
-<div class="mt-4 p-4 rounded-lg border" style="background-color: var(--color-approved); border-color: #9BB5B0; color: #2D5A52;">
-    <h3 class="font-bold text-lg mb-2">Admin Account Created Successfully!</h3>
+<div class="p-4 mt-4 rounded-lg border" style="background-color: var(--color-approved); border-color: #9BB5B0; color: #2D5A52;">
+    <h3 class="mb-2 text-lg font-bold">Admin Account Created Successfully!</h3>
     <p><strong>Email:</strong> {{ session('admin_email') }}</p>
-    <p><strong>Password:</strong> <span class="font-mono bg-white px-2 py-1 rounded border">{{ session('admin_password') }}</span></p>
-    <p class="text-sm mt-2" style="color: #1F4A42;">⚠️ Please save these credentials securely. The password will not be shown again.</p>
+    <p><strong>Password:</strong> <span class="px-2 py-1 font-mono bg-white rounded border">{{ session('admin_password') }}</span></p>
+    <p class="mt-2 text-sm" style="color: #1F4A42;">⚠️ Please save these credentials securely. The password will not be shown again.</p>
 </div>
 @endif
 
@@ -68,18 +68,32 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($users as $user_individual)
-                        <x-admin.user.item no="{{ $loop->iteration }}" name="{{ $user_individual->name }}" email="{{ $user_individual->email }}" phone="{{ $user_individual->phone }}" role="{{ $user_individual->role }}" :user="$user_individual"/>
+                        <x-admin.user.item no="{{ $users->firstItem() + $loop->index }}" name="{{ $user_individual->name }}" email="{{ $user_individual->email }}" phone="{{ $user_individual->phone }}" role="{{ $user_individual->role }}" :user="$user_individual"/>
                     @endforeach
                 </tbody>
             </table>
         </div>
         <nav class="flex justify-center mt-6">
             <ul class="flex space-x-2">
-                <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Prev</span></li>
-                <li><span class="px-3 py-1 bg-gray-900 rounded-full text-main5">1</span></li>
-                <li><span class="px-3 py-1 rounded-full cursor-pointer text-main">2</span></li>
-                <li><span class="px-3 py-1 rounded-full cursor-pointer text-main">3</span></li>
-                <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Next</span></li>
+                @if ($users->onFirstPage())
+                    <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Prev</span></li>
+                @else
+                    <li><a href="{{ $users->previousPageUrl() }}" class="px-3 py-1 rounded-full cursor-pointer text-main hover:bg-gray-100">Prev</a></li>
+                @endif
+
+                @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
+                    @if ($page == $users->currentPage())
+                        <li><span class="px-3 py-1 bg-gray-900 rounded-full text-main5">{{ $page }}</span></li>
+                    @else
+                        <li><a href="{{ $url }}" class="px-3 py-1 rounded-full cursor-pointer text-main hover:bg-gray-100">{{ $page }}</a></li>
+                    @endif
+                @endforeach
+
+                @if ($users->hasMorePages())
+                    <li><a href="{{ $users->nextPageUrl() }}" class="px-3 py-1 rounded-full cursor-pointer text-main hover:bg-gray-100">Next</a></li>
+                @else
+                    <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Next</span></li>
+                @endif
             </ul>
         </nav>
     </div>
@@ -108,10 +122,6 @@
                         <th class="px-6 py-3 text-sm font-bold text-left uppercase cursor-pointer select-none text-main"
                             onclick="sortTable(4, 'companyTable')">
                             Email <span class="ml-1 text-sm">&#8597;</span>
-                        </th>
-                        <th class="px-6 py-3 text-sm font-bold text-left uppercase cursor-pointer select-none text-main"
-                            onclick="sortTable(5, 'companyTable')">
-                            Status <span class="ml-1 text-sm">&#8597;</span>
                         </th>
                         <th class="px-6 py-3 text-sm font-bold text-center uppercase text-main">
                             Action

@@ -37,7 +37,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-800">Name</label>
                                 <input type="text" id="name-{{ $no }}" name="name"
                                     value="{{ $user->name ?? '' }}"
-                                    class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                    class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none"
                                     required>
                                 <p class="mt-1 text-xs text-transparent">Placeholder text for alignment</p>
                             </div>
@@ -48,7 +48,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-800">Email</label>
                                 <input type="email" id="email-{{ $no }}" name="email"
                                     value="{{ $user->email ?? '' }}"
-                                    class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                    class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none"
                                     readonly disabled>
                                 <p class="mt-1 text-xs text-gray-500">Email cannot be changed</p>
                             </div>
@@ -59,7 +59,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-800">Phone</label>
                                 <input type="text" id="phone-{{ $no }}" name="phone"
                                     value="{{ $user->phone ?? '' }}"
-                                    class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                    class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none">
                                 <p class="mt-1 text-xs text-transparent">Placeholder text for alignment</p>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                                         class="block mb-2 text-sm font-medium text-gray-800">NIM</label>
                                     <input type="text" id="nim-{{ $no }}" name="nim"
                                         value="{{ $user->student->nim ?? '' }}"
-                                        class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                        class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none"
                                         readonly disabled>
                                     <p class="mt-1 text-xs text-gray-500">NIM cannot be changed</p>
                                 </div>
@@ -85,7 +85,7 @@
                                     <label for="study_program-{{ $no }}"
                                         class="block mb-2 text-sm font-medium text-gray-800">Study Program</label>
                                     <select id="study_program-{{ $no }}" name="study_program"
-                                        class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                        class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none">
                                         <option value="informatics_engineering"
                                             {{ ($user->student->study_program ?? '') === 'Informatics Engineering' ? 'selected' : '' }}>
                                             Informatics Engineering</option>
@@ -101,7 +101,7 @@
                                     <label for="semester-{{ $no }}"
                                         class="block mb-2 text-sm font-medium text-gray-800">Semester</label>
                                     <select id="semester-{{ $no }}" name="semester"
-                                        class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                        class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none">
                                         <option value="">Select Semester</option>
                                         @for ($i = 1; $i <= 8; $i++)
                                             <option value="{{ $i }}"
@@ -112,14 +112,14 @@
                                 </div>
                             @else
                                 <h4 class="pb-2 font-semibold text-gray-800 border-b">{{ ucfirst($role) }} Information</h4>
-                                
+
                                 <!-- Role -->
                                 <div>
                                     <label for="role-{{ $no }}"
                                         class="block mb-2 text-sm font-medium text-gray-800">Role</label>
                                     <input type="text" id="role-{{ $no }}" name="role"
                                         value="{{ ucfirst($user->role) }}"
-                                        class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                        class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none"
                                         readonly disabled>
                                     <p class="mt-1 text-xs text-gray-500">Role cannot be changed</p>
                                 </div>
@@ -130,7 +130,7 @@
                                         class="block mb-2 text-sm font-medium text-gray-800">Account Created</label>
                                     <input type="text" id="created_at-{{ $no }}" name="created_at"
                                         value="{{ $user->created_at ? $user->created_at->format('M d, Y') : 'N/A' }}"
-                                        class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                        class="block px-4 py-3 w-full text-sm rounded-lg border border-gray-200 focus:border-yellowgoon focus:ring-yellowgoon disabled:opacity-50 disabled:pointer-events-none"
                                         readonly disabled>
                                     <p class="mt-1 text-xs text-gray-500">Account creation date</p>
                                 </div>
@@ -150,7 +150,7 @@
                         Cancel
                     </button>
                     <button type="submit"
-                        class="inline-flex gap-x-2 items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg border border-transparent hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                        class="inline-flex gap-x-2 items-center px-3 py-2 text-sm font-medium rounded-lg border border-transparent text-yellowgoon bg-main hover:bg-neutral-700 focus:outline-none focus:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none">
                         Save Changes
                     </button>
                 </div>
