@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Company;
+use App\Models\Internship;
 use App\Models\Supervisors;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -28,6 +30,8 @@ class DatabaseSeeder extends Seeder
             'employee_id' => 1,
         ]);
 
-        // User::factory(20)->create();
+        Company::factory(10)
+            ->has(Internship::factory()->count(3))
+            ->create();
     }
 }

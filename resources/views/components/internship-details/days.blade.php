@@ -1,16 +1,22 @@
 @props([
-    'days' => 8,
-    'format' => 'days'
+    'due' => '8 Days Left'
 ])
+
+@php
+    // Extract number and text from the due string
+    preg_match('/(\d+)\s*(.*)/', $due, $matches);
+    $number = $matches[1] ?? '8';
+    $text = $matches[2] ?? 'Days Left';
+@endphp
 
 {{-- resources/views/components/interman/days.blade.php --}}
 <div class="flex overflow-hidden flex-col w-20 bg-white rounded-lg shadow-md">
     {{-- Bagian atas untuk angka (background putih) --}}
     <div class="flex flex-grow justify-center items-center py-4">
-        <p class="text-4xl font-bold text-neutral-900">{{ $days }}</p>
+        <p class="text-4xl font-bold text-neutral-900">{{ $number }}</p>
     </div>
     {{-- Bagian bawah untuk "Days Left" (background abu-abu muda) --}}
     <div class="flex justify-center items-center py-2 bg-neutral-100">
-        <p class="text-xs text-neutral-800">{{ Str::ucfirst($format) }} Left</p>
+        <p class="text-xs text-neutral-800">{{ ucfirst($text) }}</p>
     </div>
 </div>

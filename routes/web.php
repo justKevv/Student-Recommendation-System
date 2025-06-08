@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ManagementController;
-use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\HistoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -51,20 +51,26 @@ Route::middleware('auth')->group(function () {
     Route::get('/history', [HistoryController::class, 'index'])->name('history');
 
     // Supervisor Routes
-    Route::get('/company', [CompanyController::class, 'index'])->name('company');
+    Route::get('/company', [CompaniesController::class, 'index'])->name('company');
     Route::post('/profile/update-expertise-areas', [ProfileController::class, 'updateExpertiseAreas'])->name('profile.update-expertise-areas');
     Route::post('/profile/update-research-interests', [ProfileController::class, 'updateResearchInterests'])->name('profile.update-research-interests');
 
     // Admin Routes
     Route::get('/internship-management', [InternshipController::class, 'index'])->name('internship.management');
+    Route::post('/internships', [InternshipController::class, 'store'])->name('internships.store');
     Route::get('/user-management', [ManagementController::class, 'index'])->name('user.management');
     Route::post('/user-management', [ManagementController::class, 'store'])->name('user.management.store');
     Route::put('/user-management/{id}', [ManagementController::class, 'update'])->name('user.management.update');
     Route::delete('/user-management/{id}', [ManagementController::class,'destroy'])->name('user.management.destroy');
+    Route::post('/admin/companies', [ManagementController::class, 'storeCompany'])->name('admin.companies.store');
+    Route::put('/admin/companies/{id}', [ManagementController::class, 'updateCompany'])->name('admin.companies.update');
+    Route::delete('/admin/companies/{id}', [ManagementController::class, 'destroyCompany'])->name('admin.companies.destroy');
+    Route::put('/internships/{internship}', [InternshipController::class, 'update'])->name('internships.update');
+    Route::delete('/internships/{internship}', [InternshipController::class, 'destroy'])->name('internships.destroy');
 
-    Route::get('/detail-job', function () {
-        return view('interman');
-    })->name('detail.job');
+    Route::get('/detail-company/{company}', [CompaniesController::class, 'show'])->name('detail.company');
+
+    Route::get('/detail-job/{slug}', [InternshipController::class, 'show'])->name('detail.job');
 
     Route::get('/admin', function () {
         return view('admin');
@@ -74,9 +80,6 @@ Route::middleware('auth')->group(function () {
         return view('studup');
     })->name('student-detail');
 
-    Route::get('/detail-company', function () {
-        return view('company');
-    })->name('detail.company');
 
     Route::get('/detail-application', function () {
         return view('stuinteradm');
