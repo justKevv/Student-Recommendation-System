@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Admin;
+use App\Models\Company;
+use ImageKit\ImageKit;
 use App\Models\Student;
 use App\Models\Supervisors;
 use App\Models\User;
@@ -21,7 +23,10 @@ class ManagementController extends \App\Http\Controllers\Controller
     {
         $user = Auth::user();
         $users = User::paginate(10);
-        return view('manage', compact('user', 'users'));
+        $companies = Company::paginate(10);
+
+
+        return view('manage', compact('user', 'users', 'companies'));
     }
 
     /**
@@ -121,6 +126,176 @@ class ManagementController extends \App\Http\Controllers\Controller
         }
 
         return redirect()->route('user.management');
+    }
+
+    public function storeCompany(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'industry_field' => 'required|string|max:255',
+            'address' => 'required|string',
+            'city' => 'required|string|max:100',
+            'province' => 'required|string|max:100',
+            'postal_code' => 'required|string|max:20',
+            'website' => 'nullable|string|max:255',
+            'email' => 'required|email|unique:companies,email',
+            'description' => 'nullable|string',
+            'nice_to_have' => 'nullable|string',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        $companyData = $request->only([
+            'name',
+            'industry_field',
+            'address',
+            'city',
+            'province',
+            'postal_code',
+            'website',
+            'email',
+            'description'
+        ]);
+
+        if ($request->filled('nice_to_have')) {
+            $lines = array_filter(preg_split('/\r\n|\r|\n/', $request->nice_to_have), function ($line) {
+                return trim($line) !== '';
+            });
+            $companyData['nice_to_have'] = array_values($lines);
+        }
+
+        $companyData['profile_picture'] = 'https://ik.imagekit.io/1qy6epne0l/next-step/assets/user/blank-profile-picture-973460_1920.png';
+
+        $company = Company::create($companyData);
+
+        if ($request->hasFile('profile_picture')) {
+            try {
+                $imageKit = new ImageKit(
+                    env('IMAGEKIT_PUBLIC_KEY'),
+                    env('IMAGEKIT_PRIVATE_KEY'),
+                    env('IMAGEKIT_URL_ENDPOINT')
+                );
+                $file = $request->file('profile_picture');
+                $fileName = 'company_profile_' . $company->id;
+                $folderPath = '/next-step/companies/company_profile/';
+
+                $uploadFile = $imageKit->uploadFile([
+                    'file' => fopen($file->getRealPath(), 'r'),
+                    'fileName' => $fileName,
+                    'folder' => $folderPath,
+                    'useUniqueFileName' => false,
+                    'overwriteFile' => true,
+                ]);
+
+                if ($uploadFile && isset($uploadFile->result)) {
+                    $fileDetails = $imageKit->getFileDetails($uploadFile->result->fileId);
+                    if ($fileDetails && isset($fileDetails->result)) {
+                        $company->profile_picture = $fileDetails->result->url;
+                        $company->save();
+                    }
+                }
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'Profile picture upload failed: ' . $e->getMessage())->withInput();
+            }
+        }
+
+        return redirect()->route('user.management')->with('success', 'Company added successfully!');
+    }
+
+    public function updateCompany(Request $request, string $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'industry_field' => 'required|string|max:255',
+            'address' => 'required|string',
+            'city' => 'required|string|max:100',
+            'province' => 'required|string|max:100',
+            'postal_code' => 'required|string|max:20',
+            'website' => 'nullable|string|max:255',
+            'email' => 'required|email|unique:companies,email,' . $id,
+            'description' => 'nullable|string',
+            'nice_to_have' => 'nullable|string',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        $company = Company::findOrFail($id);
+
+        $data = $request->only([
+            'name',
+            'industry_field',
+            'address',
+            'city',
+            'province',
+            'postal_code',
+            'website',
+            'email',
+            'description'
+        ]);
+
+        if ($request->filled('nice_to_have')) {
+            $lines = array_filter(preg_split('/\r\n|\r|\n/', $request->nice_to_have), function ($line) {
+                return trim($line) !== '';
+            });
+            $data['nice_to_have'] = array_values($lines);
+        } else {
+            $data['nice_to_have'] = [];
+        }
+
+        if ($request->hasFile('profile_picture')) {
+            try {
+                // Initialize ImageKit
+                $imageKit = new ImageKit(
+                    env('IMAGEKIT_PUBLIC_KEY'),
+                    env('IMAGEKIT_PRIVATE_KEY'),
+                    env('IMAGEKIT_URL_ENDPOINT')
+                );
+
+                $file = $request->file('profile_picture');
+
+                // Create a consistent filename for the company
+                $fileName = 'company_profile_' . $company->id;
+                $folderPath = '/next-step/companies/company_profile/';
+
+                // Upload to ImageKit with overwrite enabled
+                $uploadFile = $imageKit->uploadFile([
+                    'file' => fopen($file->getRealPath(), 'r'),
+                    'fileName' => $fileName,
+                    'folder' => $folderPath,
+                    'useUniqueFileName' => false, // Keep same filename
+                    'overwriteFile' => true,      // Replace existing file
+                    'overwriteAITags' => true,
+                    'overwriteTags' => true,
+                    'overwriteCustomMetadata' => true
+                ]);
+
+                if ($uploadFile && isset($uploadFile->result)) {
+                    // Get the file ID from upload response
+                    $fileId = $uploadFile->result->fileId;
+
+                    // Fetch complete file details to get URL with updatedAt parameter
+                    $fileDetails = $imageKit->getFileDetails($fileId);
+
+                    if ($fileDetails && isset($fileDetails->result)) {
+                        $data['profile_picture'] = $fileDetails->result->url;
+                    }
+                } else {
+                    return redirect()->back()->with('error', 'Failed to upload profile picture')->withInput();
+                }
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'Profile picture update failed: ' . $e->getMessage())->withInput();
+            }
+        }
+
+        $company->update($data);
+
+        return redirect()->back()->with('success', 'Company updated successfully!');
+    }
+
+    public function destroyCompany(string $id)
+    {
+        $company = Company::findOrFail($id);
+        $company->delete();
+
+        return redirect()->back()->with('success', 'Company deleted successfully!');
     }
 
     /**

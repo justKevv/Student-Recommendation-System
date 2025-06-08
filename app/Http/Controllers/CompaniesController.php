@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class CompaniesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,15 +35,28 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($company)
     {
-        //
+        $user = app('current.user');
+
+        if (is_numeric($company)) {
+            $companyData = Company::with(['internships' => function($query) {
+                $query->with('company');
+            }])->findOrFail($company);
+        } else {
+            $companyName = str_replace('-', ' ', $company);
+            $companyData = Company::with(['internships' => function($query) {
+                $query->with('company');
+            }])->where('name', 'LIKE', '%' . $companyName . '%')->firstOrFail();
+        }
+
+        return view('company', compact('companyData', 'user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Company $company)
     {
         //
     }
@@ -50,7 +64,7 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Company $company)
     {
         //
     }
@@ -58,7 +72,7 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Company $company)
     {
         //
     }

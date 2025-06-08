@@ -14,7 +14,7 @@
       <div class="absolute left-0 inset-y-4 mb-52 w-2 bg-yellowgoon"></div>
 
       <div class="p-6 ml-2">
-          <h2 class="mb-4 text-xl font-semibold text-gray-800">Nice to have</h2>
+          <h2 class="mb-4 text-xl font-semibold text-gray-800">Nice to Have</h2>
           <ul class="space-y-2 text-base list-disc list-inside text-gray-700">
               @foreach($items as $item)
                   <li>{{ $item }}</li>

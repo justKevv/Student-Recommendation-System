@@ -1,7 +1,6 @@
-@extends('layout.app', [
-    'userName' => 'Yuma Akhansa',
-    'userProfileImage' => 'https://placehold.co/50x50'
-])
+
+
+@extends('layout.app')
 
 @section('title')
     Manage User
@@ -129,20 +128,33 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    <x-admin.company.item no="1" name="Acme Corp" industry_field="Technology" city="New York" email="contact@acme.com" :is_active="true" />
-                    <x-admin.company.item no="2" name="Beta Solutions" industry_field="Consulting" city="San Francisco" email="info@betasolutions.com" :is_active="true" />
-                    <x-admin.company.item no="3" name="Gamma Industries" industry_field="Manufacturing" city="Chicago" email="hello@gamma.com" :is_active="false" />
-                    <x-admin.company.item no="4" name="Delta Corp" industry_field="Finance" city="Boston" email="contact@delta.com" :is_active="true" />
+                    @foreach ($companies as $company)
+                        <x-admin.company.item no="{{ $companies->firstItem() + $loop->index }}" name="{{ $company->name }}" industry_field="{{ Str::title(str_replace('_', ' ', $company->industry_field)) }}" city="{{ $company->city }}" email="{{ $company->email }}" :company="$company"/>
+                    @endforeach
                 </tbody>
             </table>
         </div>
         <nav class="flex justify-center mt-6">
             <ul class="flex space-x-2">
-                <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Prev</span></li>
-                <li><span class="px-3 py-1 bg-gray-900 rounded-full text-main5">1</span></li>
-                <li><span class="px-3 py-1 rounded-full cursor-pointer text-main">2</span></li>
-                <li><span class="px-3 py-1 rounded-full cursor-pointer text-main">3</span></li>
-                <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Next</span></li>
+                @if ($companies->onFirstPage())
+                    <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Prev</span></li>
+                @else
+                    <li><a href="{{ $companies->previousPageUrl() }}" class="px-3 py-1 rounded-full cursor-pointer text-main hover:bg-gray-100">Prev</a></li>
+                @endif
+
+                @foreach ($companies->getUrlRange(1, $companies->lastPage()) as $page => $url)
+                    @if ($page == $companies->currentPage())
+                        <li><span class="px-3 py-1 bg-gray-900 rounded-full text-main5">{{ $page }}</span></li>
+                    @else
+                        <li><a href="{{ $url }}" class="px-3 py-1 rounded-full cursor-pointer text-main hover:bg-gray-100">{{ $page }}</a></li>
+                    @endif
+                @endforeach
+
+                @if ($companies->hasMorePages())
+                    <li><a href="{{ $companies->nextPageUrl() }}" class="px-3 py-1 rounded-full cursor-pointer text-main hover:bg-gray-100">Next</a></li>
+                @else
+                    <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Next</span></li>
+                @endif
             </ul>
         </nav>
     </div>
