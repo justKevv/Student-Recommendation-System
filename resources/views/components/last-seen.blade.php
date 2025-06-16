@@ -20,7 +20,7 @@
                 <div class="absolute inset-0 transition-all duration-300 bg-black/0 group-hover:bg-black/10"></div>
             </div>
             <div class="flex flex-col gap-1">
-                <h3 class="text-zinc-800 text-base font-medium font-['Poppins'] line-clamp-1 group-hover:text-yellowgoon transition-colors duration-300">
+                <h3 class="text-main text-base font-medium font-['Poppins'] line-clamp-1 group-hover:text-yellowgoon transition-colors duration-300">
                     {{ $position }}
                 </h3>
                 <p class="text-zinc-600 text-xs font-normal font-['Poppins'] opacity-75">
@@ -51,7 +51,7 @@
              src="{{ $companyLogo ?? $imageUrl }}"
              alt="{{ $companies }}"
              loading="lazy" />
-        <span class="text-zinc-800 text-xs font-normal font-['Poppins'] truncate">
+        <span class="text-main text-xs font-normal font-['Poppins'] truncate">
             {{ $companies }}
         </span>
     </div>

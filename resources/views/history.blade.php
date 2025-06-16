@@ -52,19 +52,41 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @for ($i = 0; $i < 10; $i++)
-                        <x-history.item no="{{ $i + 1 }}" status="{{ collect(['pending', 'accepted', 'rejected'])->random() }}" href="{{ route('detail.company') }}" />
-                    @endfor
+                    @foreach ($histories as $history)
+                        <x-history.item
+                            no="{{ $histories->firstItem() + $loop->index }}"
+                            status="{{ $history->status }}"
+                            company="{{ $history->internship->company->name }}"
+                            position="{{ $history->internship->title }}"
+                            location="{{ $history->internship->location  }}"
+                            type="{{ $history->internship->type }}"
+                            date="{{ $history->created_at->format('M j, Y') }}"
+                            href="{{ route('detail.company', Str::slug($history->internship->company->name)) }}" />
+                    @endforeach
                 </tbody>
             </table>
         </div>
         <nav class="flex justify-center mt-6">
             <ul class="flex space-x-2">
-                <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Prev</span></li>
-                <li><span class="px-3 py-1 bg-gray-900 rounded-full text-main5">1</span></li>
-                <li><span class="px-3 py-1 text-gray-700 rounded-full cursor-pointer">2</span></li>
-                <li><span class="px-3 py-1 text-gray-700 rounded-full cursor-pointer">3</span></li>
-                <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Next</span></li>
+                @if ($histories->onFirstPage())
+                    <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Prev</span></li>
+                @else
+                    <li><a href="{{ $histories->previousPageUrl() }}" class="px-3 py-1 rounded-full cursor-pointer text-main hover:bg-gray-100">Prev</a></li>
+                @endif
+
+                @foreach ($histories->getUrlRange(1, $histories->lastPage()) as $page => $url)
+                    @if ($page == $histories->currentPage())
+                        <li><span class="px-3 py-1 bg-gray-900 rounded-full text-main5">{{ $page }}</span></li>
+                    @else
+                        <li><a href="{{ $url }}" class="px-3 py-1 rounded-full cursor-pointer text-main hover:bg-gray-100">{{ $page }}</a></li>
+                    @endif
+                @endforeach
+
+                @if ($histories->hasMorePages())
+                    <li><a href="{{ $histories->nextPageUrl() }}" class="px-3 py-1 rounded-full cursor-pointer text-main hover:bg-gray-100">Next</a></li>
+                @else
+                    <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Next</span></li>
+                @endif
             </ul>
         </nav>
     </div>

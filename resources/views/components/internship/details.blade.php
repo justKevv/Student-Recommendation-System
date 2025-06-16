@@ -22,6 +22,6 @@
                     fill="#757575" />
             </svg>
         </div>
-        <div class="justify-start text-neutral-700 text-sm font-normal font-['Poppins']">{{ $due }} left</div>
+        <div class="justify-start text-neutral-700 text-sm font-normal font-['Poppins']">{{ $due }}</div>
     </div>
 </div>

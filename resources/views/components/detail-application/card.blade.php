@@ -5,8 +5,20 @@
     'profile' => 'https://placehold.co/65x65',
     'applied' => 0,
     'due' => '0 days',
-    'href' => '#'
+    'href' => '#',
+    'students' => collect()
 ])
+
+@php
+    // Group students by study program and count them
+    $studyProgramCounts = $students->groupBy('study_program')->map(function($group) {
+        return $group->count();
+    });
+
+    // Get the first study program as default
+    $defaultProgram = $studyProgramCounts->keys()->first() ?? 'Informatics Engineering';
+    $defaultCount = $studyProgramCounts->get($defaultProgram, 0);
+@endphp
 
 <div class="w-[990px] h-[260px] px-5 py-5 bg-white rounded-[20px] inline-flex flex-col justify-start items-start gap-5">
     <x-internship.location location="{{ $location }}" />
@@ -15,15 +27,15 @@
 
     <div class="relative">
       <div id="departmentDropdown" class="size- px-2.5 py-2 bg-zinc-800 rounded-[20px] inline-flex justify-center items-center gap-2 cursor-pointer hover:bg-zinc-700 transition-colors">
-        <div class="flex gap-2 justify-center items-center size-">
+        <div class="flex items-center justify-center gap-2 size-">
           <div class="size- flex justify-center items-center gap-[3px]">
             <div data-svg-wrapper class="relative">
               <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M11.557 8.67471C12.0632 7.96742 12.3354 7.11947 12.3354 6.24971C12.3354 5.37994 12.0632 4.53199 11.557 3.82471C12.031 3.50181 12.5918 3.33037 13.1654 3.33304C13.9389 3.33304 14.6808 3.64033 15.2278 4.18731C15.7747 4.73429 16.082 5.47616 16.082 6.24971C16.082 7.02325 15.7747 7.76512 15.2278 8.3121C14.6808 8.85908 13.9389 9.16637 13.1654 9.16637C12.5918 9.16904 12.031 8.9976 11.557 8.67471ZM5.2487 6.24971C5.2487 5.67284 5.41976 5.10894 5.74024 4.62929C6.06073 4.14965 6.51625 3.77581 7.0492 3.55506C7.58216 3.3343 8.1686 3.27654 8.73438 3.38908C9.30016 3.50162 9.81986 3.77941 10.2278 4.18731C10.6357 4.59521 10.9134 5.11491 11.026 5.68069C11.1385 6.24647 11.0808 6.83291 10.86 7.36587C10.6393 7.89882 10.2654 8.35434 9.78578 8.67483C9.30614 8.99531 8.74223 9.16637 8.16536 9.16637C7.39182 9.16637 6.64995 8.85908 6.10297 8.3121C5.55599 7.76512 5.2487 7.02325 5.2487 6.24971ZM6.91536 6.24971C6.91536 6.49693 6.98868 6.73861 7.12603 6.94417C7.26338 7.14973 7.4586 7.30995 7.68701 7.40455C7.91542 7.49916 8.16675 7.52392 8.40923 7.47569C8.6517 7.42746 8.87443 7.3084 9.04925 7.13359C9.22406 6.95877 9.34312 6.73604 9.39135 6.49357C9.43958 6.25109 9.41482 5.99976 9.32021 5.77135C9.22561 5.54294 9.06539 5.34772 8.85983 5.21037C8.65427 5.07302 8.41259 4.99971 8.16536 4.99971C7.83384 4.99971 7.5159 5.1314 7.28148 5.36582C7.04706 5.60024 6.91536 5.91818 6.91536 6.24971ZM13.9987 14.1664V15.833H2.33203V14.1664C2.33203 14.1664 2.33203 10.833 8.16536 10.833C13.9987 10.833 13.9987 14.1664 13.9987 14.1664ZM12.332 14.1664C12.2154 13.5164 11.2237 12.4997 8.16536 12.4997C5.10703 12.4997 4.05703 13.5914 3.9987 14.1664M13.957 10.833C14.4678 11.2303 14.8854 11.7346 15.1805 12.3104C15.4756 12.8863 15.6411 13.5198 15.6654 14.1664V15.833H18.9987V14.1664C18.9987 14.1664 18.9987 11.1414 13.9487 10.833H13.957Z" fill="white"/>
               </svg>
             </div>
-            <div class="flex gap-1 justify-center items-center">
-              <span id="registerCount" class="text-white text-xs font-normal font-['Poppins']">3</span>
+            <div class="flex items-center justify-center gap-1">
+              <span id="registerCount" class="text-white text-xs font-normal font-['Poppins']">{{ $defaultCount }}</span>
               <span class="text-white text-xs font-normal font-['Poppins']">Register</span>
             </div>
           </div>
@@ -32,7 +44,7 @@
             <path d="M0.666016 0.5L0.666017 20.5" stroke="white" stroke-opacity="0.5" stroke-linecap="round"/>
             </svg>
           </div>
-          <div id="departmentName" class="w-44 text-center justify-center text-white text-xs font-normal font-['Poppins']">D-IV Information Technology</div>
+          <div id="departmentName" class="w-44 text-center justify-center text-white text-xs font-normal font-['Poppins']">D-IV {{ $defaultProgram }}</div>
         </div>
         <div id="dropdownArrow" data-svg-wrapper class="transition-transform duration-200">
           <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,26 +56,17 @@
       <!-- Dropdown Menu -->
       <div id="dropdownMenu" class="absolute top-full left-0 mt-2 w-full bg-main rounded-[10px] shadow-lg border border-neutral-200 z-10 hidden">
         <div class="py-2">
-          <div class="flex justify-between items-center px-4 py-2 cursor-pointer dropdown-item hover:bg-neutral-700" data-count="3" data-department="D-IV Information Technology">
-            <span class="text-white text-xs font-normal font-['Poppins']">D-IV Information Technology</span>
-            <span class="text-white text-xs font-normal font-['Poppins']">3 Register</span>
-          </div>
-          <div class="flex justify-between items-center px-4 py-2 cursor-pointer dropdown-item hover:bg-neutral-700" data-count="5" data-department="D-III Computer Science">
-            <span class="text-white text-xs font-normal font-['Poppins']">D-III Computer Science</span>
-            <span class="text-white text-xs font-normal font-['Poppins']">5 Register</span>
-          </div>
-          <div class="flex justify-between items-center px-4 py-2 cursor-pointer dropdown-item hover:bg-neutral-700" data-count="2" data-department="D-IV Software Engineering">
-            <span class="text-white text-xs font-normal font-['Poppins']">D-IV Software Engineering</span>
-            <span class="text-white text-xs font-normal font-['Poppins']">2 Register</span>
-          </div>
-          <div class="flex justify-between items-center px-4 py-2 cursor-pointer dropdown-item hover:bg-neutral-700" data-count="7" data-department="D-III Information Systems">
-            <span class="text-white text-xs font-normal font-['Poppins']">D-III Information Systems</span>
-            <span class="text-white text-xs font-normal font-['Poppins']">7 Register</span>
-          </div>
-          <div class="flex justify-between items-center px-4 py-2 cursor-pointer dropdown-item hover:bg-neutral-700" data-count="4" data-department="D-IV Data Science">
-            <span class="text-white text-xs font-normal font-['Poppins']">D-IV Data Science</span>
-            <span class="text-white text-xs font-normal font-['Poppins']">4 Register</span>
-          </div>
+          @forelse($studyProgramCounts as $program => $count)
+            <div class="flex items-center justify-between px-4 py-2 cursor-pointer dropdown-item hover:bg-neutral-700" data-count="{{ $count }}" data-department="{{ $program }}">
+              <span class="text-white text-xs font-normal font-['Poppins']">{{ $program }}</span>
+              <span class="text-white text-xs font-normal font-['Poppins']">{{ $count }} Register</span>
+            </div>
+          @empty
+            <div class="flex items-center justify-between px-4 py-2 cursor-pointer dropdown-item hover:bg-neutral-700" data-count="0" data-department="No Applications">
+              <span class="text-white text-xs font-normal font-['Poppins']">No Applications</span>
+              <span class="text-white text-xs font-normal font-['Poppins']">0 Register</span>
+            </div>
+          @endforelse
         </div>
       </div>
     </div>

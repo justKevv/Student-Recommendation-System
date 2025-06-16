@@ -13,21 +13,29 @@
 <body class="overflow-y-auto bg-dashboard font-['Poppins']">
     <div class="w-full max-w-full mx-auto xl:max-w-[1440px]">
         <x-topbar
-            :name="$userName ?? 'John Doe'"
-            :profileImage="$userProfileImage ?? 'https://placehold.co/50x50'"
-            :searchBar="false"
+            :name='$user->name'
+            :profileImage='$user->profile_picture'
+            :searchBar="$user->role == 'student'"
         ></x-topbar>
 
         <x-sidebar>
             <x-sidebar-icon href="{{ route('dashboard') }}" is_active="{{ Route::currentRouteName() == 'dashboard' }}">
                 <x-icons.home/>
             </x-sidebar-icon>
-            <x-sidebar-icon href="{{ route('internship') }}" is_active="{{ Route::currentRouteName() == 'internship' }}">
+            <x-sidebar-icon
+                href="{{ $internshipNavigation['href'] }}"
+                is_active="{{ $internshipNavigation['isActive'] }}">
                 <x-icons.internship/>
             </x-sidebar-icon>
-            <x-sidebar-icon href="{{ route('history') }}" is_active="{{ Route::currentRouteName() == 'history' }}" :use_fill="false">
-                <x-icons.history/>
-            </x-sidebar-icon>
+            @if ($userManagementNavigation)
+                <x-sidebar-icon
+                    href="{{ $userManagementNavigation['href'] }}"
+                    is_active="{{ $userManagementNavigation['isActive'] }}"
+                    use_fill="{{ $userManagementNavigation['useFill'] }}"
+                    use_stroke="{{ $userManagementNavigation['useStroke'] }}">
+                    <x-dynamic-component :component="$userManagementNavigation['icon']"/>
+                </x-sidebar-icon>
+            @endif
         </x-sidebar>
 
         <!-- Content Area -->
@@ -37,6 +45,7 @@
             @yield('content')
         </div>
     </div>
+    @stack('scripts')
 </body>
 
 </html>

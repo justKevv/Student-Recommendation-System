@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InternshipApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use ImageKit\ImageKit;
@@ -15,6 +16,14 @@ class ProfileController extends Controller
     public function index()
     {
         $user = app('current.user');
+        if ($user->role == 'student') {
+            $acceptedApplication = InternshipApplication::with(['internship.company'])
+                ->where('student_id', $user->student->id)
+                ->where('status', 'accepted')
+                ->first();
+
+            return view('profile', compact('user', 'acceptedApplication'));
+        }
         return view('profile', compact('user'));
     }
 
@@ -56,7 +65,7 @@ class ProfileController extends Controller
 
             // Create a consistent filename for the user
             $fileName = 'profile_' . $user->id . '.jpg';
-            $folderPath = '/next-step/users/profile_picture/';
+            $folderPath = '/next-step/users/' . $user->role . '/profile_picture/';
 
             // Upload to ImageKit with overwrite enabled
             $uploadFile = $imageKit->uploadFile([
@@ -96,7 +105,6 @@ class ProfileController extends Controller
                 'success' => false,
                 'message' => 'Failed to upload image'
             ], 500);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -122,7 +130,7 @@ class ProfileController extends Controller
 
         if ($user->role === 'supervisor') {
             $request->validate([
-                'phone' => ['required', 'string','max:20']
+                'phone' => ['required', 'string', 'max:20']
             ]);
 
             try {
@@ -132,7 +140,7 @@ class ProfileController extends Controller
 
                 return redirect()->back()->with('success', 'Profile updated successfully');
             } catch (\Throwable $th) {
-                return redirect()->back()->withErrors(['error' => 'Failed to update profile: '. $th->getMessage()]);
+                return redirect()->back()->withErrors(['error' => 'Failed to update profile: ' . $th->getMessage()]);
             }
         }
     }
@@ -145,14 +153,67 @@ class ProfileController extends Controller
         //
     }
 
+    public function updateSkills(Request $request)
+    {
+        $request->validate([
+            'skills' => ['nullable', 'array'],
+            'skills.*' => ['nullable', 'max:255']
+        ]);
+
+        $user = app('current.user');
+        if (!$user->student) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Student profile not found'
+            ], 404);
+        }
+
+        $user->student->update([
+            'skills' => $request->skills ?? []
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Skills updated successfully'
+        ]);
+    }
+
+    /**
+     * Update student preferences for location and internship type
+     */
+    public function updatePreferences(Request $request)
+    {
+        $request->validate([
+            'preferred_location' => ['nullable', 'string', 'max:255'],
+            'preferred_internship_type' => ['nullable', 'string', 'max:255']
+        ]);
+
+        $user = app('current.user');
+
+        if (!$user->student) {
+            return redirect()->back()->withErrors('Student profile not found');
+        }
+
+        try {
+            $user->student->update([
+                'preferred_location' => $request->preferred_location,
+                'preferred_internship_type' => $request->preferred_internship_type
+            ]);
+
+            return redirect()->back()->with('success', 'Preferences updated successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Failed to update preferences: ' . $e->getMessage()]);
+        }
+    }
+
     /**
      * Update research interests for the authenticated user's supervisor profile.
      */
     public function updateResearchInterests(Request $request)
     {
         $request->validate([
-            'research_interests' => ['required', 'array'],
-            'research_interests.*' => ['required', 'max:255']
+            'research_interests' => ['nullable', 'array'],
+            'research_interests.*' => ['nullable', 'max:255']
         ]);
 
         $user = app('current.user');
@@ -165,7 +226,7 @@ class ProfileController extends Controller
         }
 
         $user->supervisor->update([
-            'research_interests' => $request->research_interests
+            'research_interests' => $request->research_interests ?? []
         ]);
 
         return response()->json([
@@ -174,26 +235,59 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function updateExpertiseAreas(Request $request) {
+    public function updateExpertiseAreas(Request $request)
+    {
         $request->validate([
-           'expertise_areas' => ['required', 'array'],
-           'expertise_areas.*' => ['required','max:255']
+            'expertise_areas' => ['nullable', 'array'],
+            'expertise_areas.*' => ['nullable', 'max:255']
         ]);
 
         $user = app('current.user');
         if (!$user->supervisor) {
             return response()->json([
-               'success' => false,
-               'message' => 'Supervisor profile not found'
+                'success' => false,
+                'message' => 'Supervisor profile not found'
             ], 404);
         }
         $user->supervisor->update([
-           'expertise_areas' => $request->expertise_areas
+            'expertise_areas' => $request->expertise_areas ?? []
         ]);
         return response()->json([
-           'success' => true,
+            'success' => true,
             'message' => 'Expertise areas updated successfully'
         ]);
+    }
+
+    /**
+     * Show student profile by slug
+     */
+    public function showStudent($slug)
+    {
+        $user = User::whereHas('student', function ($query) use ($slug) {
+            $query->whereRaw('LOWER(REPLACE(name, " ", "-")) = ?', [strtolower($slug)]);
+        })->with(['student.projects', 'student.experiences', 'student.certificates'])->first();
+
+        if (!$user) {
+            abort(404, 'Student not found');
+        }
+
+        return view('profile', compact('user'));
+    }
+
+    /**
+     * Show supervisor profile by slug
+     */
+    public function showSupervisor($slug)
+    {
+        $user = User::whereHas('supervisor', function ($query) use ($slug) {
+            $query->whereRaw('LOWER(REPLACE(name, " ", "-")) = ?', [strtolower($slug)]);
+        })->with('supervisor')->first();
+
+        if (!$user) {
+            abort(404, 'Supervisor not found');
+        }
+
+        return view('profile', compact('user'));
     }
 
     /**

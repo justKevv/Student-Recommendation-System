@@ -1,4 +1,4 @@
-<div class="w-28 h-7 px-5 py-[5px] bg-pending rounded-[20px] inline-flex justify-center items-center gap-[3px]">
+<div class="w-28 h-9 px-5 py-[5px] bg-pending rounded-[20px] inline-flex justify-center items-center gap-[3px]">
     <div data-svg-wrapper class="relative">
         <svg width="18" height="18" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

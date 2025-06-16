@@ -1,17 +1,16 @@
 @props([
     'title' => 'Continue Looking',
-    'items' => []
 ])
 
 <div class="w-full max-w-[1000px] min-w-[1000px] h-96 relative">
     <!-- Section Header -->
-    <div class="flex items-center justify-between mb-4">
+    <div class="flex justify-between items-center mb-4">
         <h2 class="text-main text-xl font-medium font-['Poppins']">
             {{ $title }}
         </h2>
 
         <!-- Navigation Controls -->
-        <div class="flex items-center gap-3.5">
+        <div class="flex gap-3.5 items-center">
             <button class="size-7 px-[5px] py-[5px] bg-main rounded-[20px] flex justify-center items-center gap-[5px] transition-all duration-300 hover:bg-main/80">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9.36861 1.43148C9.53264 1.59557 9.62479 1.81809 9.62479 2.05011C9.62479 2.28212 9.53264 2.50464 9.36861 2.66873L5.03736 6.99998L9.36861 11.3312C9.52799 11.4963 9.61619 11.7173 9.6142 11.9467C9.6122 12.1761 9.52018 12.3956 9.35795 12.5578C9.19572 12.7201 8.97625 12.8121 8.74683 12.8141C8.51741 12.8161 8.29638 12.7279 8.13136 12.5685L3.18148 7.61861C3.01744 7.45452 2.92529 7.232 2.92529 6.99998C2.92529 6.76796 3.01744 6.54544 3.18148 6.38136L8.13136 1.43148C8.29544 1.26744 8.51796 1.17529 8.74998 1.17529C8.982 1.17529 9.20452 1.26744 9.36861 1.43148Z" fill="#F5F2ED" fill-opacity="0.7" />
@@ -25,7 +24,7 @@
         </div>
     </div>    <!-- Content Container -->
     <div class="w-full h-80 bg-white rounded-[30px] shadow-[0px_0px_20px_0px_rgba(0,0,0,0.05)] p-6">
-        <div class="flex h-full min-w-full gap-6 pb-4 overflow-x-auto no-scrollbar">
+        <div class="flex overflow-x-auto gap-6 pb-4 min-w-full h-full no-scrollbar">
             {{ $slot }}
         </div>
     </div>

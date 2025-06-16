@@ -1,5 +1,5 @@
 @props([
-    'location' => 'Default Location'
+    'location' => 'Default Location',
 ])
 
 <div class="size- inline-flex justify-center items-center gap-[3px]">

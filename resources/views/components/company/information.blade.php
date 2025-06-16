@@ -104,25 +104,5 @@
                 <p class="font-semibold">{{ $updateDate }}</p>
             </div>
         </div>
-        <div class="flex items-center space-x-3">
-            <div
-                class="size-11 p-2.5 bg-stone-100 rounded-[10px] shadow-[0px_4px_20px_0px_rgba(0,0,0,0.05)] inline-flex justify-center items-center gap-2.5">
-                <div class="overflow-hidden relative size-6">
-                    <div data-svg-wrapper class="absolute top-0 left-0">
-                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4.5 5.5H11.5M9.5 3.5V5.5C9.5 9.918 7.261 13.5 4.5 13.5" stroke="#393939"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            <path
-                                d="M5.5 9.5C5.5 11.644 8.452 13.408 12.2 13.5M12.5 20.5L16.5 11.5L20.5 20.5M19.6 18.5H13.4"
-                                stroke="#393939" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <p class="text-xs text-gray-500">Language</p>
-                <p class="font-semibold">{{ $language }} : <span class="font-bold">{{ $languageLevel }}</span></p>
-            </div>
-        </div>
     </div>
 </div>

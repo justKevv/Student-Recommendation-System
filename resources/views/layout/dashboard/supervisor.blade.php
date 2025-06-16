@@ -11,12 +11,24 @@
             </p>
         </div>
     </x-hero-banner>
-<x-supervisor.info title="Active Internship" />
-<x-supervisor.info title="Active Company" />
+<x-supervisor.info title="Active Internship" :count="$activeInternships ?? 0" />
+<x-supervisor.info title="Active Company" :count="$activeCompanies ?? 0" />
 </x-dashboard.layout>
 
-<x-dashboard.student-table>
-@for ($i = 0; $i < 5; $i++)
-    <x-dashboard.student-pill href="{{ route('student-detail') }}" completed="{{ rand(0, 7) }}"/>
-@endfor
+<x-dashboard.student-table :paginator="$supervisedApplications ?? null">
+@if(isset($supervisedApplications) && $supervisedApplications->count() > 0)
+    @foreach($supervisedApplications as $application)
+        <x-dashboard.student-pill
+            href="{{ route('student-detail', $application->student->id) }}"
+            :profile="$application->student->user->profile_picture ?? 'https://placehold.co/55x55'"
+            :name="$application->student->user->name"
+            :role="$application->internship->title . ' at ' . $application->internship->company->name"
+            completed="{{ rand(0, 7) }}"
+        />
+    @endforeach
+@else
+    <div class="py-8 text-center text-gray-500">
+        <p>No supervised students found.</p>
+    </div>
+@endif
 </x-dashboard.student-table>

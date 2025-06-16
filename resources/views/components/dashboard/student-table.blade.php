@@ -1,6 +1,8 @@
+@props(['paginator' => null])
+
 <div
     class="mt-6 mb-12 w-[300px] sm:w-[600px] md:w-[900px] lg:w-[1200px] xl:w-[1460px] px-5 py-3.5 bg-white rounded-[30px] inline-flex flex-col justify-start items-center gap-5">
-    <div class="inline-flex justify-between items-center self-stretch h-10">
+    <div class="inline-flex items-center self-stretch justify-between h-10">
         <div class="w-60 h-8 justify-start text-main text-2xl font-medium font-['Poppins']">Student Internship</div>
         <div
             class="w-48 h-10 px-5 py-2.5 bg-white rounded-[50px] outline outline-stone-300 inline-flex flex-col justify-center items-start gap-2.5">
@@ -19,17 +21,39 @@
         </div>
     </div>
 
-    <div class="flex flex-col gap-2 w-full">
+    <div class="flex flex-col w-full gap-2">
         {{ $slot }}
     </div>
-    <nav class="flex justify-center items-center w-full">
-        <ul class="flex space-x-2">
-            <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Prev</span></li>
-            <li><span class="px-3 py-1 bg-gray-900 rounded-full text-main5">1</span></li>
-            <li><span class="px-3 py-1 text-gray-700 rounded-full cursor-pointer">2</span></li>
-            <li><span class="px-3 py-1 text-gray-700 rounded-full cursor-pointer">3</span></li>
-            <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Next</span></li>
-        </ul>
-    </nav>
+
+    {{-- Dynamic Pagination --}}
+    @if($paginator)
+        <nav class="flex items-center justify-center w-full">
+            <ul class="flex space-x-2">
+                @if ($paginator->onFirstPage())
+                    <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Prev</span></li>
+                @else
+                    <li><a href="{{ $paginator->previousPageUrl() }}" class="px-3 py-1 rounded-full cursor-pointer text-main hover:bg-gray-100">Prev</a></li>
+                @endif
+
+                @if($paginator->lastPage() > 0)
+                    @foreach ($paginator->getUrlRange(1, $paginator->lastPage()) as $page => $url)
+                        @if ($page == $paginator->currentPage())
+                            <li><span class="px-3 py-1 bg-gray-900 rounded-full text-main5">{{ $page }}</span></li>
+                        @else
+                            <li><a href="{{ $url }}" class="px-3 py-1 rounded-full cursor-pointer text-main hover:bg-gray-100">{{ $page }}</a></li>
+                        @endif
+                    @endforeach
+                @else
+                    <li><span class="px-3 py-1 bg-gray-900 rounded-full text-main5">1</span></li>
+                @endif
+
+                @if ($paginator->hasMorePages())
+                    <li><a href="{{ $paginator->nextPageUrl() }}" class="px-3 py-1 rounded-full cursor-pointer text-main hover:bg-gray-100">Next</a></li>
+                @else
+                    <li><span class="px-3 py-1 text-gray-400 rounded-full cursor-not-allowed">Next</span></li>
+                @endif
+            </ul>
+        </nav>
+    @endif
 </div>
 </div>
