@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InternshipApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +14,8 @@ class HistoryController extends Controller
     public function index()
     {
         $user = app('current.user');
-        return view('history', compact('user'));
+        $histories = InternshipApplication::with('internship.company')->where('student_id', $user->student->id)->latest()->paginate(10);
+        return view('history', compact('user', 'histories'));
     }
 
     /**

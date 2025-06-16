@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('internships', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
+            $table->foreignId('admin_id')->constrained('admins');
             $table->string('title');
             $table->text('description');
             $table->json('requirements');

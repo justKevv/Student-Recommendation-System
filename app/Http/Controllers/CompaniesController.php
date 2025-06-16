@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\InternshipApplication;
 use Illuminate\Http\Request;
 
 class CompaniesController extends Controller
@@ -13,7 +14,24 @@ class CompaniesController extends Controller
     public function index()
     {
         $user = app('current.user');
-        return view('compup', compact('user'));
+
+        // Get companies that the supervisor has through internship applications
+        // Include internships, their applications, and the students in those applications
+        $companies = Company::with([
+            'internships' => function($query) use ($user) {
+                $query->whereHas('applications', function($subQuery) use ($user) {
+                    $subQuery->where('supervisor_id', $user->supervisor->id);
+                });
+            },
+            'internships.applications' => function($query) use ($user) {
+                $query->where('supervisor_id', $user->supervisor->id)
+                      ->with('student.user'); // Include student and user data
+            }
+        ])->whereHas('internships.applications', function($query) use ($user) {
+            $query->where('supervisor_id', $user->supervisor->id);
+        })->distinct()->get();
+
+        return view('compup', compact('user', 'companies'));
     }
 
     /**

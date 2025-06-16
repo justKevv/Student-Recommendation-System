@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('profile_picture')->nullable();
             $table->boolean('first_login')->default(true);
+            $table->integer('onboarding_step')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

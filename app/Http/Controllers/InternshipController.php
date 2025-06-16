@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Company;
 use App\Models\Internship;
+use App\Models\InternshipApplication;
+use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use ImageKit\ImageKit;
@@ -13,15 +16,33 @@ class InternshipController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = app('current.user');
-        if ($user->role == 'admin') {
-            $internships = Internship::with('company')->get()->sortBy('asc');
-            $companies = Company::all();
-            return view('interadm', compact('user', 'internships', 'companies'));
+        $query = Internship::with('company', 'applications');
+
+        // Handle search functionality
+        if ($request->has('search') && !empty($request->search)) {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->whereRaw('LOWER(title) LIKE ?', ['%' . strtolower($searchTerm) . '%'])
+                  ->orWhereRaw('LOWER(description) LIKE ?', ['%' . strtolower($searchTerm) . '%'])
+                  ->orWhereRaw('LOWER(requirements) LIKE ?', ['%' . strtolower($searchTerm) . '%'])
+                  ->orWhereHas('company', function($companyQuery) use ($searchTerm) {
+                      $companyQuery->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($searchTerm) . '%']);
+                  });
+            });
         }
-        return view('internship', compact('user'));
+
+        $allInternships = $query->get()->sortBy('asc');
+
+        if ($user->role == 'admin') {
+            $adminId = $user->admin->id;
+            $adminInternships = Internship::with('company', 'applications')->where('admin_id', $adminId)->get()->sortBy('asc');
+            $companies = Company::all();
+            return view('interadm', compact('user', 'allInternships', 'adminInternships', 'companies'));
+        }
+        return view('internship', compact('user', 'allInternships'));
     }
 
     /**
@@ -161,8 +182,18 @@ class InternshipController extends Controller
     {
         $user = app('current.user');
         $internship = Internship::findBySlug($slug);
+        $internship->load('applications'); // Load applications separately
+        $student = Student::where('user_id', $user->id)->first();
 
-        return view('interman', compact('user', 'internship'));
+        // Check if the current user has already applied for this internship
+        $hasApplied = false;
+        if ($user && $user->role === 'student') {
+            $hasApplied = InternshipApplication::where('student_id', $student->id)
+                ->where('internship_id', $internship->id)
+                ->exists();
+        }
+
+        return view('interman', compact('user', 'internship', 'hasApplied'));
     }
 
     /**

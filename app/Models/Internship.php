@@ -14,6 +14,7 @@ class Internship extends Model
 
     protected $fillable = [
         'company_id',
+        'admin_id',
         'title',
         'description',
         'requirements',
@@ -44,6 +45,15 @@ class Internship extends Model
         return $this->belongsTo(Company::class);
     }
 
+    public function applications()
+    {
+        return $this->hasMany(InternshipApplication::class);
+    }
+
+    public function admin() {
+        return $this->hasOne(Admin::class);
+    }
+
     /**
      * Generate a slug from the title, ID, and company name.
      */
@@ -60,7 +70,7 @@ class Internship extends Model
     {
         // Extract ID from slug (format: title-id-company)
         $parts = explode('-', $slug);
-        
+
         // Find the numeric ID in the slug parts
         $id = null;
         foreach ($parts as $part) {
@@ -69,18 +79,18 @@ class Internship extends Model
                 break;
             }
         }
-        
+
         if (!$id) {
             abort(404, 'Invalid slug format');
         }
-        
+
         // Find internship by ID and verify slug matches
         $internship = static::with('company')->find($id);
-        
+
         if (!$internship || $internship->slug !== $slug) {
             abort(404, 'Internship not found');
         }
-        
+
         return $internship;
     }
 
