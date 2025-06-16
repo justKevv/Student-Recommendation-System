@@ -48,7 +48,7 @@ class ManagementController extends \App\Http\Controllers\Controller
         if ($request->role == 'student') {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'major' => ['required', 'in:informatics_engineering,business_information_system'],
+                'major' => ['required', 'in:informatics_engineering,business_information_systems'],
                 'phone' => ['required', 'numeric'],
                 'semester' => ['required', 'numeric'],
             ]);
