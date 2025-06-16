@@ -10,19 +10,29 @@
 @section('content')
   <div class="absolute">
     <x-dashboard.layout :gap='"30px"'>
-        <x-detail-application.card />
-        <x-detail-application.sidebar />
+        <x-detail-application.card
+            :location="$internship->location"
+            :title="$internship->title"
+            :company="$internship->company->name"
+            :profile="$internship->company->profile_image ?? 'https://placehold.co/65x65'"
+            :applied="count($internship->applications)"
+            :due="$internship->remaining_time"
+            :students="$students"
+        />
+        <x-detail-application.sidebar
+            :title="count($internship->applications)"
+            :student="'Students Applied'"
+        />
     </x-dashboard.layout>
   </div>
 <div class="p-8 mt-6 bg-white rounded-2xl">
-    <div class="flex justify-between items-center mb-8">
+
+    <div class="flex items-center justify-between mb-8">
         <h2 class="text-2xl font-bold">Student Internship</h2>
         <div class="justify-end space-x-3">
             <x-filter-item :title='"Study Program"' />
-            <x-filter-item :title='"Status"' />
-            <x-filter-item :title='"Role"' />
             <input id="search-bar" type="text"
-                class="px-4 py-2 w-56 rounded-full border border-neutral-300 search-bar focus:outline-none focus:ring-2 focus:ring-neutral-300"
+                class="w-56 px-4 py-2 border rounded-full border-neutral-300 search-bar focus:outline-none focus:ring-2 focus:ring-neutral-300"
                 placeholder="Search">
         </div>
     </div>
@@ -48,10 +58,6 @@
                     </th>
                     <th class="px-6 py-3 text-xs font-bold text-left uppercase cursor-pointer select-none text-neutral-700"
                         onclick="sortTable(4)">
-                        Role <span class="ml-1 text-xs">&#8597;</span>
-                    </th>
-                    <th class="px-6 py-3 text-xs font-bold text-left uppercase cursor-pointer select-none text-neutral-700"
-                        onclick="sortTable(5)">
                         Status <span class="ml-1 text-xs">&#8597;</span>
                     </th>
                     <th class="px-6 py-3 text-xs font-bold text-left uppercase cursor-pointer select-none text-neutral-700">
@@ -60,40 +66,43 @@
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-neutral-200">
-                @php
-                    $all_study_programs = ['D-IV Information Technology', 'D-IV Business Information System', 'D-II Website Software Development', 'D-IV Example Program'];
-                    $all_names = ['Alexandra Grace', 'Nathaniel James', 'Sophia Marie', 'Benjamin Carter', 'Daniel Harper', 'Isabella Rose', 'Adam Smith', 'Michael Thomas', 'William Scott', 'Charlotte Avery'];
-                    $all_nims = ['2341720259', '2345678467', '2345665573', '2345654333', '2345637326', '2345689545', '2345647322', '2345645211', '2345612414', '2345613567'];
-                    $default_role = 'UI & UX';
-                @endphp
-
-                @for ($i = 0; $i < 10; $i++)
-                    @php
-                        $current_no = $i + 1;
-                        $current_nim = $all_nims[$i % count($all_nims)];
-                        $current_name = $all_names[$i % count($all_names)];
-                        $current_study = $all_study_programs[$i % count($all_study_programs)];
-                        $current_status = collect(['pending', 'accepted', 'rejected'])->random();
-                    @endphp
-                    <x-detail-application.item
-                        :no="$current_no"
-                        :nim="$current_nim"
-                        :name="$current_name"
-                        :study="$current_study"
-                        :role="$default_role"
-                        :status="$current_status"
-                    />
-                @endfor
+                @if(isset($students) && $students->count() > 0)
+                    @foreach($students as $index => $student)
+                        <x-detail-application.item
+                            :no="$students->firstItem() + $loop->index"
+                            :nim="$student->nim"
+                            :name="$student->user->name"
+                            :study="$student->study_program"
+                            :status="$student->applications->first()->status ?? 'pending'"
+                            :studentId="$student->id"
+                            :internshipId="$internship->id"
+                        />
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>
     <nav class="flex justify-center mt-6">
         <ul class="flex space-x-2">
-            <li><span class="px-3 py-1 rounded-full cursor-not-allowed text-neutral-400">Prev</span></li>
-            <li><span class="px-3 py-1 rounded-full bg-neutral-900 text-main5">1</span></li>
-            <li><span class="px-3 py-1 rounded-full cursor-pointer text-neutral-700">2</span></li>
-            <li><span class="px-3 py-1 rounded-full cursor-pointer text-neutral-700">3</span></li>
-            <li><span class="px-3 py-1 rounded-full cursor-not-allowed text-neutral-400">Next</span></li>
+            @if ($students->onFirstPage())
+                <li><span class="px-3 py-1 rounded-full cursor-not-allowed text-neutral-400">Prev</span></li>
+            @else
+                <li><a href="{{ $students->previousPageUrl() }}" class="px-3 py-1 rounded-full cursor-pointer text-neutral-700 hover:bg-gray-100">Prev</a></li>
+            @endif
+
+            @foreach ($students->getUrlRange(1, $students->lastPage()) as $page => $url)
+                @if ($page == $students->currentPage())
+                    <li><span class="px-3 py-1 rounded-full bg-neutral-900 text-main5">{{ $page }}</span></li>
+                @else
+                    <li><a href="{{ $url }}" class="px-3 py-1 rounded-full cursor-pointer text-neutral-700 hover:bg-gray-100">{{ $page }}</a></li>
+                @endif
+            @endforeach
+
+            @if ($students->hasMorePages())
+                <li><a href="{{ $students->nextPageUrl() }}" class="px-3 py-1 rounded-full cursor-pointer text-neutral-700 hover:bg-gray-100">Next</a></li>
+            @else
+                <li><span class="px-3 py-1 rounded-full cursor-not-allowed text-neutral-400">Next</span></li>
+            @endif
         </ul>
     </nav>
 </div>

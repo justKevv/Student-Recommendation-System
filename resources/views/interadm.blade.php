@@ -20,10 +20,11 @@
     <div id="job-content" class="w-full">
         <x-dashboard.layout gap="30px" class="pt-6">
             <div class="space-x-6 space-y-6">
-                @foreach ($internships as $internship)
+                @foreach ($allInternships as $internship)
                     <x-internship.card :is_admin='true' href="{{ route('detail.job', $internship->slug) }}"
                         :company="$internship->company->name" :due="$internship->remaining_time" :location="$internship->location" :title="$internship->title" :type="$internship->type"
-                        :internship_id="$internship->id" />
+                        :internship_id="$internship->id"
+                        :applied="count($internship->applications)" />
                 @endforeach
             </div>
         </x-dashboard.layout>
@@ -32,11 +33,12 @@
     <div id="activity-content" class="hidden w-full">
         <x-dashboard.layout gap="30px" class="pt-6">
             <div class="space-x-6 space-y-6">
-                @foreach ($internships as $internship)
+                @foreach ($adminInternships as $internship)
                     @if ($internship->remaining_time == 'Closed')
-                        <x-internship.card :is_admin='true' href="{{ route('detail.job') }}" :company="$internship->company->name"
+                        <x-internship.card :is_admin='true' href="{{ route('internship.students', $internship->id) }}" :company="$internship->company->name"
                             :due="$internship->remaining_time" :location="$internship->location" :title="$internship->title" :type="$internship->type"
-                            :internship_id="$internship->id" />
+                            :internship_id="$internship->id"
+                            :applied="count($internship->applications)" />
                     @endif
                 @endforeach
             </div>
@@ -44,7 +46,7 @@
     </div>
 
     <!-- Delete Internship Modals -->
-    @foreach ($internships as $internship)
+    @foreach ($allInternships as $internship)
         <form action="{{ route('internships.destroy', $internship->id) }}" method="post">
             @csrf
             @method('delete')
@@ -186,7 +188,7 @@
                                             $responsibilities = $internship->responsibilities ?? [];
                                         @endphp
                                         @foreach ($responsibilities as $index => $responsibility)
-                                            <div class="responsibility-section border border-gray-200 rounded-lg p-4">
+                                            <div class="p-4 rounded-lg border border-gray-200 responsibility-section">
                                                 <div class="flex justify-between items-center mb-3">
                                                     <label class="block text-sm font-medium">Section Title</label>
                                                     @if ($index > 0)
@@ -229,7 +231,7 @@
                                         @endforeach
                                         @if (empty($responsibilities))
                                             <!-- Default section if no responsibilities exist -->
-                                            <div class="responsibility-section border border-gray-200 rounded-lg p-4">
+                                            <div class="p-4 rounded-lg border border-gray-200 responsibility-section">
                                                 <div class="mb-3">
                                                     <label class="block mb-1 text-sm font-medium">Section Title</label>
                                                     <input type="text" name="responsibility_titles[]"
