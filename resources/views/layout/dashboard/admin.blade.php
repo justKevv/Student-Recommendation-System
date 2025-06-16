@@ -12,8 +12,9 @@
                 </p>
             </div>
         </x-hero-banner>
-        <x-admin.effectiv-system />
+        <x-admin.effectiv-system :studentSupervisorCounts="$studentSupervisorCounts" :studentInternshipPercentage="$studentInternshipPercentage" :internshipTypeDistribution="$internshipTypeDistribution"/>
+
     </x-dashboard.main-content>
-    <x-admin.barChart/>
+    <x-admin.barChart :internshipCounts="$internshipCounts"/>
 </x-dashboard.layout>
-<x-admin.data-analytic/>
+<x-admin.data-analytic :studentOutcomeTrends="$studentOutcomeTrends"/>

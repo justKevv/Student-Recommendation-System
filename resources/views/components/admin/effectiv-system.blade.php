@@ -1,30 +1,135 @@
 @props([
+    'studentSupervisorCounts' => ['students' => 0, 'supervisors' => 0],
+    'studentInternshipPercentage' => '',
+    'internshipTypeDistribution'
 ])
 
 <div class="w-full max-w-none lg:max-w-[800px] xl:max-w-[900px] 2xl:max-w-[1000px] h-64 grid grid-cols-3 gap-6">
-    <!-- Card 1 -->
-    @for ($i = 0; $i < 3; $i++)
+    <!-- Card 1: Internship Type Distribution Pie Chart -->
     <div class="relative flex-1 h-full">
         <div class="w-full h-full bg-white rounded-[30px] p-6 flex flex-col justify-between">
             <div class="flex flex-1 justify-center items-center">
-                <div class="text-pink-800 text-6xl lg:text-7xl font-normal font-['Outfit']">10%</div>
-            </div>
-            <div class="flex justify-between items-center">
-                <div class="flex gap-2 items-center">
-                    <div data-svg-wrapper>
-                        <svg width="13" height="11" viewBox="0 0 13 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10.8533 8.43396L1.87907 0.207548C1.72813 0.0691833 1.53602 0 1.30274 0C1.06947 0 0.877358 0.0691833 0.726415 0.207548C0.575471 0.345913 0.5 0.522013 0.5 0.735849C0.5 0.949686 0.575471 1.12579 0.726415 1.26415L9.70068 9.49057H5.09005C4.85677 9.49057 4.66137 9.56302 4.50384 9.70792C4.34631 9.85283 4.26727 10.0319 4.26672 10.2453C4.26617 10.4586 4.34521 10.6377 4.50384 10.7826C4.66247 10.9275 4.85787 11 5.09005 11H11.6767C11.9099 11 12.1056 10.9275 12.2637 10.7826C12.4218 10.6377 12.5005 10.4586 12.5 10.2453V4.20755C12.5 3.99371 12.421 3.81434 12.2629 3.66943C12.1048 3.52453 11.9094 3.45233 11.6767 3.45283C11.4439 3.45333 11.2485 3.52579 11.0905 3.67019C10.9324 3.81459 10.8533 3.99371 10.8533 4.20755V8.43396Z" fill="#A74A4A"/>
-                        </svg>
-                    </div>
-                    <div class="text-black text-xs font-medium font-['Poppins']">5%</div>
-                </div>
+                <canvas id="internshipTypeChart" height="200"></canvas>
             </div>
             <div class="text-center text-black text-xs font-medium font-['Poppins'] mt-2">
-                Effectiveness of system Recommendations
+                Internship Type Distribution
             </div>
         </div>
     </div>
-    @endfor
+
+    <!-- Card 2: Student vs Supervisor Pie Chart -->
+    <div class="relative flex-1 h-full">
+        <div class="w-full h-full bg-white rounded-[30px] p-6 flex flex-col justify-between">
+            <div class="flex flex-1 justify-center items-center">
+                <canvas id="studentSupervisorPieChart" height="200"></canvas>
+            </div>
+            @push('scripts')
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Internship Type Distribution Chart
+                    const internshipTypeData = @json($internshipTypeDistribution);
+                    const internshipTypeLabels = Object.keys(internshipTypeData);
+                    const internshipTypeValues = Object.values(internshipTypeData);
+
+                    const typeColors = {
+                        'remote': 'rgba(75, 192, 192, 0.6)',
+                        'on_site': 'rgba(255, 99, 132, 0.6)',
+                        'hybrid': 'rgba(54, 162, 235, 0.6)',
+                    };
+
+                    const backgroundColors = internshipTypeLabels.map(label => typeColors[label] || 'rgba(201, 203, 207, 0.6)');
+                    const borderColors = internshipTypeLabels.map(label => typeColors[label] ? typeColors[label].replace('0.6', '1') : 'rgba(201, 203, 207, 1)');
+
+                    const ctxInternshipType = document.getElementById('internshipTypeChart').getContext('2d');
+                    new Chart(ctxInternshipType, {
+                        type: 'pie',
+                        data: {
+                            labels: internshipTypeLabels.map(label => label.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())),
+                            datasets: [{
+                                data: internshipTypeValues,
+                                backgroundColor: backgroundColors,
+                                borderColor: borderColors,
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Internship Type Distribution',
+                                    font: {
+                                        size: 18
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                    // Student vs Supervisor Pie Chart (existing chart)
+                    const ctxStudentSupervisor = document.getElementById('studentSupervisorPieChart').getContext('2d');
+                    const studentSupervisorCounts = @json($studentSupervisorCounts);
+
+                    new Chart(ctxStudentSupervisor, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Students', 'Supervisors'],
+                            datasets: [{
+                                data: [studentSupervisorCounts.students, studentSupervisorCounts.supervisors],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.6)',
+                                    'rgba(54, 162, 235, 0.6)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Student vs Supervisor Distribution',
+                                    font: {
+                                        size: 18
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+            </script>
+            @endpush
+            <div class="text-center text-black text-xs font-medium font-['Poppins'] mt-2">
+                Student vs Supervisor Distribution
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3: Student Internship -->
+    <div class="relative flex-1 h-full">
+        <div class="w-full h-full bg-white rounded-[30px] p-6 flex flex-col justify-between">
+            <div class="flex flex-1 justify-center items-center">
+                <h2 class="text-center text-[80px] font-semibold text-[#2C2C2C]">{{ $studentInternshipPercentage }}%</h2>
+            </div>
+            <hr class="my-3 w-full border-t border-gray-200">
+            <p class="text-lg font-medium leading-snug text-center text-black">
+                Students with<br>Accepted Internship
+            </p>
+        </div>
+    </div>
 
     {{-- <!-- Kontainer 2 -->
     <div class="relative flex-1 min-w-0">

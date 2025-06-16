@@ -49,8 +49,8 @@
                     aria-labelledby="hs-dropdown-custom-icon-trigger-{{ $no }}">
                     <div class="p-1 space-y-0.5">
                         @if ($role != 'admin')
-                            <div
-                                class="flex gap-x-3.5 items-center px-3 py-2 text-sm text-gray-800 rounded-lg select-none hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100">
+                            <a class="flex gap-x-3.5 items-center px-3 py-2 text-sm text-gray-800 rounded-lg select-none hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100"
+                                href="{{ route('detail.' . $role, Str::slug($name)) }}">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -60,7 +60,7 @@
                                     </path>
                                 </svg>
                                 Detail
-                            </div>
+                            </a>
                         @endif
                         <button type="button"
                             class="flex gap-x-3.5 items-center px-3 py-2 w-full text-sm text-left text-gray-800 rounded-lg select-none hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100"
