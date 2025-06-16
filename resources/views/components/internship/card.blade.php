@@ -13,11 +13,14 @@
     'href' => '#',
 
     'is_admin' => false,
-    'internship_id' => null
-
+    'internship_id' => null,
 ])
 
-<div class="w-[630px] px-5 py-5 bg-white rounded-[20px] inline-flex flex-col justify-start items-start gap-2.5 relative cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-neutral-200 {{ $is_admin ? "" : "transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-neutral-200 hover:-translate-y-[2px]" }}">
+<div class="w-[630px] px-5 py-5 bg-white rounded-[20px] inline-flex flex-col justify-start items-start gap-2.5 relative cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-neutral-200 {{ $is_admin ? '' : 'transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-neutral-200 hover:-translate-y-[2px]' }}"
+    data-internship-card data-internship-id="{{ $internship_id }}" data-internship-title="{{ $title }}"
+    data-internship-company="{{ $company }}" data-internship-location="{{ $location }}"
+    data-internship-type="{{ $type }}" data-internship-href="{{ $href }}"
+    data-internship-image="{{ $profile }}" data-company-logo="{{ $profile }}">
     <a href="{{ $href }}" class="absolute inset-0 z-10"></a>
     <div class="flex relative z-20 justify-between items-center w-full">
         <x-internship.location location="{{ $location }}" />
