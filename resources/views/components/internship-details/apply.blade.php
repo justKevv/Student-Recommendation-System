@@ -2,10 +2,13 @@
     'people' => 21,
     'type' => 'remote',
     'role' => null,
+    'internshipId' => null,
+    'hasApplied' => false,
+    'due' => null,
 ])
-<div class="p-6 bg-white rounded-xl shadow-md">
+<div class="p-6 bg-white shadow-md rounded-xl">
     @if ($role == 'student')
-        <div class="flex justify-between items-center mb-6">
+        <div class="flex items-center justify-between mb-6">
             <div class="flex space-x-4">
                 <button class="flex items-center text-main hover:text-neutral-900">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -26,8 +29,22 @@
             </div>
         </div>
 
-        <button
-            class="py-3 w-full text-lg font-semibold text-white rounded-full transition duration-300 bg-main hover:bg-neutral-900">Apply</button>
+        @if ($hasApplied)
+            <div class="w-full py-3 text-lg font-semibold text-center text-gray-600 bg-gray-100 border border-gray-300 rounded-full">
+                Applied
+            </div>
+        @elseif (strtolower($due) === 'closed')
+            <div class="w-full py-3 text-lg font-semibold text-center text-gray-600 bg-gray-100 border border-gray-300 rounded-full opacity-50 cursor-not-allowed">
+                Application Closed
+            </div>
+        @else
+            <form action="{{ route('internship.apply') }}" method="POST">
+                @csrf
+                <input type="hidden" name="internship_id" value="{{ $internshipId }}">
+                <button type="submit"
+                    class="w-full py-3 text-lg font-semibold text-white transition duration-300 rounded-full cursor-pointer bg-main hover:bg-neutral-900">Apply</button>
+            </form>
+        @endif
         <div class="pb-5 border-b border-neutral-200">
         </div>
     @endif
@@ -52,7 +69,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="inline-flex flex-col gap-1 justify-start items-start w-14">
+                <div class="inline-flex flex-col items-start justify-start gap-1 w-14">
                     <div
                         class="self-stretch justify-start text-main text-sm font-normal font-['Poppins'] tracking-wide">
                         Applied </div>
@@ -78,7 +95,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="inline-flex flex-col gap-1 justify-start items-start w-14">
+                <div class="inline-flex flex-col items-start justify-start gap-1 w-14">
                     <div
                         class="self-stretch justify-start text-main text-sm font-normal font-['Poppins'] tracking-wide">
                         Type </div>
