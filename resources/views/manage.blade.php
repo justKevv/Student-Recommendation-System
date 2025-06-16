@@ -129,7 +129,10 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($companies as $company)
-                        <x-admin.company.item no="{{ $companies->firstItem() + $loop->index }}" name="{{ $company->name }}" industry_field="{{ Str::title(str_replace('_', ' ', $company->industry_field)) }}" city="{{ $company->city }}" email="{{ $company->email }}" :company="$company"/>
+                        <x-admin.company.item
+                            no="{{ $companies->firstItem() + $loop->index }}"
+                            name="{{ $company->name }}"
+                            industry_field="{{ Str::title(str_replace('_', ' ', $company->industry_field)) }}" city="{{ $company->city }}" email="{{ $company->email }}" :company="$company"/>
                     @endforeach
                 </tbody>
             </table>

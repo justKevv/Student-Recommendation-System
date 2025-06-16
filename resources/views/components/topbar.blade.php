@@ -10,14 +10,16 @@
     <div class="ml-14 mr-4 sm:ml-16 sm:mr-5 md:ml-20 md:mr-6 lg:ml-24 lg:mr-8 xl:ml-[75px] xl:mr-8 2xl:ml-[308px] 2xl:mr-[150px]">
         <div class="flex gap-2 justify-between items-center w-full sm:gap-3 md:gap-4">
             @if ($searchBar)
-                <div
-                    class="flex-1 min-w-0 max-w-sm px-3 py-2 rounded-full border border-stone-300 sm:max-w-md sm:px-3 sm:py-2 md:max-w-lg md:px-4 md:py-2 lg:max-w-xl lg:px-4 lg:py-2.5 xl:max-w-2xl xl:px-5 xl:py-2.5 2xl:max-w-[63rem] relative">
+                <form action="{{ route('internship') }}" method="GET"
+                    class="flex-1 min-w-0 max-w-sm px-4 py-2 rounded-full border border-stone-300 sm:max-w-md sm:px-3 sm:py-2 md:max-w-lg md:px-4 md:py-2 lg:max-w-xl lg:px-4 lg:py-2.5 xl:max-w-2xl xl:px-5 xl:py-2.5 2xl:max-w-[63rem] relative">
                     <img src="https://ik.imagekit.io/1qy6epne0l/next-step/assets/dashboard/iconamoon_search-light.png"
-                        class="absolute left-2 top-1/2 w-4 h-4 transform -translate-y-1/2 sm:w-5 sm:h-5 md:w-6 md:h-6 xl:w-4 xl:h-4"
+                        class="absolute left-2 top-1/2 w-4 h-4 transform -translate-y-1/2 sm:w-5 sm:h-5 md:w-6 md:h-6 xl:w-4 xl:h-4 pointer-events-none"
                         alt="">
-                    <input type="text" placeholder="Search your internship..."
-                            class="w-full bg-transparent outline-none placeholder-neutral-500 text-main text-xs font-normal font-['Poppins'] sm:text-sm md:text-base xl:text-base pl-6 sm:pl-7 md:pl-8 xl:pl-6">
-                    </div>
+                    <input type="text" name="search" placeholder="Search by title, description, requirements, or company name..." value="{{ request('search') }}"
+                            class="w-full bg-transparent outline-none placeholder-neutral-500 text-main text-xs font-normal font-['Poppins'] sm:text-sm md:text-base xl:text-base pl-6 sm:pl-7 md:pl-8 xl:pl-6"
+                            onkeypress="if(event.key === 'Enter') { this.form.submit(); }">
+                    <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-0 pointer-events-none"></button>
+                </form>
               @else
                 <div class="flex-1 min-w-0 max-w-sm px-3 py-2 rounded-full sm:max-w-md sm:px-3 sm:py-2 md:max-w-lg md:px-4 md:py-2 lg:max-w-xl lg:px-4 lg:py-2.5 xl:max-w-2xl xl:px-5 xl:py-2.5 2xl:max-w-[63rem] relative">
                 </div>

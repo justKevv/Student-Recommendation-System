@@ -29,7 +29,7 @@
             </div>
             <div class="flex items-center justify-between">
                 <span class="text-main text-sm font-normal font-['Poppins']">
-                    Quota: {{ $quota }}
+                    Applied: {{ $quota }}
                 </span>
                 @if($isUrgent)
                     <span class="px-2 py-1 bg-red-100 text-red-600 text-[8px] font-semibold rounded-full">

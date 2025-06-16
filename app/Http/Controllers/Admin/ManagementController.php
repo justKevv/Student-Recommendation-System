@@ -22,7 +22,7 @@ class ManagementController extends \App\Http\Controllers\Controller
     public function index()
     {
         $user = Auth::user();
-        $users = User::paginate(10);
+        $users = User::with(['student', 'admin', 'supervisor'])->paginate(10);
         $companies = Company::paginate(10);
 
 
