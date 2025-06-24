@@ -158,7 +158,6 @@ class InternshipApplicationController extends Controller
         $application->update([
             'status' => 'accepted',
             'supervisor_id' => $request->supervisor_id,
-            'admin_id' => app('current.user')->id
         ]);
 
         return redirect()->back()->with('success', 'Application has been accepted successfully!');
@@ -176,7 +175,6 @@ class InternshipApplicationController extends Controller
         $application->update([
             'status' => 'rejected',
             'feedback' => $request->feedback,
-            'admin_id' => app('current.user')->id
         ]);
 
         return redirect()->back()->with('success', 'Application has been rejected.');
