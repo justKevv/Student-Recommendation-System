@@ -85,7 +85,7 @@ class RecommendationService
     private function getPredictedCategory(string $profileText): ?string
     {
         try {
-            $predictionApiUrl = 'http://127.0.0.1:8000/api/v1/predict-category';
+            $predictionApiUrl = 'https://justkevv-recommendation-api.hf.space/api/v1/predict-category';
             $response = Http::timeout(5)->post($predictionApiUrl, ['profile_text' => $profileText]);
 
             if ($response->successful()) {
@@ -115,7 +115,7 @@ class RecommendationService
         ];
 
         try {
-            $rankingApiUrl = 'http://127.0.0.1:8000/api/v1/recommend-internships';
+            $rankingApiUrl = 'https://justkevv-recommendation-api.hf.space/api/v1/recommend-internships';
             $response = Http::timeout(15)->post($rankingApiUrl, $payload);
 
             if ($response->successful()) {
